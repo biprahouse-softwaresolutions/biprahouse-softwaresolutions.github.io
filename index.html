@@ -1,27 +1,41 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <div>
-      <label for="date">Enter a date (YYYY-MM-DD):</label>
-      <input type="text" id="date" name="date">
-      <button onclick="searchEvents()">Search</button>
-    </div>
-    <div id="events"></div>
+    <title>Data Entry</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID">
     <script>
-      function searchEvents() {
-        var date = $("#date").val();
-        var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=embeddedin&eititle=Template:Event&eilimit=500&eistart=" + date + "T00:00:00Z&eiend=" + date + "T23:59:59Z&callback=?";
-        $.getJSON(url, function(data) {
-          var events = data.query.embeddedin;
-          var eventList = "";
-          for (var i = 0; i < events.length; i++) {
-            eventList += "<li>" + events[i].title + "</li>";
-          }
-          $("#events").html("<ul>" + eventList + "</ul>");
-        });
+      function onSignIn(googleUser) {
+        // Get the user's ID token and basic profile information
+        var id_token = googleUser.getAuthResponse().id_token;
+        var profile = googleUser.getBasicProfile();
+        // Send the ID token to your server for verification
+        // ...
+        // Save the data entered in the edit box
+        saveData();
+      }
+      function saveData() {
+        // Get the value of the edit box
+        var data = document.getElementById("editbox").value;
+        // Send a request to your server to save the data
+        // ...
+        // Clear the contents of the edit box
+        document.getElementById("editbox").value = "";
+        // Show a message to the user that the data was saved
+        alert("Data saved!");
+      }
+      function resetData() {
+        // Clear the contents of the edit box
+        document.getElementById("editbox").value = "";
       }
     </script>
+  </head>
+  <body>
+    <h1>Enter Data</h1>
+    <textarea id="editbox"></textarea>
+    <br>
+    <button onclick="saveData()">Save</button>
+    <button onclick="resetData()">Reset</button>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
   </body>
 </html>
