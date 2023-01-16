@@ -1,12 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Birthday Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Add some styling to the page */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        /* Center the form on the page */
+        form {
+            margin: 0 auto;
+            text-align: left;
+            width: 80%;
+        }
+
+        /* Add some padding and styling to the form inputs */
+        input[type="date"],
+        input[type="button"] {
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Add Material color to the button */
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Add some styling to the output text */
+        #output {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        /* style for age */
+        .age {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* style for day of the week */
+        .day {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* style for events and birthdays*/
+        .event {
+            color: #4CAF50;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>This is Gokul! jjjj</h1>
+
+    <h1>Birthday Calculator</h1>
+
+    <form>
+        <label for="bday">Enter your birthday:</label>
+        <input type="date" id="bday" name="bday" required>
+        <input type="button" value="Calculate" onclick="calculateAge()">
+    </form>
+
+    <p id="output"></p>
+
+    <script>
+        function calculateAge() {
+            var bday = document.getElementById("bday").value;
+            var today = new Date();
+            var birthDate = new Date(bday);
+            var ageInMilliseconds = today - birthDate;
+            var ageInSeconds = ageInMilliseconds / 1000;
+            var ageInMinutes = ageInSeconds / 60;
+            var ageInHours = ageInMinutes / 60;
+            var ageInDays = ageInHours / 24;
+            var ageInYears = ageInDays / 365;
+            var age = Math.floor(ageInYears);
+            var days = Math.floor(ageInDays - (age * 365));
+            var daysSuffix = days > 1 ? ' days ' : ' day ';
+            var daysString = days > 0 ? days + daysSuffix : '';
+            var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
+            document.getElementById("output").innerHTML = "You are <span class='age'>" + age + "</span> years and <span class='age'>" + daysString + "</span> old. Your birthday is on <span class='day'>" + dayOfWeek + "</span>";
+
+            // Use an open internet source to fetch events and birthdays
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    var events = data.events;
+                    var birthdays = data.birthdays;
+                    var eventsString = "";
+                    var birthdaysString = "";
+                    if (events.length > 0) {
+                        eventsString = "<p>Important events on this day:</p><ul>";
+                        for (var i = 0; i < events.length; i++) {
+                            eventsString += "<li class='event'>" + events[i] + "</li>";
+                        }
+                        eventsString += "</ul>";
+                    }
+                    if (birthdays.length > 0) {
+                        birthdaysString = "<p>Birthdays of famous celebrities:</p><ul>";
+                        for (var i = 0; i < birthdays.length; i++) {
+                            birthdaysString += "<li class='event'>" + birthdays[i] + "</li>";
+                        }
+                        birthdaysString += "</ul>";
+                    }
+                    document.getElementById("output").innerHTML += eventsString + birthdaysString;
+                }
+            };
+            xhttp.open("GET", "https://example.com/api/events-birthdays?date=" + bday, true);
+            xhttp.send();
+        }
+    </script>
+
 </body>
+
 </html>
