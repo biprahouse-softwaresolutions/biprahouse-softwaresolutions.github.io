@@ -90,33 +90,34 @@
             var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
             document.getElementById("output").innerHTML = "You are <span class='age'>" + age + "</span> years and <span class='age'>" + daysString + "</span> old. Your birthday is on <span class='day'>" + dayOfWeek + "</span>";
 
-            // Use an open internet source to fetch events and birthdays
+            // Use Wikipedia API to fetch events and birthdays
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    var events = data.events;
-                    var birthdays = data.birthdays;
+                    var events = data.query.pages;
                     var eventsString = "";
-                    var birthdaysString = "";
-                    if (events.length > 0) {
+                    if (Object.keys(events).length > 0) {
                         eventsString = "<p>Important events on this day:</p><ul>";
-                        for (var i = 0; i < events.length; i++) {
-                            eventsString += "<li class='event'>" + events[i] + "</li>";
+                        for (var key in events) {
+                            eventsString += "<li class='event'>" + events[key].title + "</li>";
                         }
                         eventsString += "</ul>";
                     }
-                    if (birthdays.length > 0) {
-                        birthdaysString = "<p>Birthdays of famous celebrities:</p><ul>";
-                        for (var i = 0; i < birthdays.length; i++) {
-                            birthdaysString += "<li class='event'>" + birthdays[i] + "</li>";
-                        }
-                        birthdaysString += "</ul>";
-                    }
-                    document.getElementById("output").innerHTML += eventsString + birthdaysString;
+                    document.getElementById("output").innerHTML += eventsString;
                 }
             };
-            xhttp.open("GET", "https://example.com/api/events-birthdays?date=" + bday, true);
+            var month = birthDate.getMonth() + 1;
+            var day = birthDate.getDate();
+            var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=embeddedin&eititle=Template:Births_and_deaths&eilimit=50&titles=Template:Births_and_deaths/births/";
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            url += month + day;
+            xhttp.open("GET", url, true);
             xhttp.send();
         }
     </script>
