@@ -1,127 +1,27 @@
-<!DOCTYPE html>
 <html>
-
-<head>
-    <title>Birthday Calculator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        /* Add some styling to the page */
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        /* Center the form on the page */
-        form {
-            margin: 0 auto;
-            text-align: left;
-            width: 80%;
-        }
-
-        /* Add some padding and styling to the form inputs */
-        input[type="date"],
-        input[type="button"] {
-            padding: 12px 20px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        /* Add Material color to the button */
-        input[type="button"] {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Add some styling to the output text */
-        #output {
-            font-size: 1.5em;
-            margin-top: 20px;
-        }
-
-        /* style for age */
-        .age {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
-        /* style for day of the week */
-        .day {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
-        /* style for events and birthdays*/
-        .event {
-            color: #4CAF50;
-        }
-    </style>
-</head>
-
-<body>
-
-    <h1>Birthday Calculator</h1>
-
-    <form>
-        <label for="bday">Enter your birthday:</label>
-        <input type="date" id="bday" name="bday" required>
-        <input type="button" value="Calculate" onclick="calculateAge()">
-    </form>
-
-    <p id="output"></p>
-
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <label for="date">Enter a date (YYYY-MM-DD):</label>
+      <input type="text" id="date" name="date">
+      <button onclick="searchEvents()">Search</button>
+    </div>
+    <div id="events"></div>
     <script>
-        function calculateAge() {
-            var bday = document.getElementById("bday").value;
-            var today = new Date();
-            var birthDate = new Date(bday);
-            var ageInMilliseconds = today - birthDate;
-            var ageInSeconds = ageInMilliseconds / 1000;
-            var ageInMinutes = ageInSeconds / 60;
-            var ageInHours = ageInMinutes / 60;
-            var ageInDays = ageInHours / 24;
-            var ageInYears = ageInDays / 365;
-            var age = Math.floor(ageInYears);
-            var days = Math.floor(ageInDays - (age * 365));
-            var daysSuffix = days > 1 ? ' days ' : ' day ';
-            var daysString = days > 0 ? days + daysSuffix : '';
-            var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
-            document.getElementById("output").innerHTML = "You are <span class='age'>" + age + "</span> years and <span class='age'>" + daysString + "</span> old. Your birthday is on <span class='day'>" + dayOfWeek + "</span>";
-
-            // Use Wikipedia API to fetch events and birthdays
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var data = JSON.parse(this.responseText);
-                    var events = data.query.pages;
-                    var eventsString = "";
-                    if (Object.keys(events).length > 0) {
-                        eventsString = "<p>Important events on this day:</p><ul>";
-                        for (var key in events) {
-                            eventsString += "<li class='event'>" + events[key].title + "</li>";
-                        }
-                        eventsString += "</ul>";
-                    }
-                    document.getElementById("output").innerHTML += eventsString;
-                }
-            };
-            var month = birthDate.getMonth() + 1;
-            var day = birthDate.getDate();
-            var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=embeddedin&eititle=Template:Births_and_deaths&eilimit=50&titles=Template:Births_and_deaths/births/";
-            if (month < 10) {
-                month = "0" + month;
-            }
-            if (day < 10) {
-                day = "0" + day;
-            }
-            url += month + day;
-            xhttp.open("GET", url, true);
-            xhttp.send();
-        }
+      function searchEvents() {
+        var date = $("#date").val();
+        var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=embeddedin&eititle=Template:Event&eilimit=500&eistart=" + date + "T00:00:00Z&eiend=" + date + "T23:59:59Z&callback=?";
+        $.getJSON(url, function(data) {
+          var events = data.query.embeddedin;
+          var eventList = "";
+          for (var i = 0; i < events.length; i++) {
+            eventList += "<li>" + events[i].title + "</li>";
+          }
+          $("#events").html("<ul>" + eventList + "</ul>");
+        });
+      }
     </script>
-
-</body>
-
+  </body>
 </html>
