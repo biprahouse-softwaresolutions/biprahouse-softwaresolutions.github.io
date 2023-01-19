@@ -11,7 +11,7 @@
     /* Add a custom class to the fields to adjust their height on mobile */
     @media (max-width: 767px) {
       .custom-field-height {
-        height: calc(100vh / 7);
+        height: calc(100vh / 12);
       }
     }
   </style>
@@ -19,7 +19,7 @@
 
 <body>
   <div class="container-fluid">
-    <h1 class="text-center">SIP Return Calculator</h1>
+    <h1 class="text-center">SIP Calculator</h1>
     <ul class="nav nav-tabs" id="nav-tab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab"
@@ -45,12 +45,12 @@
           <div class="form-group">
             <label for="rate">Expected annual rate of return:</label>
             <input type="number" class="form-control custom-field-height" id="rate" min="0" max="100" step="0.01"
-              placeholder="Enter the expected annual rate of return" required>%
+              placeholder="Enter the expected annual rate of return" required>
           </div>
           <div class="form-group">
-            <label for="period">Investment period (in years):</label>
+            <label for="period">Investment period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period" min="0" step="1"
-              placeholder="Enter the investment period in years" required>
+              placeholder="Enter the investment period in months" required>
           </div>
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
@@ -60,7 +60,7 @@
               <label class="form-check-label" for="inflationRate"></label>
             </div>
             <input type="number" class="form-control custom-field-height" id="inflation" min="0" max="100" step="0.01"
-              placeholder="Enter the inflation rate" disabled value="7">%
+              placeholder="Enter the inflation rate" disabled value="7">
           </div>
           <button type="submit" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
         </form>
@@ -76,12 +76,12 @@
           <div class="form-group">
             <label for="rate">Expected annual rate of return:</label>
             <input type="number" class="form-control custom-field-height" id="rate" min="0" max="100" step="0.01"
-              placeholder="Enter the expected annual rate of return" required>%
+              placeholder="Enter the expected annual rate of return" required>
           </div>
           <div class="form-group">
-            <label for="period">Investment period (in years):</label>
+            <label for="period">Investment period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period" min="0" step="1"
-              placeholder="Enter the investment period in years" required>
+              placeholder="Enter the investment period in months" required>
           </div>
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
@@ -91,7 +91,7 @@
               <label class="form-check-label" for="inflationRate"></label>
             </div>
             <input type="number" class="form-control custom-field-height" id="inflation" min="0" max="100" step="0.01"
-              placeholder="Enter the inflation rate" disabled value="7">%
+              placeholder="Enter the inflation rate (%)" disabled value="7">
           </div>
           <button type="submit" class="btn btn-primary" onclick="calculateSIP()">Calculate</button>
         </form>
@@ -122,7 +122,7 @@
               <label class="form-check-label" for="inflationRate"></label>
             </div>
             <input type="number" class="form-control custom-field-height" id="inflation" min="0" max="100" step="0.01"
-              placeholder="Enter the inflation rate" disabled value="7">%
+              placeholder="Enter the inflation rate %" disabled value="7">
           </div>
           <button type="submit" class="btn btn-primary" onclick="calculateSIPRate()">Calculate</button>
         </form>
