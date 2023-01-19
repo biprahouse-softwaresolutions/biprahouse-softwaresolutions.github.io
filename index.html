@@ -2,223 +2,195 @@
 <html>
 
 <head>
-    <title>SIP Calculator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+  <title>SIP Calculator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script>
+    function toggleInflationRate() {
+      let inflation = document.getElementById("inflation");
+      if (inflation.disabled == true) {
+        inflation.disabled = false;
+      } else {
+        inflation.disabled = true;
+      }
+    }
+    function calculateFV() {
+      let sipAmount = document.getElementById("sipAmount").value;
+      let rate = document.getElementById("rate").value / 100;
+      let period = document.getElementById("period").value;
+      let inflationAdjustment = document.getElementById("inflationRate").checked;
+      let inflationRate = document.getElementById("inflation").value / 100;
+      let PV;
+      let FV;
+      if (inflationAdjustment) {
+        rate = rate - inflationRate;
+        PV = sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate);
+        FV = PV * (1 + rate) ^ period;
+      } else {
+        PV = sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate);
+        FV = PV * (1 + rate) ^ period;
+      }
+      if (isNaN(FV)) {
+        document.getElementById("output").innerHTML = "Please enter valid input in all fields";
+      } else {
+        document.getElementById("output").innerHTML = "Future value of your SIP investment: $" + FV.toFixed(2);
+      }
+    }
+
+    function calculateSIP() {
+      let totalAmount = document.getElementById("totalAmount").value;
+      let rate = document.getElementById("rate").value / 100;
+      let period = document.getElementById("period").value;
+      let inflationAdjustment = document.getElementById("inflationRate").checked;
+      let inflationRate = document.getElementById("inflation").value / 100;
+      let SIP;
+      if (inflationAdjustment) {
+        rate = rate - inflationRate;
+        SIP = (totalAmount * rate) / (1 - (1 / (1 + rate) ^ period));
+      } else {
+        SIP = (totalAmount * rate) / (1 - (1 / (1 + rate) ^ period));
+      }
+      if (isNaN(SIP)) {
+        document.getElementById("output").innerHTML = "Please enter valid input in all fields";
+      } else {
+        document.getElementById("output").innerHTML = "SIP amount needed for your desired future value: $" + SIP.toFixed(2);
+      }
+    }
+
+    function calculateSIPRate() {
+      let totalAmount = document.getElementById("totalAmount").value;
+      let period = document.getElementById("period").value;
+      let sipAmount = document.getElementById("sipAmount").value;
+      let inflationAdjustment = document.getElementById("inflationRate").checked;
+      let inflationRate = document.getElementById("inflation").value / 100;
+      let rate;
+      let PV;
+      if (inflationAdjustment) {
+        PV = (sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate)) / (1 + inflationRate);
+        rate = (totalAmount / PV) ^ (1 / period) - 1;
+      } else {
+        PV = (sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate));
+        rate = (totalAmount / PV) ^ (1 / period) - 1;
+      }
+      if (isNaN(rate)) {
+        document.getElementById("output").innerHTML = "Please enter valid input in all fields";
+      } else {
+        document.getElementById("output").innerHTML = "Expected annual rate of return for your SIP investment: " + (rate * 100).toFixed(2) + "%";
+      }
+    }
+  </script>
+  <style>
+    /* Media Queries for mobile screens */
+    @media (max-width: 767px) {
+      .form-group {
+        width: 100%;
+      }
+
+      .form-control {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-    <div class="container">
-        <nav class="nav nav-tabs">
-
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-return-tab" data-toggle="tab" href="#nav-return" role="tab"
-                    aria-controls="nav-return" aria-selected="true">SIP Return Calculator</a>
-                <a class="nav-item nav-link" id="nav-amount-tab" data-toggle="tab" href="#nav-amount" role="tab"
-                    aria-controls="nav-amount" aria-selected="false">SIP Amount Calculator</a>
-                <a class="nav-item nav-link" id="nav-rate-tab" data-toggle="tab" href="#nav-rate" role="tab"
-                    aria-controls="nav-rate" aria-selected="false">SIP Rate Calculator</a>
-            </div>
-
-        </nav>
-
-    
-          
-
-
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-return" role="tabpanel" aria-labelledby="nav-return-tab">
-                <h1 class="text-center">SIP Return Calculator</h1>
-                <form>
-                    <div class="form-group">
-                        <label for="sipAmount">Monthly SIP amount:</label>
-                        <input type="number" class="form-control" id="sipAmount" min="0"
-                            placeholder="Enter your monthly SIP amount" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rate">Expected annual rate of return:</label>
-                        <input type="number" class="form-control" id="rate" min="0" max="100" step="0.01"
-                            placeholder="Enter your expected annual rate of return" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="period">Investment period (in years):</label>
-                        <input type="number" class="form-control" id="period" min="0"
-                            placeholder="Enter your investment period" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inflationRate">Inflation rate adjustment:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inflationRate"
-                                onchange="toggleInflationRate()">
-                            <label class="form-check-label" for="inflationRate"></label>
-                        </div>
-                        <!-- <label class="form-check-label" for="inflationRate"></label> -->
-                        <input type="number" class="form-control" id="inflation" min="0" max="100" step="0.01"
-                            placeholder="Enter the inflation rate" disabled value="7">%
-                    </div>
-                    <button type="submit" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
-                </form>
-                <p id="output"></p>
-            </div>
-            <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
-                <h1 class="text-center">SIP Amount Calculator</h1>
-                <form>
-                    <div class="form-group">
-                        <label for="totalAmount">Total amount expected:</label>
-                        <input type="number" class="form-control" id="totalAmount" min="0"
-                            placeholder="Enter the total amount you expect to receive" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rate">Expected annual rate of return:</label>
-                        <input type="number" class="form-control" id="rate" min="0" max="100" step="0.01"
-                            placeholder="Enter your expected annual rate of return" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="period">Investment period (in years):</label>
-                        <input type="number" class="form-control" id="period" min="0"
-                            placeholder="Enter your investment period" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inflationRate">Inflation rate adjustment:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inflationRate"
-                                onchange="toggleInflationRate()">
-                            <label class="form-check-label" for="inflationRate"></label>
-                        </div>
-                        <input type="number" class="form-control" id="inflation" min="0" max="100" step="0.01"
-                            placeholder="Enter the inflation rate" disabled value="7">%
-                    </div>
-                    <button type="submit" class="btn btn-primary" onclick="calculateSIPAmount()">Calculate</button>
-                </form>
-                <p id="output"></p>
-            </div>
-            <div class="tab-pane fade" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
-                <h1 class="text-center">SIP Rate Calculator</h1>
-                <form>
-                    <div class="form-group">
-                        <label for="totalAmount">Total amount expected:</label>
-                        <input type="number" class="form-control" id="totalAmount" min="0"
-                            placeholder="Enter the total amount you expect to receive" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="period">Investment period (in years):</label>
-                        <input type="number" class="form-control" id="period" min="0"
-                            placeholder="Enter your investment period" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="sipAmount">SIP amount:</label>
-                        <input type="number" class="form-control" id="sipAmount" min="0"
-                            placeholder="Enter your SIP amount" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inflationRate">Inflation rate adjustment:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inflationRate"
-                                onchange="toggleInflationRate()">
-                            <label class="form-check-label" for="inflationRate"></label>
-                        </div>
-                        <input type="number" class="form-control" id="inflation" min="0" max="100" step="0.01"
-                            placeholder="Enter the inflation rate" disabled value="7">%
-                    </div>
-                    <button type="submit" class="btn btn-primary" onclick="calculateSIPRate()">Calculate</button>
-                </form>
-                <p id="output"></p>
-            </div>
+  <div class="container-fluid">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="sip-amount-tab" data-toggle="tab" href="#sip-amount" role="tab"
+          aria-controls="sip-amount" aria-selected="true">SIP Amount Calculator</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="sip-rate-tab" data-toggle="tab" href="#sip-rate" role="tab" aria-controls="sip-rate"
+          aria-selected="false">SIP Rate Calculator</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="sip-amount" role="tabpanel" aria-labelledby="sip-amount-tab">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <form>
+              <div class="form-group">
+                <label for="totalAmount">Total amount expected:</label>
+                <input type="number" class="form-control" id="totalAmount" placeholder="Enter total amount" required>
+              </div>
+              <div class="form-group">
+                <label for="rate">Expected annual rate of return:</label>
+                <input type="number" class="form-control" id="rate" placeholder="Enter rate of return in percentage"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="period">Investment period (in years):</label>
+                <input type="number" class="form-control" id="period" placeholder="Enter investment period" required>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="inflationRate" onclick="toggleInflationRate()">
+                <label class="form-check-label" for="inflationRate">Inflation rate adjustment</label>
+              </div>
+              <div class="form-group">
+                <input type="number" class="form-control" id="inflation"
+                  placeholder="Enter inflation rate in percentage" disabled required>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateSIP()">Calculate</button>
+              <div id="output"></div>
+            </form>
+          </div>
         </div>
+      </div>
+      <div class="tab-pane fade" id="sip-rate" role="tabpanel" aria-labelledby="sip-rate-tab">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <form>
+              <div class="form-group">
+                <label for="totalAmount">Total amount expected:</label>
+                <input type="number" class="form-control" id="totalAmount" placeholder="Enter total amount" required>
+              </div>
+              <div class="form-group">
+                <label for="sipAmount">SIP amount:</label>
+                <input type="number" class="form-control" id="sipAmount" placeholder="Enter SIP amount" required>
+              </div>
+              <div class="form-group">
+                <label for="period">Investment period (in years):</label>
+                <input type="number" class="form-control" id="period" placeholder="Enter investment period" required>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="inflationRate" onclick="toggleInflationRate()">
+                <label class="form-check-label" for="inflationRate">Inflation rate adjustment</label>
+              </div>
+              <div class="form-group">
+                <input type="number" class="form-control" id="inflation"
+                  placeholder="Enter inflation rate in percentage" disabled required>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateSIPRate()">Calculate</button>
+              <div id="output"></div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <script>
-        function toggleInflationRate() {
-            let inflation = document.getElementById("inflation");
-            if (inflation.disabled == true) {
-                inflation.disabled = false;
-            } else {
-                inflation.disabled = true;
-            }
-        }
-
-        function calculateFV() {
-            let sipAmount = document.getElementById("sipAmount").value;
-            let rate = document.getElementById("rate").value / 100;
-            let period = document.getElementById("period").value;
-            let inflationAdjustment = document.getElementById("inflationRate").checked;
-            let inflationRate = document.getElementById("inflation").value / 100;
-            let PV;
-            let FV;
-
-            if (inflationAdjustment) {
-                rate = rate - inflationRate;
-                PV = sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate);
-                FV = PV * (1 + rate) ^ period;
-            } else {
-                PV = sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate);
-                FV = PV * (1 + rate) ^ period;
-            }
-
-            if (isNaN(FV)) {
-                document.getElementById("output").innerHTML = "Please enter valid input in all fields";
-            } else {
-                document.getElementById("output").innerHTML = "Future value of your SIP investment: $" + FV.toFixed(2);
-            }
-        }
-
-        function calculateSIPAmount() {
-            let totalAmount = document.getElementById("totalAmount").value;
-            let rate = document.getElementById("rate").value / 100;
-            let period = document.getElementById("period").value;
-            let inflationAdjustment = document.getElementById("inflationRate").checked;
-            let inflationRate = document.getElementById("inflation").value / 100;
-            let SIP;
-
-            if (inflationAdjustment) {
-                rate = rate - inflationRate;
-                SIP = (totalAmount * rate) / (1 - (1 / (1 + rate) ^ period));
-            } else {
-                SIP = (totalAmount * rate) / (1 - (1 / (1 + rate) ^ period));
-            }
-
-            if (isNaN(SIP)) {
-                document.getElementById("output").innerHTML = "Please enter valid input in all fields";
-            } else {
-                document.getElementById("output").innerHTML = "SIP amount needed for your desired future value: $" + SIP.toFixed(2);
-            }
-        }
-
-        function calculateSIPRate() {
-            let totalAmount = document.getElementById("totalAmount").value;
-            let period = document.getElementById("period").value;
-            let sipAmount = document.getElementById("sipAmount").value;
-            let inflationAdjustment = document.getElementById("inflationRate").checked;
-            let inflationRate = document.getElementById("inflation").value / 100;
-            let rate;
-            let PV;
-
-            if (inflationAdjustment) {
-                PV = (sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate)) / (1 + inflationRate);
-                rate = (totalAmount / PV) ^ (1 / period) - 1;
-            } else {
-                PV = (sipAmount * ((1 - (1 / (1 + rate) ^ period)) / rate));
-                rate = (totalAmount / PV) ^ (1 / period) - 1;
-            }
-
-            if (isNaN(rate)) {
-                document.getElementById("output").innerHTML = "Please enter valid input in all fields";
-            } else {
-                document.getElementById("output").innerHTML = "Expected annual rate of return for your SIP investment: " + (rate * 100).toFixed(2) + "%";
-            }
-        }
-
-    </script>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
