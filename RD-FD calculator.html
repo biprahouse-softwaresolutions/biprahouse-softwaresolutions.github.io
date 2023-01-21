@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <title>FD/RD Calculator</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1 class="text-center">FD/RD Calculator</h1>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-fd-tab" data-toggle="tab" href="#nav-fd" role="tab"
+              aria-controls="nav-fd" aria-selected="true">FD Calculator</a>
+            <a class="nav-item nav-link" id="nav-rd-tab" data-toggle="tab" href="#nav-rd" role="tab"
+              aria-controls="nav-rd" aria-selected="false">RD Calculator</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-fd" role="tabpanel" aria-labelledby="nav-fd-tab">
+            <form>
+              <div class="form-group">
+                <label for="principal">Principal Amount:</label>
+                <input type="number" class="form-control custom-field-height" id="principal"
+                  placeholder="Enter the principal amount" required>
+              </div>
+              <div class="form-group">
+                <label for="rate">Rate of Interest:</label>
+                <input type="number" class="form-control custom-field-height" id="rate"
+                  placeholder="Enter the rate of interest" required>
+              </div>
+              <div class="form-group">
+                <label for="period">Period (in months):</label>
+                <input type="number" class="form-control custom-field-height" id="period"
+                  placeholder="Enter the period in months" required>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="inflationAdjustment"
+                  onchange="toggleInflationRate()">
+                <label class="form-check-label" for="inflationAdjustment">Inflation rate adjustment</label>
+              </div>
+              <div class="form-group" id="inflationRateDiv" style="display:none;">
+                <label for="inflationRate">Inflation rate:</label>
+                <input type="number" class="form-control custom-field-height" id="inflationRate" min="0" max="100"
+                  step="0.01" placeholder="Enter the inflation rate (default is 7%)" value="7"> %
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="calculateFD()">Calculate</button>
+            </form>
+            <p id="outputFD"></p>
+          </div>
+          <div class="tab-pane fade" id="nav-rd" role="tabpanel" aria-labelledby="nav-rd-tab">
+            <form>
+              <div class="form-group">
+                <label for="principal">Principal Amount:</label>
+                <input type="number" class="form-control custom-field-height" id="principalRD"
+                  placeholder="Enter the principal amount" required>
+              </div>
+              <div class="form-group">
+                <label for="rate">Rate of Interest:</label>
+                <input type="number" class="form-control custom-field-height" id="rateRD"
+                  placeholder="Enter the rate of interest" required>
+              </div>
+              <div class="form-group">
+                <label for="period">Period (in months):</label>
+                <input type="number" class="form-control custom-field-height" id="periodRD"
+                  placeholder="Enter the period in months" required>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="inflationAdjustmentRD"
+                  onchange="toggleInflationRateRD()">
+                <label class="form-check-label" for="inflationAdjustmentRD">Inflation rate adjustment</label>
+              </div>
+              <div class="form-group" id="inflationRateDivRD" style="display:none;">
+                <label for="inflationRateRD">Inflation rate:</label>
+                <input type="number" class="form-control custom-field-height" id="inflationRateRD" min="0" max="100"
+                  step="0.01" placeholder="Enter the inflation rate (default is 7%)" value="7"> %
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="calculateRD()">Calculate</button>
+            </form>
+            <p id="outputRD"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script>
+    function toggleInflationRate() {
+      let inflationRateDiv = document.getElementById("inflationRateDiv");
+      if (document.getElementById("inflationAdjustment").checked) {
+        inflationRateDiv.style.display = "block";
+      } else {
+        inflationRateDiv.style.display = "none";
+      }
+    }
+
+    function toggleInflationRateRD() {
+      let inflationRateDivRD = document.getElementById("inflationRateDivRD");
+      if (document.getElementById("inflationAdjustmentRD").checked) {
+        inflationRateDivRD.style.display = "block";
+      } else {
+        inflationRateDivRD.style.display = "none";
+      }
+    }
+
+    function calculateFD() {
+      let principal = document.getElementById("principal").value;
+      let rate = document.getElementById("rate").value / 100;
+      let period = document.getElementById("period").value;
+      let inflationAdjustment = document.getElementById("inflationAdjustment").checked;
+      let inflationRate = document.getElementById("inflationRate").value / 100;
+
+      if (!principal || !rate || !period) {
+        document.getElementById("outputFD").innerHTML = "Please enter valid input in all fields";
+        return;
+      }
+
+      if (inflationAdjustment) {
+        rate -= inflationRate;
+      }
+
+      let interest = principal * rate * period / 12;
+      let maturityAmount = parseFloat(principal) + parseFloat(interest);
+
+      document.getElementById("outputFD").innerHTML = "Interest Earned: " + interest.toFixed(2) + "<br>Maturity Amount: " + maturityAmount.toFixed(2);
+    }
+
+    function calculateRD() {
+      let principal = document.getElementById("principalRD").value;
+      let rate = document.getElementById("rateRD").value / 100;
+      let period = document.getElementById("periodRD").value;
+      let inflationAdjustment = document.getElementById("inflationAdjustmentRD").checked;
+      let inflationRate = document.getElementById("inflationRateRD").value / 100;
+
+      if (!principal || !rate || !period) {
+        document.getElementById("outputRD").innerHTML = "Please enter valid input in all fields";
+        return;
+      }
+
+      if (inflationAdjustment) {
+        rate -= inflationRate;
+      }
+
+      let interest = (principal * rate * period) / 12;
+      let maturityAmount = parseFloat(principal) + parseFloat(interest);
+
+      document.getElementById("outputRD").innerHTML = "Interest Earned: " + interest.toFixed(2) + "<br>Maturity Amount: " + maturityAmount.toFixed(2);
+    }
+  </script>
+</body>
+
+</html>
