@@ -8,13 +8,18 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
   <title>FD/RD Calculator</title>
+<style>
+    #main_title {
+        margin-bottom: 10px;
+    }
+</style>
 </head>
 
 <body>
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h1 class="text-center">FD/RD Calculator</h1>
+        <h1 class="text-center" id="main_title">FD/RD Calculator</h1>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-fd-tab" data-toggle="tab" href="#nav-fd" role="tab"
@@ -58,9 +63,9 @@
           <div class="tab-pane fade" id="nav-rd" role="tabpanel" aria-labelledby="nav-rd-tab">
             <form>
               <div class="form-group">
-                <label for="principal">Principal Amount:</label>
-                <input type="number" class="form-control custom-field-height" id="principalRD"
-                  placeholder="Enter the principal amount" required>
+                <label for="principal">Monthly Deosit:</label>
+                <input type="number" class="form-control custom-field-height" id="monthlyDeposit"
+                  placeholder="Enter the monthly deposit" required>
               </div>
               <div class="form-group">
                 <label for="rate">Rate of Interest:</label>
@@ -141,7 +146,7 @@
     }
 
     function calculateRD() {
-      let principal = document.getElementById("principalRD").value;
+      let monthlyDeposit = document.getElementById("monthlyDeposit").value;
       let rate = document.getElementById("rateRD").value / 100;
       let period = document.getElementById("periodRD").value;
       let inflationAdjustment = document.getElementById("inflationAdjustmentRD").checked;

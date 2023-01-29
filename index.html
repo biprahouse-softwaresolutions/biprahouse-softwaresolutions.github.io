@@ -2,166 +2,378 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles.css">
-  <title>FD/RD Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        /* Add a custom class to the fields to adjust their height on mobile */
+        @media (max-width: 767px) {
+
+            .custom-field-height,
+            .custom-select-height {
+                height: calc(100vh / 12);
+            }
+
+            .nav-link {
+                padding-left: 6px;
+                padding-right: 8px;
+            }
+        }
+
+
+        @media (min-width: 530px) {
+            .container-fluid {
+                width: 90vw;
+            }
+        }
+
+        @media (min-width: 770px) {
+            .container-fluid {
+                width: 70vw;
+            }
+        }
+
+        @media (min-width: 1100px) {
+            .container-fluid {
+                width: 50vw;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .text-center {
+                font-size: 8vw !important;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 0px;
+        }
+
+        #output1,
+        #output2,
+        #output3 {
+            font-weight: bold;
+        }
+
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h1 class="text-center">FD/RD Calculator</h1>
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-fd-tab" data-toggle="tab" href="#nav-fd" role="tab"
-              aria-controls="nav-fd" aria-selected="true">FD Calculator</a>
-            <a class="nav-item nav-link" id="nav-rd-tab" data-toggle="tab" href="#nav-rd" role="tab"
-              aria-controls="nav-rd" aria-selected="false">RD Calculator</a>
-          </div>
-        </nav>
+    <div class="container-fluid">
+        <h1 class="text-center">Loan Calculator</h1>
+        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="nav-emi-tab" data-toggle="tab" href="#nav-emi" role="tab"
+                    aria-controls="nav-emi" aria-selected="true">Loan EMI</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-amount-tab" data-toggle="tab" href="#nav-amount" role="tab"
+                    aria-controls="nav-amount" aria-selected="false">Loan Amount</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-duration-tab" data-toggle="tab" href="#nav-duration" role="tab"
+                    aria-controls="nav-duration" aria-selected="false">EMI Duration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-comparison-tab" data-toggle="tab" href="#nav-comparison" role="tab"
+                    aria-controls="nav-comparison" aria-selected="false">Rate Comparison</a>
+            </li>
+        </ul>
+
+
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-fd" role="tabpanel" aria-labelledby="nav-fd-tab">
-            <form>
-              <div class="form-group">
-                <label for="principal">Principal Amount:</label>
-                <input type="number" class="form-control custom-field-height" id="principal"
-                  placeholder="Enter the principal amount" required>
-              </div>
-              <div class="form-group">
-                <label for="rate">Rate of Interest:</label>
-                <input type="number" class="form-control custom-field-height" id="rate"
-                  placeholder="Enter the rate of interest" required>
-              </div>
-              <div class="form-group">
-                <label for="period">Period (in months):</label>
-                <input type="number" class="form-control custom-field-height" id="period"
-                  placeholder="Enter the period in months" required>
-              </div>
-              <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="inflationAdjustment"
-                  onchange="toggleInflationRate()">
-                <label class="form-check-label" for="inflationAdjustment">Inflation rate adjustment</label>
-              </div>
-              <div class="form-group" id="inflationRateDiv" style="display:none;">
-                <label for="inflationRate">Inflation rate:</label>
-                <input type="number" class="form-control custom-field-height" id="inflationRate" min="0" max="100"
-                  step="0.01" placeholder="Enter the inflation rate (default is 7%)" value="7"> %
-              </div>
-              <button type="submit" class="btn btn-primary" onclick="calculateFD()">Calculate</button>
-            </form>
-            <p id="outputFD"></p>
-          </div>
-          <div class="tab-pane fade" id="nav-rd" role="tabpanel" aria-labelledby="nav-rd-tab">
-            <form>
-              <div class="form-group">
-                <label for="principal">Principal Amount:</label>
-                <input type="number" class="form-control custom-field-height" id="principalRD"
-                  placeholder="Enter the principal amount" required>
-              </div>
-              <div class="form-group">
-                <label for="rate">Rate of Interest:</label>
-                <input type="number" class="form-control custom-field-height" id="rateRD"
-                  placeholder="Enter the rate of interest" required>
-              </div>
-              <div class="form-group">
-                <label for="period">Period (in months):</label>
-                <input type="number" class="form-control custom-field-height" id="periodRD"
-                  placeholder="Enter the period in months" required>
-              </div>
-              <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="inflationAdjustmentRD"
-                  onchange="toggleInflationRateRD()">
-                <label class="form-check-label" for="inflationAdjustmentRD">Inflation rate adjustment</label>
-              </div>
-              <div class="form-group" id="inflationRateDivRD" style="display:none;">
-                <label for="inflationRateRD">Inflation rate:</label>
-                <input type="number" class="form-control custom-field-height" id="inflationRateRD" min="0" max="100"
-                  step="0.01" placeholder="Enter the inflation rate (default is 7%)" value="7"> %
-              </div>
-              <button type="submit" class="btn btn-primary" onclick="calculateRD()">Calculate</button>
-            </form>
-            <p id="outputRD"></p>
-          </div>
+            <div class="tab-pane fade show active" id="nav-emi" role="tabpanel" aria-labelledby="nav-emi-tab">
+                <form>
+                    <div class="form-group">
+                        <label for="loanAmount" class="custom-label">Loan amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="loanAmount1" min="0" step="1"
+                            placeholder="Enter the loan amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate" class="custom-label">Annual interest rate:</label>
+                        <input type="number" class="form-control custom-field-height" id="rate1" min="0" max="100"
+                            step="0.01" placeholder="Enter the rate of interest" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rateType" class="custom-label">Rate type:</label>
+                        <select class="custom-select custom-select-height" id="rateType">
+                            <option selected value="reducing">Reducing</option>
+                            <option value="flat">Flat</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="period" class="custom-label">Loan tenure (in months):</label>
+                        <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
+                            placeholder="Enter the loan period" required>
+                    </div>
+
+
+
+                    <button type="button" class="btn btn-primary" onclick="calculateEMI()">Calculate</button>
+                </form>
+                <p id="output1"></p>
+            </div>
+
+
+            <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
+                <form>
+
+                    <div class="form-group">
+                        <label for="rate" class="custom-label">Annual rate of interest:</label>
+                        <input type="number" class="form-control custom-field-height" id="rate2" min="0" max="100"
+                            step="0.01" placeholder="Enter the annual rate of interest" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rateType" class="custom-label">Rate type:</label>
+                        <select class="custom-select custom-select-height" id="rateType2">
+                            <option selected value="reducing">Reducing</option>
+                            <option value="flat">Flat</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="period" class="custom-label">Loan period (in months):</label>
+                        <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
+                            placeholder="Enter the loan period in months" required>
+                    </div>
+
+
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="monthlyEMI2" class="custom-label">EMI amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="monthlyEMI2" min="0" step="1"
+                            placeholder="Enter your EMI amount" required>
+                    </div>
+
+
+
+                    <button type="button" class="btn btn-primary" onclick="calculateAmount()">Calculate</button>
+                </form>
+                <p id="output2"></p>
+            </div>
+
+            <div class="tab-pane fade" id="nav-duration" role="tabpanel" aria-labelledby="nav-duration-tab">
+                <form>
+
+                    <div class="form-group">
+                        <label for="loanAmount" class="custom-label">Loan amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="loanAmount3" min="0" step="1"
+                            placeholder="Enter the loan amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="monthlyEMI1" class="custom-label">EMI amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="monthlyEMI3" min="0" step="1"
+                            placeholder="Enter your EMI amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate" class="custom-label">Annual interest rate:</label>
+                        <input type="number" class="form-control custom-field-height" id="rate3" min="0" max="100"
+                            step="0.01" placeholder="Enter the rate of interest" required>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="rateType" class="custom-label">Rate type:</label>
+                        <select class="custom-select custom-select-height" id="rateType3">
+                            <option selected value="reducing">Reducing</option>
+                            <option value="flat">Flat</option>
+                        </select>
+                    </div>
+
+
+                    <button type="button" class="btn btn-primary" onclick="calculateInvPeriod()">Calculate</button>
+                </form>
+                <p id="output3"></p>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
-  <script>
-    function toggleInflationRate() {
-      let inflationRateDiv = document.getElementById("inflationRateDiv");
-      if (document.getElementById("inflationAdjustment").checked) {
-        inflationRateDiv.style.display = "block";
-      } else {
-        inflationRateDiv.style.display = "none";
-      }
-    }
+    <script>
 
-    function toggleInflationRateRD() {
-      let inflationRateDivRD = document.getElementById("inflationRateDivRD");
-      if (document.getElementById("inflationAdjustmentRD").checked) {
-        inflationRateDivRD.style.display = "block";
-      } else {
-        inflationRateDivRD.style.display = "none";
-      }
-    }
+        function calculateEMI() {
+            // event.preventDefault();
+            let loanAmount = parseFloat(document.getElementById("loanAmount1").value);
+            let rate = document.getElementById("rate1").value / 1200;
+            let period = document.getElementById("period1").value;
+            let rateType = document.getElementById("rateType").value;
+            let emiValue = 0;
+            let totalInterest = 0;
+            let output = document.getElementById("output1");
+            let boxAmount = document.getElementById("loanAmount1");
+            let boxRate = document.getElementById("rate1");
+            let boxPeriod = document.getElementById("period1");
+            let errorInFields = false;
 
-    function calculateFD() {
-      let principal = document.getElementById("principal").value;
-      let rate = document.getElementById("rate").value / 100;
-      let period = document.getElementById("period").value;
-      let inflationAdjustment = document.getElementById("inflationAdjustment").checked;
-      let inflationRate = document.getElementById("inflationRate").value / 100;
+            if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
+                boxAmount.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!rate || isNaN(rate) || rate <= 0) {
+                boxRate.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!period || isNaN(period) || period <= 0) {
+                boxPeriod.style.borderColor = "red";
+                errorInFields = true;
+            }
 
-      if (!principal || !rate || !period) {
-        document.getElementById("outputFD").innerHTML = "Please enter valid input in all fields";
-        return;
-      }
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            } else {
+                output.style.color = "black";
+                boxAmount.style.borderColor = "#ced4da";
+                boxRate.style.borderColor = "#ced4da";
+                boxPeriod.style.borderColor = "#ced4da";
+                if (rateType == "reducing") {
+                    emiValue = (loanAmount * rate * (1 + rate) ** period) / ((1 + rate) ** period - 1);
+                    totalInterest = emiValue * period - loanAmount;
+                } else {
+                    totalInterest = loanAmount * rate * period;
+                    emiValue = (loanAmount + totalInterest) / period;
 
-      if (inflationAdjustment) {
-        rate -= inflationRate;
-      }
+                }
 
-      let interest = principal * rate * period / 12;
-      let maturityAmount = parseFloat(principal) + parseFloat(interest);
 
-      document.getElementById("outputFD").innerHTML = "Interest Earned: " + interest.toFixed(2) + "<br>Maturity Amount: " + maturityAmount.toFixed(2);
-    }
+                document.getElementById("output1").innerHTML = "Your EMI is : " + emiValue.toFixed(2) +
+                    "<br> Total interest paid : " + totalInterest.toFixed(2) +
+                    "<br> Total amount paid : " + (totalInterest + loanAmount).toFixed(2);
+            }
+        }
+        function calculateAmount() {
+            // event.preventDefault();
+            let monthlyEMI = document.getElementById("monthlyEMI2").value;
+            let rate = document.getElementById("rate2").value / 1200;
+            let period = document.getElementById("period2").value;
+            let rateType = document.getElementById("rateType2").value;
+            let loanAmount = 0;
+            let totalInterest = 0;
+            let output = document.getElementById("output2");
+            let boxEMI = document.getElementById("monthlyEMI2");
+            let boxRate = document.getElementById("rate2");
+            let boxPeriod = document.getElementById("period2");
+            let errorInFields = false;
 
-    function calculateRD() {
-      let principal = document.getElementById("principalRD").value;
-      let rate = document.getElementById("rateRD").value / 100;
-      let period = document.getElementById("periodRD").value;
-      let inflationAdjustment = document.getElementById("inflationAdjustmentRD").checked;
-      let inflationRate = document.getElementById("inflationRateRD").value / 100;
 
-      if (!principal || !rate || !period) {
-        document.getElementById("outputRD").innerHTML = "Please enter valid input in all fields";
-        return;
-      }
+            if (!monthlyEMI || isNaN(monthlyEMI) || monthlyEMI <= 0) {
+                boxEMI.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!rate || isNaN(rate) || rate <= 0) {
+                boxRate.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!period || isNaN(period) || period <= 0) {
+                boxPeriod.style.borderColor = "red";
+                errorInFields = true;
+            }
 
-      if (inflationAdjustment) {
-        rate -= inflationRate;
-      }
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            } else {
+                output.style.color = "black";
+                boxEMI.style.borderColor = "#ced4da";
+                boxRate.style.borderColor = "#ced4da";
+                boxPeriod.style.borderColor = "#ced4da";
 
-      let interest = (principal * rate * period) / 12;
-      let maturityAmount = parseFloat(principal) + parseFloat(interest);
+                if (rateType == "reducing") {
+                    loanAmount = monthlyEMI / (rate * (Math.pow(1 + rate, period)) / (Math.pow(1 + rate, period) - 1));
+                    console.log("inside Reducing");
+                } else {
 
-      document.getElementById("outputRD").innerHTML = "Interest Earned: " + interest.toFixed(2) + "<br>Maturity Amount: " + maturityAmount.toFixed(2);
-    }
-  </script>
+                    loanAmount = (monthlyEMI * period) / (rate * period + 1);
+                }
+
+                totalInterest = monthlyEMI * period - loanAmount;
+                document.getElementById("output2").innerHTML = "You can take loan upto : " + loanAmount.toFixed(2) +
+                    "<br> Total interest paid : " + totalInterest.toFixed(2) +
+                    "<br> Total amount paid : " + (totalInterest + loanAmount).toFixed(2);
+            }
+        }
+
+
+        function calculateInvPeriod() {
+            // event.preventDefault();
+            let loanAmount = parseFloat(document.getElementById("loanAmount3").value);
+            let rate = document.getElementById("rate3").value / 1200;
+            let emiValue = document.getElementById("monthlyEMI3").value;
+            let rateType = document.getElementById("rateType3").value;
+            let period = 0;
+            let totalInterest = 0;
+            let output = document.getElementById("output3");
+            let boxEMI = document.getElementById("monthlyEMI3");
+            let boxRate = document.getElementById("rate3");
+            let boxAmount = document.getElementById("loanAmount3");
+            let errorInFields = false;
+
+            if (!emiValue || isNaN(emiValue) || emiValue <= 0) {
+                boxEMI.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!rate || isNaN(rate) || rate <= 0) {
+                boxRate.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
+                boxAmount.style.borderColor = "red";
+                errorInFields = true;
+            }
+
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            }
+
+            else {
+                output.style.color = "black";
+                boxEMI.style.borderColor = "#ced4da";
+                boxRate.style.borderColor = "#ced4da";
+                boxAmount.style.borderColor = "#ced4da";
+                if (rateType == "reducing") {
+                    period = (Math.log(emiValue) - Math.log(emiValue - (loanAmount * rate))) / Math.log(1 + rate);
+
+                } else {
+                    period = loanAmount / (emiValue - loanAmount * rate);
+
+                }
+
+                totalInterest = emiValue * period - loanAmount;
+                output.innerHTML = "Your loan tenure is : " + Math.ceil(period) + " months" +
+                    "<br> Total interest paid : " + totalInterest.toFixed(2) +
+                    "<br> Total amount paid : " + (totalInterest + loanAmount).toFixed(2);
+            }
+        }
+
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script>
+        $('.custom-field-height').on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+        $(document).ready(function () {
+            $('#nav-tab a').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
 </body>
 
 </html>
