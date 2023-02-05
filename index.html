@@ -12,7 +12,7 @@
         @media (max-width: 767px) {
 
             .custom-field-height,
-            .custom-select-height{
+            .custom-select-height {
                 height: calc(100vh / 12) !important;
             }
 
@@ -57,8 +57,13 @@
 
         #output1,
         #output2,
-        #output3 {
+        #output3,
+        #output4 {
             font-weight: bold;
+        }
+
+        p {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -195,6 +200,39 @@
                 </form>
                 <p id="output3"></p>
             </div>
+
+            <div class="tab-pane fade" id="nav-comparison" role="tabpanel" aria-labelledby="nav-comparison-tab">
+                <form>
+                    <div class="form-group">
+                        <label for="loanAmount" class="custom-label">Loan amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="loanAmount4" min="0" step="1"
+                            placeholder="Enter the loan amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate" class="custom-label">Annual rate of interest:</label>
+                        <input type="number" class="form-control custom-field-height" id="rate4" min="0" max="100"
+                            step="0.01" placeholder="Enter the annual rate of interest" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rateType" class="custom-label">Rate type:</label>
+                        <select class="custom-select custom-select-height" id="rateType4">
+                            <option selected value="reducing">Reducing</option>
+                            <option value="flat">Flat</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="period" class="custom-label">Loan period (in months):</label>
+                        <input type="number" class="form-control custom-field-height" id="period4" min="0" step="1"
+                            placeholder="Enter the loan period in months" required>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="calculateEqvRate()">Calculate</button>
+                </form>
+                <p id="output4"></p>
+            </div>
         </div>
     </div>
     <script>
@@ -236,6 +274,7 @@
                 boxPeriod.style.borderColor = "#ced4da";
                 if (rateType == "reducing") {
                     emiValue = (loanAmount * rate * (1 + rate) ** period) / ((1 + rate) ** period - 1);
+                    // emiValue = (loanAmount * rate) / (1 - (1 + rate) ** (-period));
                     totalInterest = emiValue * period - loanAmount;
                 } else {
                     totalInterest = loanAmount * rate * period;
@@ -354,7 +393,74 @@
             }
         }
 
+        function calculateEqvRate() {
+            // event.preventDefault();
+            let loanAmount = parseFloat(document.getElementById("loanAmount4").value);
+            let rate = document.getElementById("rate4").value / 1200;
+            let period = document.getElementById("period4").value;
+            let rateType = document.getElementById("rateType4").value;
+            let output = document.getElementById("output4");
+            let boxAmount = document.getElementById("loanAmount4");
+            let boxRate = document.getElementById("rate4");
+            let boxPeriod = document.getElementById("period4");
+            let errorInFields = false;
+            let eqvRate = 0;
+            let emiValue = 0;
+            let totalInterest = 0;
+            let total = 0;
 
+            if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
+                boxAmount.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!rate || isNaN(rate) || rate <= 0) {
+                boxRate.style.borderColor = "red";
+                errorInFields = true;
+            }
+            if (!period || isNaN(period) || period <= 0) {
+                boxPeriod.style.borderColor = "red";
+                errorInFields = true;
+            }
+
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            } else {
+                output.style.color = "black";
+                boxAmount.style.borderColor = "#ced4da";
+                boxRate.style.borderColor = "#ced4da";
+                boxPeriod.style.borderColor = "#ced4da";
+                if (rateType == "reducing") {
+
+                    emiValue = (loanAmount * rate * (1 + rate) ** period) / ((1 + rate) ** period - 1);
+                    totalInterest = emiValue * period - loanAmount;
+                    eqvRate = (emiValue * period - loanAmount) * 1200 / (period * loanAmount);
+                    document.getElementById("output4").innerHTML = "Equivalent flat rate is : " + eqvRate.toFixed(2);
+                } else {
+                    eqvRate = solveForRate(loanAmount, rate, period);
+                    document.getElementById("output4").innerHTML = "Equivalent reducing rate is : " + (eqvRate).toFixed(2);
+                }
+            }
+        }
+
+
+        function solveForRate(loanAmount, flatRate, loanPeriod) {
+            console.log("loanAmount : " + loanAmount);
+            console.log("flatRate : " + flatRate);
+            console.log("loanPeriod : " + loanPeriod);
+            let R = 1.7 * flatRate * 1200;
+            let maxIterations = Math.ceil(((1.9 * flatRate * 1200) - (1.7 * flatRate * 1200)) / 0.01);
+
+            for (let i = 0; i < maxIterations; i++) {
+                let functionL = (loanAmount * (R / 1200) * (1 + (R / 1200)) ** loanPeriod) / ((1 + (R / 1200)) ** loanPeriod - 1);
+                let functionR = (loanAmount * flatRate * loanPeriod + loanAmount) / loanPeriod;
+                if (Math.abs(functionL - functionR) <= 0.5) {
+                    return R;
+                }
+                R = R + 0.01;
+            }
+            return R;
+        }
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
