@@ -133,13 +133,12 @@
         }
 
         function openCalendar(date) {
-            const openCalendar = (date) => {
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1;
-                const day = date.getDate();
-                const url = `content://com.android.calendar/time/${Date.UTC(year, month, day)}`;
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var url = `content://com.android.calendar/time/${Date.UTC(year, month, day)}`;
                 window.location.href = url;
-            };
+           
         }
 
 
