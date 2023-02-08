@@ -2,41 +2,40 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <title>Birthday and Age Calculator</title>
     <style>
-        /* Add a custom class to the fields to adjust their height on mobile */
         @media (max-width: 767px) {
 
-            .custom-field-height,
-            .custom-select-height {
+            .custom-field-height {
                 height: calc(100vh / 12) !important;
             }
 
-            .nav-link {
-                padding-left: 10px;
-                padding-right: 14px;
-            }
         }
 
 
         @media (min-width: 530px) {
-            .container-fluid {
+            .container {
                 width: 80vw;
             }
         }
 
         @media (min-width: 770px) {
-            .container-fluid {
+            .container {
                 width: 60vw;
             }
         }
 
         @media (min-width: 1100px) {
-            .container-fluid {
+            .container {
                 width: 40vw;
             }
         }
@@ -44,21 +43,13 @@
         @media (max-width: 500px) {
             .text-center {
                 font-size: 8vw !important;
+                margin-bottom: 1rem !important;
             }
         }
 
-        .form-group {
-            margin-bottom: 0px;
-        }
 
-        .nav-tabs .nav-link.active {
-            background-color: #e5e6ea;
-        }
 
-        #output1,
-        #output2,
-        #output3,
-        #output4 {
+        #output {
             font-weight: bold;
         }
 
@@ -69,398 +60,90 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <h1 class="text-center">Loan Calculator</h1>
-        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="nav-emi-tab" data-toggle="tab" href="#nav-emi" role="tab"
-                    aria-controls="nav-emi" aria-selected="true">EMI</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="nav-amount-tab" data-toggle="tab" href="#nav-amount" role="tab"
-                    aria-controls="nav-amount" aria-selected="false">Amount</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="nav-duration-tab" data-toggle="tab" href="#nav-duration" role="tab"
-                    aria-controls="nav-duration" aria-selected="false">Tenure</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="nav-comparison-tab" data-toggle="tab" href="#nav-comparison" role="tab"
-                    aria-controls="nav-comparison" aria-selected="false">Rate Comparison</a>
-            </li>
-        </ul>
-
-
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-emi" role="tabpanel" aria-labelledby="nav-emi-tab">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="text-center">Birthday-Age Calculator</h2>
                 <form>
                     <div class="form-group">
-                        <label for="loanAmount" class="custom-label">Loan amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="loanAmount1" min="0" step="1"
-                            placeholder="Enter the loan amount" required>
+                        <label for="bday">Enter your birthday:</label>
+                        <input type="date" class="form-control custom-field-height" id="bday" required>
                     </div>
-
-                    <div class="form-group">
-                        <label for="rate" class="custom-label">Annual interest rate:</label>
-                        <input type="number" class="form-control custom-field-height" id="rate1" min="0" max="100"
-                            step="0.01" placeholder="Enter the rate of interest" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rateType" class="custom-label">Rate type:</label>
-                        <select class="custom-select custom-select-height" id="rateType">
-                            <option selected value="reducing">Reducing</option>
-                            <option value="flat">Flat</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="period" class="custom-label">Loan tenure (in months):</label>
-                        <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
-                            placeholder="Enter the loan period" required>
-                    </div>
-
-
-
-                    <button type="button" class="btn btn-primary" onclick="calculateEMI()">Calculate</button>
+                    <button type="submit" class="btn btn-primary" onclick="calculateAge()">Calculate</button>
                 </form>
-                <p id="output1"></p>
-            </div>
-
-
-            <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
-                <form>
-
-                    <div class="form-group">
-                        <label for="rate" class="custom-label">Annual rate of interest:</label>
-                        <input type="number" class="form-control custom-field-height" id="rate2" min="0" max="100"
-                            step="0.01" placeholder="Enter the annual rate of interest" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rateType" class="custom-label">Rate type:</label>
-                        <select class="custom-select custom-select-height" id="rateType2">
-                            <option selected value="reducing">Reducing</option>
-                            <option value="flat">Flat</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="period" class="custom-label">Loan period (in months):</label>
-                        <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
-                            placeholder="Enter the loan period in months" required>
-                    </div>
-
-
-
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="monthlyEMI2" class="custom-label">EMI amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="monthlyEMI2" min="0" step="1"
-                            placeholder="Enter your EMI amount" required>
-                    </div>
-
-
-
-                    <button type="button" class="btn btn-primary" onclick="calculateAmount()">Calculate</button>
-                </form>
-                <p id="output2"></p>
-            </div>
-
-            <div class="tab-pane fade" id="nav-duration" role="tabpanel" aria-labelledby="nav-duration-tab">
-                <form>
-
-                    <div class="form-group">
-                        <label for="loanAmount" class="custom-label">Loan amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="loanAmount3" min="0" step="1"
-                            placeholder="Enter the loan amount" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="monthlyEMI1" class="custom-label">EMI amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="monthlyEMI3" min="0" step="1"
-                            placeholder="Enter your EMI amount" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rate" class="custom-label">Annual interest rate:</label>
-                        <input type="number" class="form-control custom-field-height" id="rate3" min="0" max="100"
-                            step="0.01" placeholder="Enter the rate of interest" required>
-                    </div>
-
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="rateType" class="custom-label">Rate type:</label>
-                        <select class="custom-select custom-select-height" id="rateType3">
-                            <option selected value="reducing">Reducing</option>
-                            <option value="flat">Flat</option>
-                        </select>
-                    </div>
-
-
-                    <button type="button" class="btn btn-primary" onclick="calculateInvPeriod()">Calculate</button>
-                </form>
-                <p id="output3"></p>
-            </div>
-
-            <div class="tab-pane fade" id="nav-comparison" role="tabpanel" aria-labelledby="nav-comparison-tab">
-                <form>
-                    <div class="form-group">
-                        <label for="loanAmount" class="custom-label">Loan amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="loanAmount4" min="0" step="1"
-                            placeholder="Enter the loan amount" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rate" class="custom-label">Annual rate of interest:</label>
-                        <input type="number" class="form-control custom-field-height" id="rate4" min="0" max="100"
-                            step="0.01" placeholder="Enter the annual rate of interest" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rateType" class="custom-label">Rate type:</label>
-                        <select class="custom-select custom-select-height" id="rateType4">
-                            <option selected value="reducing">Reducing</option>
-                            <option value="flat">Flat</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="period" class="custom-label">Loan period (in months):</label>
-                        <input type="number" class="form-control custom-field-height" id="period4" min="0" step="1"
-                            placeholder="Enter the loan period in months" required>
-                    </div>
-
-                    <button type="button" class="btn btn-primary" onclick="calculateEqvRate()">Calculate</button>
-                </form>
-                <p id="output4"></p>
+                <p id="output"></p>
+                <p id="hidden" style="display: none;"><span id="hidden_Text"
+                        style="color: blue;font-weight: bold;text-decoration: underline; cursor: pointer;">Click
+                        here</span> to know more about this
+                    date.</p>
             </div>
         </div>
     </div>
     <script>
+        function calculateAge() {
+            event.preventDefault();
+            let bday = new Date(document.getElementById("bday").value);
 
-        function calculateEMI() {
-            // event.preventDefault();
-            let loanAmount = parseFloat(document.getElementById("loanAmount1").value);
-            let rate = document.getElementById("rate1").value / 1200;
-            let period = document.getElementById("period1").value;
-            let rateType = document.getElementById("rateType").value;
-            let emiValue = 0;
-            let totalInterest = 0;
-            let output = document.getElementById("output1");
-            let boxAmount = document.getElementById("loanAmount1");
-            let boxRate = document.getElementById("rate1");
-            let boxPeriod = document.getElementById("period1");
+            let output = document.getElementById("output");
+            let boxDate = document.getElementById("bday");
             let errorInFields = false;
 
-            if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
-                boxAmount.style.borderColor = "red";
+            if (!bday || isNaN(bday) || bday <= 0) {
+                boxDate.style.borderColor = "red";
                 errorInFields = true;
-            }
-            if (!rate || isNaN(rate) || rate <= 0) {
-                boxRate.style.borderColor = "red";
-                errorInFields = true;
-            }
-            if (!period || isNaN(period) || period <= 0) {
-                boxPeriod.style.borderColor = "red";
-                errorInFields = true;
-            }
-
+            } else boxDate.style.borderColor = "#ced4da";
             if (errorInFields) {
                 output.style.color = "red";
                 output.innerHTML = "Please enter valid input in all fields";
             } else {
                 output.style.color = "black";
-                boxAmount.style.borderColor = "#ced4da";
-                boxRate.style.borderColor = "#ced4da";
-                boxPeriod.style.borderColor = "#ced4da";
-                if (rateType == "reducing") {
-                    emiValue = (loanAmount * rate * (1 + rate) ** period) / ((1 + rate) ** period - 1);
-                    // emiValue = (loanAmount * rate) / (1 - (1 + rate) ** (-period));
-                    totalInterest = emiValue * period - loanAmount;
-                } else {
-                    totalInterest = loanAmount * rate * period;
-                    emiValue = (loanAmount + totalInterest) / period;
+                var today = new Date();
+                var birthDate = new Date(bday);
+                var ageInMilliseconds = today - birthDate;
+                var ageInSeconds = ageInMilliseconds / 1000;
+                var ageInMinutes = ageInSeconds / 60;
+                var ageInHours = ageInMinutes / 60;
+                var ageInDays = ageInHours / 24;
+                var ageInMonths = ageInDays / 30.41;
+                var ageInYears = ageInMonths / 12;
+                var age = Math.floor(ageInYears);
+                var months = Math.floor(ageInMonths - (age * 12));
+                var days = Math.floor(ageInMonths - (age * 30.41));
+                var daysSuffix = days > 1 ? ' days ' : ' day ';
+                var daysString = days > 0 ? days + daysSuffix : '';
+                var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
 
+                document.getElementById("output").innerHTML = "You are " + age + " years " + months + " months and " + daysString + " days old. Your birthday was on " + dayOfWeek + ".";
+
+                var x = document.getElementById("hidden");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
                 }
 
+                let clickableText = document.querySelector("#hidden_Text");
 
-                document.getElementById("output1").innerHTML = "Your EMI is : " + emiValue.toFixed(2) +
-                    "<br> Total interest paid : " + totalInterest.toFixed(2) +
-                    "<br> Total amount paid : " + (totalInterest + loanAmount).toFixed(2);
+                clickableText.addEventListener("click", function () {
+
+                    openCalendar(birthDate);
+
+                })
             }
+
         }
-        function calculateAmount() {
-            // event.preventDefault();
-            let monthlyEMI = document.getElementById("monthlyEMI2").value;
-            let rate = document.getElementById("rate2").value / 1200;
-            let period = document.getElementById("period2").value;
-            let rateType = document.getElementById("rateType2").value;
-            let loanAmount = 0;
-            let totalInterest = 0;
-            let output = document.getElementById("output2");
-            let boxEMI = document.getElementById("monthlyEMI2");
-            let boxRate = document.getElementById("rate2");
-            let boxPeriod = document.getElementById("period2");
-            let errorInFields = false;
 
-
-            if (!monthlyEMI || isNaN(monthlyEMI) || monthlyEMI <= 0) {
-                boxEMI.style.borderColor = "red";
-                errorInFields = true;
-            }
-            if (!rate || isNaN(rate) || rate <= 0) {
-                boxRate.style.borderColor = "red";
-                errorInFields = true;
-            }
-            if (!period || isNaN(period) || period <= 0) {
-                boxPeriod.style.borderColor = "red";
-                errorInFields = true;
-            }
-
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
-                boxEMI.style.borderColor = "#ced4da";
-                boxRate.style.borderColor = "#ced4da";
-                boxPeriod.style.borderColor = "#ced4da";
-
-                if (rateType == "reducing") {
-                    loanAmount = monthlyEMI / (rate * (Math.pow(1 + rate, period)) / (Math.pow(1 + rate, period) - 1));
-                    console.log("inside Reducing");
-                } else {
-
-                    loanAmount = (monthlyEMI * period) / (rate * period + 1);
-                }
-
-                totalInterest = monthlyEMI * period - loanAmount;
-                document.getElementById("output2").innerHTML = "You can take loan upto : " + loanAmount.toFixed(2) +
-                    "<br> Total interest paid : " + totalInterest.toFixed(2) +
-                    "<br> Total amount paid : " + (totalInterest + loanAmount).toFixed(2);
-            }
+        function openCalendar() {
+            const openCalendar = (date) => {
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const url = `content://com.android.calendar/time/${Date.UTC(year, month, day)}`;
+                window.location.href = url;
+            };
         }
 
 
-        function calculateInvPeriod() {
-            // event.preventDefault();
-            let loanAmount = parseFloat(document.getElementById("loanAmount3").value);
-            let rate = document.getElementById("rate3").value / 1200;
-            let emiValue = document.getElementById("monthlyEMI3").value;
-            let rateType = document.getElementById("rateType3").value;
-            let period = 0;
-            let totalInterest = 0;
-            let output = document.getElementById("output3");
-            let boxEMI = document.getElementById("monthlyEMI3");
-            let boxRate = document.getElementById("rate3");
-            let boxAmount = document.getElementById("loanAmount3");
-            let errorInFields = false;
 
-            if (!emiValue || isNaN(emiValue) || emiValue <= 0) {
-                boxEMI.style.borderColor = "red";
-                errorInFields = true;
-            }
-            if (!rate || isNaN(rate) || rate <= 0) {
-                boxRate.style.borderColor = "red";
-                errorInFields = true;
-            }
-            if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
-                boxAmount.style.borderColor = "red";
-                errorInFields = true;
-            }
-
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            }
-
-            else {
-                output.style.color = "black";
-                boxEMI.style.borderColor = "#ced4da";
-                boxRate.style.borderColor = "#ced4da";
-                boxAmount.style.borderColor = "#ced4da";
-                if (rateType == "reducing") {
-                    period = (Math.log(emiValue) - Math.log(emiValue - (loanAmount * rate))) / Math.log(1 + rate);
-
-                } else {
-                    period = loanAmount / (emiValue - loanAmount * rate);
-
-                }
-
-                totalInterest = emiValue * period - loanAmount;
-                output.innerHTML = "Your loan tenure is : " + Math.ceil(period) + " months" +
-                    "<br> Total interest paid : " + totalInterest.toFixed(2) +
-                    "<br> Total amount paid : " + (totalInterest + loanAmount).toFixed(2);
-            }
-        }
-
-        function calculateEqvRate() {
-            // event.preventDefault();
-            let loanAmount = parseFloat(document.getElementById("loanAmount4").value);
-            let rate = document.getElementById("rate4").value / 1200;
-            let period = document.getElementById("period4").value;
-            let rateType = document.getElementById("rateType4").value;
-            let output = document.getElementById("output4");
-            let boxAmount = document.getElementById("loanAmount4");
-            let boxRate = document.getElementById("rate4");
-            let boxPeriod = document.getElementById("period4");
-            let errorInFields = false;
-            let eqvRate = 0;
-            let emiValue = 0;
-            let totalInterest = 0;
-            let total = 0;
-
-            if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
-                boxAmount.style.borderColor = "red";
-                errorInFields = true;
-            }
-            if (!rate || isNaN(rate) || rate <= 0) {
-                boxRate.style.borderColor = "red";
-                errorInFields = true;
-            }
-            if (!period || isNaN(period) || period <= 0) {
-                boxPeriod.style.borderColor = "red";
-                errorInFields = true;
-            }
-
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
-                boxAmount.style.borderColor = "#ced4da";
-                boxRate.style.borderColor = "#ced4da";
-                boxPeriod.style.borderColor = "#ced4da";
-                if (rateType == "reducing") {
-
-                    emiValue = (loanAmount * rate * (1 + rate) ** period) / ((1 + rate) ** period - 1);
-                    totalInterest = emiValue * period - loanAmount;
-                    eqvRate = (emiValue * period - loanAmount) * 1200 / (period * loanAmount);
-                    document.getElementById("output4").innerHTML = "Equivalent flat rate is : " + eqvRate.toFixed(2);
-                } else {
-                    eqvRate = solveForRate(loanAmount, rate, period);
-                    document.getElementById("output4").innerHTML = "Equivalent reducing rate is : " + (eqvRate).toFixed(2);
-                }
-            }
-        }
-
-
-        function solveForRate(loanAmount, flatRate, loanPeriod) {
-            console.log("loanAmount : " + loanAmount);
-            console.log("flatRate : " + flatRate);
-            console.log("loanPeriod : " + loanPeriod);
-            let R = 1.7 * flatRate * 1200;
-            let maxIterations = Math.ceil(((1.9 * flatRate * 1200) - (1.7 * flatRate * 1200)) / 0.01);
-
-            for (let i = 0; i < maxIterations; i++) {
-                let functionL = (loanAmount * (R / 1200) * (1 + (R / 1200)) ** loanPeriod) / ((1 + (R / 1200)) ** loanPeriod - 1);
-                let functionR = (loanAmount * flatRate * loanPeriod + loanAmount) / loanPeriod;
-                if (Math.abs(functionL - functionR) <= 0.5) {
-                    return R;
-                }
-                R = R + 0.01;
-            }
-            return R;
-        }
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -475,12 +158,6 @@
         $('.custom-field-height').on('input', function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
-        });
-        $(document).ready(function () {
-            $('#nav-tab a').on('click', function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
         });
     </script>
 </body>
