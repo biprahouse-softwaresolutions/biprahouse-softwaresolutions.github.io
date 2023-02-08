@@ -72,78 +72,79 @@
           <button type="submit" class="btn btn-primary" onclick="calculateAge()">Calculate</button>
         </form>
         <p id="output"></p>
-      <iframe class="col-12" id="britannicaWebview" src=" " 
-        style="display: none;"></iframe>
+      </div>
+      <div class="col-12">
+        <iframe id="britannicaWebview" src=" " style="display: none;"></iframe>
+      </div>
     </div>
-  </div>
-  <script>
-    function calculateAge() {
-      event.preventDefault();
-      let bday = new Date(document.getElementById("bday").value);
+    <script>
+      function calculateAge() {
+        event.preventDefault();
+        let bday = new Date(document.getElementById("bday").value);
 
-      let output = document.getElementById("output");
-      let boxDate = document.getElementById("bday");
-      let errorInFields = false;
+        let output = document.getElementById("output");
+        let boxDate = document.getElementById("bday");
+        let errorInFields = false;
 
-      if (!bday || isNaN(bday) || bday <= 0) {
-        boxDate.style.borderColor = "red";
-        errorInFields = true;
-      } else boxDate.style.borderColor = "#ced4da";
-      if (errorInFields) {
-        output.style.color = "red";
-        output.innerHTML = "Please enter valid input in all fields";
-      } else {
-        output.style.color = "black";
-        var today = new Date();
-        var birthDate = new Date(bday);
-        var dateOfMonth = birthDate.getDate();
-        var monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"];
-        var monthOfYear = monthNames[birthDate.getMonth()]
-        var ageInMilliseconds = today - birthDate;
-        var ageInSeconds = ageInMilliseconds / 1000;
-        var ageInMinutes = ageInSeconds / 60;
-        var ageInHours = ageInMinutes / 60;
-        var ageInDays = ageInHours / 24;
-        var ageInMonths = ageInDays / 30.41;
-        var ageInYears = ageInMonths / 12;
-        var age = Math.floor(ageInYears);
-        var months = Math.floor(ageInMonths - (age * 12));
-        var days = Math.floor(ageInMonths - (age * 30.41));
-        var daysSuffix = days > 1 ? ' days ' : ' day ';
-        var daysString = days > 0 ? days + daysSuffix : '';
-        var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
+        if (!bday || isNaN(bday) || bday <= 0) {
+          boxDate.style.borderColor = "red";
+          errorInFields = true;
+        } else boxDate.style.borderColor = "#ced4da";
+        if (errorInFields) {
+          output.style.color = "red";
+          output.innerHTML = "Please enter valid input in all fields";
+        } else {
+          output.style.color = "black";
+          var today = new Date();
+          var birthDate = new Date(bday);
+          var dateOfMonth = birthDate.getDate();
+          var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          var monthOfYear = monthNames[birthDate.getMonth()]
+          var ageInMilliseconds = today - birthDate;
+          var ageInSeconds = ageInMilliseconds / 1000;
+          var ageInMinutes = ageInSeconds / 60;
+          var ageInHours = ageInMinutes / 60;
+          var ageInDays = ageInHours / 24;
+          var ageInMonths = ageInDays / 30.41;
+          var ageInYears = ageInMonths / 12;
+          var age = Math.floor(ageInYears);
+          var months = Math.floor(ageInMonths - (age * 12));
+          var days = Math.floor(ageInMonths - (age * 30.41));
+          var daysSuffix = days > 1 ? ' days ' : ' day ';
+          var daysString = days > 0 ? days + daysSuffix : '';
+          var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
 
-        document.getElementById("output").innerHTML = "You are " + age + " years " + months + " months and " + daysString + " days old. Your birthday was on " + dayOfWeek + ".";
+          document.getElementById("output").innerHTML = "You are " + age + " years " + months + " months and " + daysString + " days old. Your birthday was on " + dayOfWeek + ".";
 
-        var x = document.getElementById("britannicaWebview");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-          x.src = "https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth;
+          var x = document.getElementById("britannicaWebview");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+            x.src = "https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth;
+          }
         }
+
       }
 
-    }
 
 
 
-
-  </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
-  <script>
-    $('.custom-field-height').on('input', function () {
-      this.style.height = 'auto';
-      this.style.height = (this.scrollHeight) + 'px';
-    });
-  </script>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"></script>
+    <script>
+      $('.custom-field-height').on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+      });
+    </script>
 </body>
 
 </html>
