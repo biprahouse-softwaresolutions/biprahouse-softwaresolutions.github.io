@@ -73,9 +73,11 @@
         </form>
         <p id="output"></p>
       </div>
-      <div class="col-12">
-        <iframe id="britannicaWebview" src=" " style="display: none;"></iframe>
-      </div>
+
+      <p id="britannicaWebview" style="display: none; padding-left: 15px;"><span id="hiddenText"
+          style="color: blue;font-weight: bold;text-decoration: underline;">Click here</span> to know what happened on
+        your Bday.</p>
+
     </div>
     <script>
       function calculateAge() {
@@ -120,8 +122,14 @@
           var x = document.getElementById("britannicaWebview");
           if (x.style.display === "none") {
             x.style.display = "block";
-            x.src = "https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth;
           }
+
+          let clickableText = document.querySelector("#hiddenText");
+
+          clickableText.addEventListener("click", function () {
+
+            window.open("https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth);
+          })
         }
 
       }
