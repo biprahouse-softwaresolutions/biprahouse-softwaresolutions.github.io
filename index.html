@@ -2,176 +2,181 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <title>Birthday and Age Calculator</title>
-    <style>
-        @media (max-width: 767px) {
+  <title>Birthday and Age Calculator</title>
+  <style>
+    body {
+      background-image: url('https://source.unsplash.com/random/1600x900/?calculator');
+      background-size: cover;
+    }
 
-            .custom-field-height {
-                height: calc(100vh / 12) !important;
-            }
+    @media (max-width: 767px) {
 
-        }
+      .custom-field-height {
+        height: calc(100vh / 12) !important;
+      }
+
+    }
 
 
-        @media (min-width: 530px) {
-            .container {
-                width: 80vw;
-            }
-        }
+    @media (min-width: 530px) {
+      .container {
+        width: 80vw;
+      }
+    }
 
-        @media (min-width: 770px) {
-            .container {
-                width: 60vw;
-            }
-        }
+    @media (min-width: 770px) {
+      .container {
+        width: 60vw;
+      }
+    }
 
-        @media (min-width: 1100px) {
-            .container {
-                width: 40vw;
-            }
-        }
+    @media (min-width: 1100px) {
+      .container {
+        width: 40vw;
+      }
+    }
 
-        @media (max-width: 500px) {
-            .text-center {
-                font-size: 7vw !important;
+    @media (max-width: 500px) {
+      .text-center {
+        font-size: 7vw !important;
 
-            }
-        }
+      }
+    }
 
-        #output {
-            font-weight: bold;
-        }
+    #output {
+      font-weight: bold;
+    }
 
-        p {
-            margin-top: 10px;
-            margin-bottom: 0px;
-        }
+    p {
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
 
-        .col-sm-12 {
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-    </style>
+    .col-sm-12 {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12" >
-                <h2 class="text-center "
-                    style="background-color: rgb(0, 10, 41);color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important">
-                    Birthday-Age
-                    Calculator</h2>
-                <form>
-                    <div class="form-group" style="font-weight: 600;">
-                        <label for="bday">Enter your birthday:</label>
-                        <input type="date" class="form-control custom-field-height" id="bday" required>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="calculateAge()">Calculate</button>
-                </form>
-                <p id="output"></p>
-            </div>
-            <div class="col-sm-12">
-                <p id="paraHidden" style="display: none;"><span id="hiddenText"
-                        style="color: blue;font-weight: bold;text-decoration: underline;cursor: pointer;">Click
-                        here</span> to know what were happened on your Bday.
-                </p>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 class="text-center "
+          style="background-color: rgb(0, 10, 41);color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important">
+          Birthday-Age
+          Calculator</h2>
+        <form>
+          <div class="form-group" style="font-weight: 600;">
+            <label for="bday">Enter your birthday:</label>
+            <input type="date" class="form-control custom-field-height" id="bday" required>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="calculateAge()">Calculate</button>
+        </form>
+        <p id="output"></p>
+      </div>
+      <div class="col-sm-12">
+        <p id="paraHidden" style="display: none;"><span id="hiddenText"
+            style="color: blue;font-weight: bold;text-decoration: underline;cursor: pointer;">Click
+            here</span> to know what were happened on your Bday.
+        </p>
+      </div>
 
 
-        </div>
     </div>
-    <script>
-        function calculateAge() {
-            // event.preventDefault();
-            let bday = new Date(document.getElementById("bday").value);
+  </div>
+  <script>
+    function calculateAge() {
+      // event.preventDefault();
+      let bday = new Date(document.getElementById("bday").value);
 
-            let output = document.getElementById("output");
-            let boxDate = document.getElementById("bday");
-            let errorInFields = false;
+      let output = document.getElementById("output");
+      let boxDate = document.getElementById("bday");
+      let errorInFields = false;
 
-            if (!bday || isNaN(bday) || bday <= 0) {
-                boxDate.style.borderColor = "red";
-                errorInFields = true;
-            } else boxDate.style.borderColor = "#ced4da";
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
+      if (!bday || isNaN(bday) || bday <= 0) {
+        boxDate.style.borderColor = "red";
+        errorInFields = true;
+      } else boxDate.style.borderColor = "#ced4da";
+      if (errorInFields) {
+        output.style.color = "red";
+        output.innerHTML = "Please enter valid input in all fields";
+      } else {
+        output.style.color = "black";
 
-                var today = new Date();
-                var birthDate = new Date(bday);
-                var dateOfMonth = birthDate.getDate();
-                var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                var monthOfYear = monthNames[birthDate.getMonth()]
-                var ageInMilliseconds = today - birthDate;
-                var ageInSeconds = ageInMilliseconds / 1000;
-                var ageInMinutes = ageInSeconds / 60;
-                var ageInHours = ageInMinutes / 60;
-                var ageInDays = ageInHours / 24;
-                var ageInMonths = ageInDays / 30;
-                var ageInYears = ageInMonths / 12;
-                var age = Math.floor(ageInYears);
-                var months = Math.floor(ageInMonths - (age * 12));
-                var days = Math.floor(ageInDays - (age * 12 + months * 30));
-                var daysSuffix = days > 1 ? ' days ' : ' day ';
-                var daysString = days > 0 ? days + daysSuffix : '';
-                var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
+        var today = new Date();
+        var birthDate = new Date(bday);
+        var dateOfMonth = birthDate.getDate();
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var monthOfYear = monthNames[birthDate.getMonth()]
+        var ageInMilliseconds = today - birthDate;
+        var ageInSeconds = ageInMilliseconds / 1000;
+        var ageInMinutes = ageInSeconds / 60;
+        var ageInHours = ageInMinutes / 60;
+        var ageInDays = ageInHours / 24;
+        var ageInMonths = ageInDays / 30;
+        var ageInYears = ageInMonths / 12;
+        var age = Math.floor(ageInYears);
+        var months = Math.floor(ageInMonths - (age * 12));
+        var days = Math.floor(ageInDays - (age * 12 + months * 30));
+        var daysSuffix = days > 1 ? ' days ' : ' day ';
+        var daysString = days > 0 ? days + daysSuffix : '';
+        var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
 
-                document.getElementById("output").innerHTML = "You are " + age + " years " + months + " months and " + daysString + " old. Your birthday was on " + dayOfWeek + ".";
+        document.getElementById("output").innerHTML = "You are " + age + " years " + months + " months and " + daysString + " old. Your birthday was on " + dayOfWeek + ".";
 
-                var x = document.getElementById("paraHidden");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                }
-
-                document.getElementById("hiddenText").addEventListener("click", function () {
-                    openWindow(monthOfYear, dateOfMonth)
-
-                })
-            }
-
-        }
-        let previousWindow = null;
-
-        function openWindow(monthOfYear, dateOfMonth) {
-            if (previousWindow) {
-                previousWindow.close();
-            }
-
-            previousWindow = window.open("https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth);
+        var x = document.getElementById("paraHidden");
+        if (x.style.display === "none") {
+          x.style.display = "block";
         }
 
+        document.getElementById("hiddenText").addEventListener("click", function () {
+          openWindow(monthOfYear, dateOfMonth)
+
+        })
+      }
+
+    }
+    let previousWindow = null;
+
+    function openWindow(monthOfYear, dateOfMonth) {
+      if (previousWindow) {
+        previousWindow.close();
+      }
+
+      previousWindow = window.open("https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth);
+    }
 
 
 
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-    <script>
-        $('.custom-field-height').on('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-    </script>
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script>
+    $('.custom-field-height').on('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+  </script>
 </body>
 
 </html>
