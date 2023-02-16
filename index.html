@@ -4,25 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Discover your current age, the week day of your birthday, and important events that happened on that date in history with our comprehensive online age and birthday calculator. Get started now and uncover the story of your birth.">
+  <meta name="description" content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
   <meta property="og:image" content="https://example.com/image.jpg">
-  <meta property="og:title" content="Birthday and Age Calculator">
+  <meta property="og:title" content="Baby Birth Calculator">
   <meta property="og:description"
-    content="Discover the week day of your birthdayGet started now and uncover the story of your birth">
+    content="Start planning for your new arrival today">
+    <link rel="shortcut icon" type="image/png" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="shortcut icon" type="image/png" href="icon.png">
-  <link rel="icon" type="image/png" href="icon.png">
-  <title>Birthday and Age Calculator</title>
+
+  <title>Baby Birth Calculator</title>
   <style>
     body::before {
       content: "";
-      background-image: url('https://source.unsplash.com/random/1600x900/?birthday&&q=auto');
+      background-image: url('https://source.unsplash.com/random/1600x900/?pregnancy&&q=auto');
       background-size: cover;
       opacity: 0.5;
       position: absolute;
@@ -32,14 +32,27 @@
       left: 0;
       background-repeat: no-repeat;
       z-index: -1;
+      background-position: center;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 640px) {
       body::before {
-        background-image: url('https://source.unsplash.com/random/640x480/?birthday&&q=low');
+        background-image: url('https://source.unsplash.com/random/640x480/?pregnancy&&q=low');
       }
     }
 
+    .container {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    @media (max-width: 767px) {
+
+      .custom-field-height {
+        height: calc(100vh / 12) !important;
+      }
+
+    }
 
 
     @media (min-width: 530px) {
@@ -60,12 +73,19 @@
       }
     }
 
-    /* @media (max-width: 500px) {
-            .text-center {
-                font-size: 5vw !important;
+    @media (max-width: 500px) {
+      .text-center {
+        font-size: 8vw !important;
+        margin-bottom: 1rem !important;
+      }
+    }
 
-            }
-        } */
+    .form-group {
+      margin-bottom: 0px;
+      font-weight: 600;
+      font-size: large;
+    }
+
 
     #output {
       font-weight: bold;
@@ -73,12 +93,6 @@
 
     p {
       margin-top: 10px;
-      margin-bottom: 0px;
-    }
-
-    .col-sm-12 {
-      padding-left: 5px;
-      padding-right: 5px;
     }
   </style>
 </head>
@@ -87,91 +101,93 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2 class="text-center "
-          style="background-color: rgb(0, 10, 41);color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;">
-          Birthday-Age
-          Calculator</h2>
+        <h2 class="text-center" style="background-color: rgb(0, 10, 41);color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">Baby Birth Calculator</h2>
         <form>
-          <div class="form-group" style="font-weight: 600; font-size:large;">
-            <label for="bday">Enter your birthday:</label>
-            <input type="date" class="form-control custom-field-height" id="bday" required>
+          <div class="form-group">
+            <label for="lmp">Last Menstrual Period (LMP):</label>
+            <input type="date" class="form-control custom-field-height" id="lmp"
+              placeholder="Enter your last menstrual period" required>
           </div>
-          <button type="button" class="btn btn-primary" onclick="calculateAge()">Calculate</button>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="cycle">Menstrual Cycle Length(in days):</label>
+            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1"
+              placeholder="Enter your menstrual cycle length" value="28">
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="calculateDueDate()">Calculate</button>
         </form>
         <p id="output"></p>
       </div>
-      <div class="col-sm-12">
-        <p id="paraHidden" style="display: none;"><span id="hiddenText"
-            style="color: blue;font-weight: bold;text-decoration: underline;cursor: pointer;">Click
-            here</span> to know what were happened on your Bday.
-        </p>
-      </div>
-
-
     </div>
   </div>
   <script>
-    function calculateAge() {
-      // event.preventDefault();
-      let bday = new Date(document.getElementById("bday").value);
+    function calculateDueDate() {
+      event.preventDefault();
+      let lmp = new Date(document.getElementById("lmp").value);
+      let cycle = document.getElementById("cycle").value;
 
       let output = document.getElementById("output");
-      let boxDate = document.getElementById("bday");
+      let boxDate = document.getElementById("lmp");
+      let boxCycle = document.getElementById("cycle");
       let errorInFields = false;
 
-      if (!bday || isNaN(bday) || bday <= 0) {
+      if (!lmp || isNaN(lmp) || lmp <= 0) {
         boxDate.style.borderColor = "red";
         errorInFields = true;
       } else boxDate.style.borderColor = "#ced4da";
+      if (!cycle || isNaN(cycle) || cycle <= 0) {
+        boxCycle.style.borderColor = "red";
+        errorInFields = true;
+      } else boxCycle.style.borderColor = "#ced4da";
       if (errorInFields) {
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
         output.style.color = "black";
+        let dueDate = new Date(lmp.getTime());
+        let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
+        let cycleLengthInDays = cycle;
 
-        var today = new Date();
-        var birthDate = new Date(bday);
-        var dateOfMonth = birthDate.getDate();
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var monthOfYear = monthNames[birthDate.getMonth()]
-        var ageInMilliseconds = today - birthDate;
-        var ageInSeconds = ageInMilliseconds / 1000;
-        var ageInMinutes = ageInSeconds / 60;
-        var ageInHours = ageInMinutes / 60;
-        var ageInDays = ageInHours / 24;
-        var ageInMonths = ageInDays / 30;
-        var ageInYears = ageInMonths / 12;
-        var age = Math.floor(ageInYears);
-        var months = Math.floor(ageInMonths - (age * 12));
-        var days = Math.floor(ageInDays - (age * 12 + months * 30));
-        var daysSuffix = days > 1 ? ' days ' : ' day ';
-        var daysString = days > 0 ? days + daysSuffix : '';
-        var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        var dayOfWeek = daysOfWeek[birthDate.getUTCDay()];
+        let diffInMilliseconds = (cycleLengthInDays - 28) * 24 * 60 * 60 * 1000;
+        dueDate = new Date(dueDate.getTime() + pregnancyLength + diffInMilliseconds);
 
-        document.getElementById("output").innerHTML = "You are " + age + " years " + months + " months and " + daysString + " old. Your birthday was on " + dayOfWeek + ".";
-
-        var x = document.getElementById("paraHidden");
-        if (x.style.display === "none") {
-          x.style.display = "block";
+        let presentAgeWeek = calculateUnbornBabyAgeWeek(lmp, cycle);
+        let presentAgeDays = calculateUnbornBabyAgeDays(lmp, cycle);
+        if (presentAgeDays == 7) {
+          presentAgeWeek = presentAgeWeek + 1;
+          presentAgeDays = 0;
         }
-
-        document.getElementById("hiddenText").addEventListener("click", function () {
-          openWindow(monthOfYear, dateOfMonth)
-
-        })
+        let options = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        };
+        document.getElementById("output").innerHTML = "Due date: " + dueDate.toLocaleDateString("en-US", options) + "<br> Your baby is " + presentAgeWeek + " weeks and " + presentAgeDays + " days old";
       }
 
-    }
-    let previousWindow = null;
 
-    function openWindow(monthOfYear, dateOfMonth) {
-      if (previousWindow) {
-        previousWindow.close();
-      }
-
-      previousWindow = window.open("https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth);
     }
+
+    function calculateUnbornBabyAgeWeek(lmp, cycle) {
+      let today = new Date();
+      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
+      let diffInMilliseconds = today - averageLMP;
+      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
+      let unbornBabyAgeInWeeks = Math.floor(diffInDays / 7);
+      return unbornBabyAgeInWeeks;
+
+    }
+
+    function calculateUnbornBabyAgeDays(lmp, cycle) {
+      let today = new Date();
+      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
+      let diffInMilliseconds = today - averageLMP;
+      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
+      let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
+      return unbornBabyAgeInDays;
+    }
+
+
+
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
