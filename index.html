@@ -4,18 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover your current age, the week day of your birthday, and important events that happened on that date in history with our comprehensive online age and birthday calculator. Get started now and uncover the story of your birth.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/768px-Circle-icons-calculator.svg.png">
+    <meta property="og:title" content="Birthday and Age Calculator">
+    <meta property="og:description" content="Discover the week day of your birthdayGet started now and uncover the story of your birth">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <link rel="shortcut icon" type="image/png" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
     <title>Birthday and Age Calculator</title>
     <style>
         body::before {
             content: "";
-            background-image: url('https://source.unsplash.com/random/1600x900/?birthday');
+            background-image: url('https://source.unsplash.com/random/1600x900/?birthday&w=1600&h=900&q=auto');
             background-size: cover;
             opacity: 0.5;
             position: absolute;
@@ -23,8 +28,16 @@
             right: 0;
             bottom: 0;
             left: 0;
+            background-repeat: no-repeat;
             z-index: -1;
         }
+
+        @media screen and (max-width: 768px) {
+			body::before {
+				background-image: url('https://source.unsplash.com/random/1600x900/?birthday&w=1200&h=720&q=auto');
+			}
+		}
+
 
         @media (max-width: 767px) {
 
@@ -85,7 +98,7 @@
                     Birthday-Age
                     Calculator</h2>
                 <form>
-                    <div class="form-group" style="font-weight: 600;">
+                    <div class="form-group" style="font-weight: 600; font-size:large;">
                         <label for="bday">Enter your birthday:</label>
                         <input type="date" class="form-control custom-field-height" id="bday" required>
                     </div>
@@ -165,10 +178,6 @@
 
             previousWindow = window.open("https://www.britannica.com/on-this-day/" + monthOfYear + "-" + dateOfMonth);
         }
-
-
-
-
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
