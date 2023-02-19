@@ -2,220 +2,227 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
-    <meta property="og:image" content="https://example.com/image.jpg">
-    <meta property="og:title" content="Baby Birth Calculator">
-    <meta property="og:description" content="Start planning for your new arrival today">
-    <link rel="shortcut icon" type="image/png" href="icon.png">
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
+  <meta property="og:image" content="https://example.com/image.jpg">
+  <meta property="og:title" content="Baby Birth Calculator">
+  <meta property="og:description" content="Start planning for your new arrival today">
+  <link rel="shortcut icon" type="image/png" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
-    <title>Baby Birth Calculator</title>
-    <style>
-        body::before {
-            content: "";
-            background-image: url('https://source.unsplash.com/random/1600x900/?pregnancy&&q=auto');
-            background-size: cover;
-            opacity: 0.5;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background-repeat: no-repeat;
-            z-index: -1;
-            background-position: center;
-        }
+  <title>Baby Birth Calculator</title>
+  <style>
+    body::before {
+      content: "";
+      background-image: url('https://source.unsplash.com/random/1600x900/?pregnancy&&q=auto');
+      background-size: cover;
+      opacity: 0.5;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-repeat: no-repeat;
+      z-index: -1;
+      background-position: center;
+    }
 
-        @media (max-width: 640px) {
-            body::before {
-                background-image: url('https://source.unsplash.com/random/640x480/?pregnancy&&q=low');
-            }
-        }
+    @media (max-width: 640px) {
+      body::before {
+        background-image: url('https://source.unsplash.com/random/640x480/?pregnancy&&q=low');
+      }
+    }
 
-        .container {
-            padding-left: 5px;
-            padding-right: 5px;
-        }
+    .container {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
 
-        @media (max-width: 767px) {
+    @media (max-width: 767px) {
 
-            .custom-field-height {
-                height: calc(100vh / 12) !important;
-            }
+      .custom-field-height {
+        height: calc(100vh / 12) !important;
+      }
 
-        }
+      #lmp::-webkit-calendar-picker-indicator {
+        display: block;
+        background: url(calendar.png) no-repeat center;
+        background-size: contain;
+        width: 20px;
+        height: 20px;
+      }
 
-
-        @media (min-width: 530px) {
-            .container {
-                width: 80vw;
-            }
-        }
-
-        @media (min-width: 770px) {
-            .container {
-                width: 60vw;
-            }
-        }
-
-        @media (min-width: 1100px) {
-            .container {
-                width: 40vw;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .text-center {
-                font-size: 8vw !important;
-                margin-bottom: 1rem !important;
-            }
-        }
-
-        .form-group {
-            margin-bottom: 0px;
-            font-weight: 600;
-            font-size: large;
-        }
+    }
 
 
-        #output {
-            font-weight: bold;
-        }
+    @media (min-width: 530px) {
+      .container {
+        width: 80vw;
+      }
+    }
 
-        p {
-            margin-top: 10px;
-        }
-    </style>
+    @media (min-width: 770px) {
+      .container {
+        width: 60vw;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .container {
+        width: 40vw;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .text-center {
+        font-size: 8vw !important;
+        margin-bottom: 1rem !important;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 0px;
+      font-weight: 600;
+      font-size: large;
+    }
+
+
+    #output {
+      font-weight: bold;
+    }
+
+    p {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="text-center"
-                    style="background-color: rgb(0, 10, 41);color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
-                    Baby Birth Calculator</h2>
-                <form>
-                    <div class="form-group">
-                        <label for="lmp">Last Menstrual Period (LMP):</label>
-                        <input type="date" class="form-control custom-field-height" id="lmp"
-                            placeholder="DD-MM-YYYY" required>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="cycle">Menstrual Cycle Length(in days):</label>
-                        <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35"
-                            step="1" placeholder="Enter your menstrual cycle length" value="28">
-                    </div>
-                    <button type="submit" class="btn btn-primary" onclick="calculateDueDate()">Calculate</button>
-                </form>
-                <p id="output"></p>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 class="text-center"
+          style="background-color: rgb(0, 10, 41);color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
+          Baby Birth Calculator</h2>
+        <form>
+          <div class="form-group">
+            <label for="lmp">Last Menstrual Period (LMP):</label>
+            <input type="date" class="form-control custom-field-height" id="lmp" placeholder="DD-MM-YYYY" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="cycle">Menstrual Cycle Length(in days):</label>
+            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1"
+              placeholder="Enter your menstrual cycle length" value="28">
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="calculateDueDate()">Calculate</button>
+        </form>
+        <p id="output"></p>
+      </div>
     </div>
-    <script>
-        function calculateDueDate() {
-            event.preventDefault();
-            let lmp = new Date(document.getElementById("lmp").value);
-            let cycle = document.getElementById("cycle").value;
+  </div>
+  <script>
+    function calculateDueDate() {
+      event.preventDefault();
+      let lmp = new Date(document.getElementById("lmp").value);
+      let cycle = document.getElementById("cycle").value;
 
-            let output = document.getElementById("output");
-            let boxDate = document.getElementById("lmp");
-            let boxCycle = document.getElementById("cycle");
-            let errorInFields = false;
+      let output = document.getElementById("output");
+      let boxDate = document.getElementById("lmp");
+      let boxCycle = document.getElementById("cycle");
+      let errorInFields = false;
 
-            if (!lmp || isNaN(lmp) || lmp <= 0) {
-                boxDate.style.borderColor = "red";
-                errorInFields = true;
-            } else boxDate.style.borderColor = "#ced4da";
-            if (!cycle || isNaN(cycle) || cycle <= 0) {
-                boxCycle.style.borderColor = "red";
-                errorInFields = true;
-            } else boxCycle.style.borderColor = "#ced4da";
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
-                let dueDate = new Date(lmp.getTime());
-                let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
-                let cycleLengthInDays = cycle;
+      if (!lmp || isNaN(lmp) || lmp <= 0) {
+        boxDate.style.borderColor = "red";
+        errorInFields = true;
+      } else boxDate.style.borderColor = "#ced4da";
+      if (!cycle || isNaN(cycle) || cycle <= 0) {
+        boxCycle.style.borderColor = "red";
+        errorInFields = true;
+      } else boxCycle.style.borderColor = "#ced4da";
+      if (errorInFields) {
+        output.style.color = "red";
+        output.innerHTML = "Please enter valid input in all fields";
+      } else {
+        output.style.color = "black";
+        let dueDate = new Date(lmp.getTime());
+        let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
+        let cycleLengthInDays = cycle;
 
-                let diffInMilliseconds = (cycleLengthInDays - 28) * 24 * 60 * 60 * 1000;
-                dueDate = new Date(dueDate.getTime() + pregnancyLength + diffInMilliseconds);
+        let diffInMilliseconds = (cycleLengthInDays - 28) * 24 * 60 * 60 * 1000;
+        dueDate = new Date(dueDate.getTime() + pregnancyLength + diffInMilliseconds);
 
-                let presentAgeWeek = calculateUnbornBabyAgeWeek(lmp, cycle);
-                let presentAgeDays = calculateUnbornBabyAgeDays(lmp, cycle);
-                if (presentAgeDays == 7) {
-                    presentAgeWeek = presentAgeWeek + 1;
-                    presentAgeDays = 0;
-                }
-                let options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                };
-                document.getElementById("output").innerHTML = "Due date: " + dueDate.toLocaleDateString("en-US", options) + "<br> Your baby is " + presentAgeWeek + " weeks and " + presentAgeDays + " days old";
-            }
-
-
+        let presentAgeWeek = calculateUnbornBabyAgeWeek(lmp, cycle);
+        let presentAgeDays = calculateUnbornBabyAgeDays(lmp, cycle);
+        if (presentAgeDays == 7) {
+          presentAgeWeek = presentAgeWeek + 1;
+          presentAgeDays = 0;
         }
-
-        function calculateUnbornBabyAgeWeek(lmp, cycle) {
-            let today = new Date();
-            let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-            let diffInMilliseconds = today - averageLMP;
-            let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-            let unbornBabyAgeInWeeks = Math.floor(diffInDays / 7);
-            return unbornBabyAgeInWeeks;
-
-        }
-
-        function calculateUnbornBabyAgeDays(lmp, cycle) {
-            let today = new Date();
-            let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-            let diffInMilliseconds = today - averageLMP;
-            let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-            let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
-            return unbornBabyAgeInDays;
-        }
+        let options = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        };
+        document.getElementById("output").innerHTML = "Due date: " + dueDate.toLocaleDateString("en-US", options) + "<br> Your baby is " + presentAgeWeek + " weeks and " + presentAgeDays + " days old";
+      }
 
 
+    }
 
-    </script>
+    function calculateUnbornBabyAgeWeek(lmp, cycle) {
+      let today = new Date();
+      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
+      let diffInMilliseconds = today - averageLMP;
+      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
+      let unbornBabyAgeInWeeks = Math.floor(diffInDays / 7);
+      return unbornBabyAgeInWeeks;
 
-    <script>
-        flatpickr("#lmp", {
-            dateFormat: "d-m-Y",
-        });
-    </script>
+    }
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-    <script>
-        $('.custom-field-height').on('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-    </script>
+    function calculateUnbornBabyAgeDays(lmp, cycle) {
+      let today = new Date();
+      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
+      let diffInMilliseconds = today - averageLMP;
+      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
+      let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
+      return unbornBabyAgeInDays;
+    }
+
+
+
+  </script>
+
+  <script>
+    flatpickr("#lmp", {
+      dateFormat: "d-m-Y",
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script>
+    $('.custom-field-height').on('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+  </script>
 </body>
 
 </html>
