@@ -15,8 +15,8 @@
     <div class="form-group">
       <label for="date-picker">Select a date:</label>
       <div class="input-group date" id="date-picker-container" data-target-input="nearest">
-        <input type="text" class="form-control datetimepicker-input" id="date-picker" data-target="#date-picker-container" placeholder="MM/DD/YYYY" readonly />
-        <div class="input-group-append" data-target="#date-picker-container" data-toggle="datepicker">
+        <input type="text" class="form-control datetimepicker-input" id="date-picker" data-target="#date-picker-container" placeholder="DD/MM/YYYY" readonly />
+        <div class="input-group-append" data-target="#date-picker" data-toggle="datepicker">
           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
       </div>
@@ -37,7 +37,7 @@
     $(function() {
       // Initialize datepicker
       $('#date-picker').datepicker({
-        format: 'mm/dd/yyyy',
+        format: 'dd/mm/yyyy',
         autoclose: true,
         todayHighlight: true,
       });
@@ -62,5 +62,5 @@
       }
     });
   </script>
-</body
- 
+</body>
+</html>
