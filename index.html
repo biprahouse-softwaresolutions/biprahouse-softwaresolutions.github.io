@@ -43,7 +43,7 @@
 
     @media (max-width: 640px) {
       body::before {
-        background-image: url('https://source.unsplash.com/random/640x480/?pregnancy&&q=low');
+        background-image: url('https://source.unsplash.com/random/640x480/?newborn-baby&&q=low');
       }
     }
 
@@ -58,7 +58,7 @@
         height: 62px !important;
       }
 
-      .input-group-addon span{
+      .input-group-addon span {
         font-size: 40px !important;
       }
 
@@ -104,8 +104,6 @@
     p {
       margin-top: 10px;
     }
-
-    
   </style>
 
   <script>
@@ -133,10 +131,8 @@
             <div class="input-group date" data-provide="datepicker">
               <input type="text" class="form-control custom-field-height" id="lmp"
                 placeholder="Enter your last menstrual period" style="border-right: none;padding-right: 38px" required>
-              <div class="input-group-addon"
-                style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
+              <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
                 border-bottom-right-radius: 0.25rem; border-left: none;padding-right:8px">
-                <!-- <span style="font-size: 1.5rem;"><i class="far fa-calendar-alt"></i></span> -->
                 <span><i class="far fa-calendar-alt"></i></span>
               </div>
             </div>
@@ -162,13 +158,18 @@
 
       let output = document.getElementById("output");
       let boxDate = document.getElementById("lmp");
+      let boxIcon = document.getElementById("iconBox");
       let boxCycle = document.getElementById("cycle");
       let errorInFields = false;
 
       if (!lmp || isNaN(lmp) || lmp <= 0) {
         boxDate.style.borderColor = "red";
+        boxIcon.style.borderColor = "red";
         errorInFields = true;
-      } else boxDate.style.borderColor = "#ced4da";
+      } else {
+        boxDate.style.borderColor = "#ced4da";
+        boxIcon.style.borderColor = "#ced4da";
+      }
       if (!cycle || isNaN(cycle) || cycle <= 0) {
         boxCycle.style.borderColor = "red";
         errorInFields = true;
