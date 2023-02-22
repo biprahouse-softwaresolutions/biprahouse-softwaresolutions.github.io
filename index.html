@@ -215,6 +215,7 @@
 
     /* Set the style of the floating menu icon on small screens */
     .float {
+      display: none;
       position: fixed;
       width: 60px;
       height: 60px;
@@ -269,15 +270,16 @@
 
     @media (max-width: 530px) {
       .float {
+        display: block;
         width: 50px;
         height: 50px;
         bottom: 130px;
         right: 30px;
-        opacity:0.7;
+        opacity: 0.8;
       }
 
-      .float i {
-        margin-top: 18px;
+      .icon-circle i {
+        margin-top: 8px;
       }
 
       .float-icons {
@@ -291,6 +293,11 @@
         height: 40px;
         line-height: 32px;
       }
+
+      .icon-circle i {
+        font-size: 1.5em;
+      }
+
     }
   </style>
 
@@ -454,7 +461,7 @@
   <!-- for floating buttons -->
   <div class="float">
     <i class="fas fa-share"></i>
-    <div class="float-icons">
+    <div class="float-icons icon-circle">
       <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
           class="fab fa-whatsapp"></i></a>
       <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
