@@ -28,7 +28,7 @@
   <style>
     body::before {
       content: "";
-      background-image: url('https://source.unsplash.com/random/1600x900/?pregnancy&&q=auto');
+      background-image: url('https://source.unsplash.com/random/1600x900/?newborn-baby&&q=auto');
       background-size: cover;
       opacity: 0.5;
       position: absolute;
@@ -48,8 +48,8 @@
     }
 
     .container {
-      padding-left: 5px;
-      padding-right: 5px;
+      padding-left: 0px;
+      padding-right: 0px;
     }
 
     @media (max-width: 767px) {
@@ -104,6 +104,114 @@
     p {
       margin-top: 10px;
     }
+
+    /* The side navigation menu */
+    .sidenav {
+      height: 100%;
+      /* 100% Full-height */
+      width: 0;
+      /* 0 width - change this with JavaScript */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Stay on top */
+      top: 0;
+      /* Stay at the top */
+      left: 0;
+      background-color: #111;
+      /* Black*/
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      padding-top: 60px;
+      /* Place content 60px from the top */
+      transition: 0.5s;
+      /* 0.5 second transition effect to slide in the sidenav */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    /* Add animation to "slide in" the sidenav */
+    @keyframes slideIn {
+      from {
+        left: -250px;
+      }
+
+      to {
+        left: 0;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        left: 0;
+      }
+
+      to {
+        left: -250px;
+      }
+    }
+
+    /* Add animation to "slide out" the sidenav */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* Set the style of the menu icon */
+    #sideButton {
+      display: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      position: fixed;
+      z-index: 2;
+      top: 0px;
+      left: 10px;
+    }
+
+    /* Set the style of the menu icon on small screens */
+    @media screen and (max-width: 530px) {
+      #sideButton {
+        display: block;
+      }
+    }
   </style>
 
   <script>
@@ -123,14 +231,15 @@
     <div class="row">
       <div class="col-sm-12">
         <h2 class="text-center"
-          style="background-color: rgb(0, 10, 41);color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
+          style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
           Baby Birth Calculator</h2>
-        <form>
+        <form style="padding-left: 5px;padding-right:5px;">
           <div class="form-group">
             <label for="lmp">Last Menstrual Period (LMP):</label>
             <div class="input-group date" data-provide="datepicker">
               <input type="text" class="form-control custom-field-height" id="lmp"
-                placeholder="Enter your last menstrual period" style="background-color: white;border-right: none;padding-right: 38px;" readonly required>
+                placeholder="Enter your last menstrual period"
+                style="background-color: white;border-right: none;padding-right: 38px;" readonly required>
               <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
                 border-bottom-right-radius: 0.25rem; border-left: none;padding-right:8px">
                 <span><i class="far fa-calendar-alt"></i></span>
@@ -222,8 +331,29 @@
       return unbornBabyAgeInDays;
     }
 
+  </script>
+  <script>
+    /* Open the side navigation */
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
 
+    /* Close/hide the side navigation */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
 
+    /* Floating side drawer animation */
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById("mySidenav").style.bottom = "70px";
+      } else {
+        document.getElementById("mySidenav").style.bottom = "-250px";
+      }
+      prevScrollpos = currentScrollPos;
+    }
 
   </script>
   <script>
@@ -232,6 +362,15 @@
       this.style.height = (this.scrollHeight) + 'px';
     });
   </script>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Home</a>
+    <a href="#">Support Us!</a>
+  </div>
+
+  <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
+
 </body>
 
 </html>
