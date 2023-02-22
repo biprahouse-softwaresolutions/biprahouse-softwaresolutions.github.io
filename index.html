@@ -212,6 +212,84 @@
         display: block;
       }
     }
+
+    /* Set the style of the floating menu icon on small screens */
+    .float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 100;
+      cursor: pointer;
+    }
+
+    .float i {
+      margin-top: 22px;
+    }
+
+    .float-icons {
+      position: fixed;
+      bottom: 120px;
+      right: 50px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .float:hover .float-icons {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .float-icons a {
+      display: block;
+      margin: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      background: #FFF;
+      color: #25d366;
+      box-shadow: 1px 1px 2px #999;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .float-icons a:hover {
+      background: #25d366;
+      color: #FFF;
+      box-shadow: 2px 2px 3px #999;
+    }
+
+    @media (max-width: 530px) {
+      .float {
+        width: 50px;
+        height: 50px;
+        bottom: 30px;
+        right: 30px;
+      }
+
+      .float i {
+        margin-top: 18px;
+      }
+
+      .float-icons {
+        bottom: 100px;
+      }
+
+      .float-icons a {
+        margin: 8px;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+      }
+    }
   </style>
 
   <script>
@@ -370,6 +448,29 @@
   </div>
 
   <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
+
+  <!-- for floating buttons -->
+  <div class="float">
+    <i class="fas fa-share"></i>
+    <div class="float-icons">
+      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
+          class="fab fa-whatsapp"></i></a>
+      <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
+      <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
+    </div>
+  </div>
+
+
+  <script>
+    const float = document.querySelector('.float');
+
+    float.addEventListener('click', () => {
+      float.classList.toggle('active');
+    });
+
+
+  </script>
+
 
 </body>
 
