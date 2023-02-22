@@ -2,483 +2,570 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
-  <meta property="og:image" content="https://example.com/image.jpg">
-  <meta property="og:title" content="Baby Birth Calculator">
-  <meta property="og:description" content="Start planning for your new arrival today">
-  <link rel="shortcut icon" type="image/png" href="icon.png">
-  <link rel="icon" type="image/png" href="icon.png">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
+    <meta property="og:image" content="https://example.com/image.jpg">
+    <meta property="og:title" content="Baby Birth Calculator">
+    <meta property="og:description" content="Start planning for your new arrival today">
+    <link rel="shortcut icon" type="image/png" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
 
 
-  <title>Baby Birth Calculator</title>
-  <style>
-    body::before {
-      content: "";
-      background-image: url('https://source.unsplash.com/random/1600x900/?newborn-baby&&q=auto');
-      background-size: cover;
-      opacity: 0.5;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-repeat: no-repeat;
-      z-index: -1;
-      background-position: center;
-    }
+    <title>Baby Birth Calculator</title>
+    <style>
+        body::before {
+            content: "";
+            background-image: url('https://source.unsplash.com/random/1600x900/?newborn-baby&&q=auto');
+            background-size: cover;
+            opacity: 0.5;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-repeat: no-repeat;
+            z-index: -1;
+            background-position: center;
+        }
 
-    @media (max-width: 640px) {
-      body::before {
-        background-image: url('https://source.unsplash.com/random/640x480/?newborn-baby&&q=low');
-      }
-    }
+        @media (max-width: 640px) {
+            body::before {
+                background-image: url('https://source.unsplash.com/random/640x480/?newborn-baby&&q=low');
+            }
+        }
 
-    .container {
-      padding-left: 0px;
-      padding-right: 0px;
-    }
+        .container {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
 
-    @media (max-width: 767px) {
+        @media (max-width: 767px) {
 
-      .custom-field-height {
-        height: 62px !important;
-      }
+            .custom-field-height {
+                height: 62px !important;
+            }
 
-      .input-group-addon span {
-        font-size: 40px !important;
-      }
+            .input-group-addon span {
+                font-size: 40px !important;
+            }
 
-    }
-
-
-    @media (min-width: 530px) {
-      .container {
-        width: 80vw;
-      }
-    }
-
-    @media (min-width: 770px) {
-      .container {
-        width: 60vw;
-      }
-    }
-
-    @media (min-width: 1100px) {
-      .container {
-        width: 40vw;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .text-center {
-        font-size: 8vw !important;
-        margin-bottom: 1rem !important;
-      }
-    }
-
-    .form-group {
-      margin-bottom: 0px;
-      font-weight: 600;
-      font-size: large;
-    }
+        }
 
 
-    #output {
-      font-weight: bold;
-    }
+        @media (min-width: 530px) {
+            .container {
+                width: 80vw;
+            }
+        }
 
-    p {
-      margin-top: 10px;
-    }
+        @media (min-width: 770px) {
+            .container {
+                width: 60vw;
+            }
+        }
 
-    /* The side navigation menu */
-    .sidenav {
-      height: 100%;
-      /* 100% Full-height */
-      width: 0;
-      /* 0 width - change this with JavaScript */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Stay on top */
-      top: 0;
-      /* Stay at the top */
-      left: 0;
-      background-color: #111;
-      /* Black*/
-      overflow-x: hidden;
-      /* Disable horizontal scroll */
-      padding-top: 60px;
-      /* Place content 60px from the top */
-      transition: 0.5s;
-      /* 0.5 second transition effect to slide in the sidenav */
-    }
+        @media (min-width: 1100px) {
+            .container {
+                width: 40vw;
+            }
+        }
 
-    /* The navigation menu links */
-    .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
-    }
+        @media (max-width: 500px) {
+            .text-center {
+                font-size: 8vw !important;
+                margin-bottom: 1rem !important;
+            }
+        }
 
-    /* When you mouse over the navigation links, change their color */
-    .sidenav a:hover {
-      color: #f1f1f1;
-    }
+        .form-group {
+            margin-bottom: 0px;
+            font-weight: 600;
+            font-size: large;
+        }
 
-    /* Position and style the close button (top right corner) */
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
 
-    /* Add animation to "slide in" the sidenav */
-    @keyframes slideIn {
-      from {
-        left: -250px;
-      }
+        #output {
+            font-weight: bold;
+        }
 
-      to {
-        left: 0;
-      }
-    }
+        p {
+            margin-top: 10px;
+        }
 
-    @keyframes slideOut {
-      from {
-        left: 0;
-      }
+        /* The side navigation menu */
+        .sidenav {
+            height: 100%;
+            /* 100% Full-height */
+            width: 0;
+            /* 0 width - change this with JavaScript */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Stay on top */
+            top: 0;
+            /* Stay at the top */
+            left: 0;
+            background-color: #111;
+            /* Black*/
+            overflow-x: hidden;
+            /* Disable horizontal scroll */
+            padding-top: 60px;
+            /* Place content 60px from the top */
+            transition: 0.5s;
+            /* 0.5 second transition effect to slide in the sidenav */
+        }
 
-      to {
-        left: -250px;
-      }
-    }
+        /* The navigation menu links */
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
 
-    /* Add animation to "slide out" the sidenav */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
+        /* When you mouse over the navigation links, change their color */
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
 
-      to {
-        opacity: 1;
-      }
-    }
+        /* Position and style the close button (top right corner) */
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
 
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
+        /* Add animation to "slide in" the sidenav */
+        @keyframes slideIn {
+            from {
+                left: -250px;
+            }
 
-      to {
-        opacity: 0;
-      }
-    }
+            to {
+                left: 0;
+            }
+        }
 
-    /* Set the style of the menu icon */
-    #sideButton {
-      display: none;
-      color: white;
-      font-size: 30px;
-      cursor: pointer;
-      position: fixed;
-      z-index: 2;
-      top: 0px;
-      left: 10px;
-    }
+        @keyframes slideOut {
+            from {
+                left: 0;
+            }
 
-    /* Set the style of the menu icon on small screens */
-    @media screen and (max-width: 530px) {
-      #sideButton {
-        display: block;
-      }
-    }
+            to {
+                left: -250px;
+            }
+        }
 
-    /* Set the style of the floating menu icon on small screens */
-    .float {
-      display: none;
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 40px;
-      right: 40px;
-      background-color: #25d366;
-      color: #FFF;
-      border-radius: 50px;
-      text-align: center;
-      box-shadow: 2px 2px 3px #999;
-      z-index: 100;
-      cursor: pointer;
-    }
+        /* Add animation to "slide out" the sidenav */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
-    .float i {
-      margin-top: 12px;
-    }
+            to {
+                opacity: 1;
+            }
+        }
 
-    .float-icons {
-      position: fixed;
-      bottom: 120px;
-      right: 50px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease-in-out;
-    }
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
 
-    .float:hover .float-icons {
-      opacity: 1;
-      visibility: visible;
-    }
+            to {
+                opacity: 0;
+            }
+        }
 
-    .float-icons a {
-      display: block;
-      margin: 10px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 40px;
-      background: #FFF;
-      color: #25d366;
-      box-shadow: 1px 1px 2px #999;
-      transition: all 0.3s ease-in-out;
-    }
+        /* Set the style of the menu icon */
+        #sideButton {
+            display: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            position: fixed;
+            z-index: 2;
+            top: 0px;
+            left: 10px;
+        }
 
-    .float-icons a:hover {
-      background: #25d366;
-      color: #FFF;
-      box-shadow: 2px 2px 3px #999;
-    }
+        /* Set the style of the menu icon on small screens */
+        @media screen and (max-width: 530px) {
+            #sideButton {
+                display: block;
+            }
+        }
 
-    @media (max-width: 530px) {
-      .float {
-        display: block;
-        width: 50px;
-        height: 50px;
-        bottom: 130px;
-        right: 30px;
-        opacity: 0.99;
-      }
+        /* Set the style of the floating menu icon on small screens */
+        .float {
+            display: none;
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #ff0000;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            cursor: pointer;
+        }
 
-      .icon-circle i {
-        margin-top: 8px;
-      }
+        .float i {
+            margin-top: 12px;
+        }
 
-      .float-icons {
-        bottom: 200px;
-        right: 30px;
-      }
+        .float-icons {
+            position: fixed;
+            bottom: 120px;
+            right: 50px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
 
-      .float-icons a {
-        margin: 8px;
-        width: 40px;
-        height: 40px;
-        line-height: 32px;
-      }
+        .float:hover .float-icons {
+            opacity: 1;
+            visibility: visible;
+        }
 
-      .float i {
-        font-size: 1.5em;
-      }
+        .float-icons a {
+            display: block;
+            margin: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            background: #25d366;
+            color: #ffffff;
+            box-shadow: 1px 1px 2px #999;
+            transition: all 0.3s ease-in-out;
+        }
 
-    }
-  </style>
+        .float-icons a:nth-of-type(2) {
+            background: #0088cc;
+        }
 
-  <script>
-    $(document).ready(function () {
-      $('.input-group.date').datepicker({
-        dateFormat: 'dd-mm-yy',
-        autoclose: true,
-        todayHighlight: true
-      });
-    });
+        .float-icons a:nth-of-type(3) {
+            background: #ffc107;
+        }
 
-  </script>
+        .float-icons a:hover {
+            background: #555;
+            color: #FFF;
+            box-shadow: 2px 2px 3px #999;
+        }
+
+        @media (max-width: 530px) {
+            .float {
+                display: block;
+                width: 50px;
+                height: 50px;
+                bottom: 130px;
+                right: 30px;
+                opacity: 0.99;
+            }
+
+            .icon-circle i {
+                margin-top: 8px;
+            }
+
+            .float-icons {
+                bottom: 200px;
+                right: 30px;
+            }
+
+            .float-icons a {
+                margin: 8px;
+                width: 40px;
+                height: 40px;
+                line-height: 32px;
+            }
+
+            .float i {
+                font-size: 1.5em;
+            }
+
+        }
+
+        /* style for side menu for large screens */
+        /* Show the icons only on screens wider than 768px */
+        .floating-icons {
+            display: none;
+        }
+
+        @media (min-width: 531px) {
+            .floating-icons {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                position: fixed;
+                right: 8px;
+                bottom: 50%;
+                z-index: 999;
+            }
+
+            .floating-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                background-color: #25d366;
+                border-radius: 50%;
+                margin-bottom: 8px;
+            }
+
+            .floating-icon:nth-of-type(2) {
+                background-color: #0088cc;
+            }
+
+            .floating-icon:nth-of-type(3) {
+                background-color: #ffc107;
+            }
+
+            .floating-icon a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                color: #fff;
+                font-size: 24px;
+                text-decoration: none;
+            }
+
+            .floating-icon :hover {
+                background-color: #555;
+                border-radius: 50%;
+            }
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('.input-group.date').datepicker({
+                dateFormat: 'dd-mm-yy',
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+
+    </script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2 class="text-center"
-          style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
-          Baby Birth Calculator</h2>
-        <form style="padding-left: 5px;padding-right:5px;">
-          <div class="form-group">
-            <label for="lmp">Last Menstrual Period (LMP):</label>
-            <div class="input-group date" data-provide="datepicker">
-              <input type="text" class="form-control custom-field-height" id="lmp"
-                placeholder="Enter your last menstrual period"
-                style="background-color: white;border-right: none;padding-right: 38px;" readonly required>
-              <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="text-center"
+                    style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
+                    Baby Birth Calculator</h2>
+                <form style="padding-left: 5px;padding-right:5px;">
+                    <div class="form-group">
+                        <label for="lmp">Last Menstrual Period (LMP):</label>
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control custom-field-height" id="lmp"
+                                placeholder="Enter your last menstrual period"
+                                style="background-color: white;border-right: none;padding-right: 38px;" readonly
+                                required>
+                            <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
                 border-bottom-right-radius: 0.25rem; border-left: none;padding-right:8px">
-                <span><i class="far fa-calendar-alt"></i></span>
-              </div>
+                                <span><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="cycle">Menstrual Cycle Length(in days):</label>
+                        <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35"
+                            step="1" placeholder="Enter your menstrual cycle length" value="28">
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="calculateDueDate()">Calculate</button>
+                </form>
+                <p id="output"></p>
             </div>
-          </div>
-
-          <div class="form-group" style="margin-bottom: 10px;">
-            <label for="cycle">Menstrual Cycle Length(in days):</label>
-            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1"
-              placeholder="Enter your menstrual cycle length" value="28">
-          </div>
-          <button type="submit" class="btn btn-primary" onclick="calculateDueDate()">Calculate</button>
-        </form>
-        <p id="output"></p>
-      </div>
+        </div>
     </div>
-  </div>
-  <script>
-    function calculateDueDate() {
-      event.preventDefault();
-      let lmpInput = document.getElementById("lmp").value;
-      let lmp = new Date(lmpInput);
-      let cycle = document.getElementById("cycle").value;
+    <script>
+        function calculateDueDate() {
+            event.preventDefault();
+            let lmpInput = document.getElementById("lmp").value;
+            let lmp = new Date(lmpInput);
+            let cycle = document.getElementById("cycle").value;
 
-      let output = document.getElementById("output");
-      let boxDate = document.getElementById("lmp");
-      let boxIcon = document.getElementById("iconBox");
-      let boxCycle = document.getElementById("cycle");
-      let errorInFields = false;
+            let output = document.getElementById("output");
+            let boxDate = document.getElementById("lmp");
+            let boxIcon = document.getElementById("iconBox");
+            let boxCycle = document.getElementById("cycle");
+            let errorInFields = false;
 
-      if (!lmp || isNaN(lmp) || lmp <= 0) {
-        boxDate.style.borderColor = "red";
-        boxIcon.style.borderColor = "red";
-        errorInFields = true;
-      } else {
-        boxDate.style.borderColor = "#ced4da";
-        boxIcon.style.borderColor = "#ced4da";
-      }
-      if (!cycle || isNaN(cycle) || cycle <= 0) {
-        boxCycle.style.borderColor = "red";
-        errorInFields = true;
-      } else boxCycle.style.borderColor = "#ced4da";
-      if (errorInFields) {
-        output.style.color = "red";
-        output.innerHTML = "Please enter valid input in all fields";
-      } else {
-        output.style.color = "black";
-        let dueDate = new Date(lmp.getTime());
-        let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
-        let cycleLengthInDays = cycle;
+            if (!lmp || isNaN(lmp) || lmp <= 0) {
+                boxDate.style.borderColor = "red";
+                boxIcon.style.borderColor = "red";
+                errorInFields = true;
+            } else {
+                boxDate.style.borderColor = "#ced4da";
+                boxIcon.style.borderColor = "#ced4da";
+            }
+            if (!cycle || isNaN(cycle) || cycle <= 0) {
+                boxCycle.style.borderColor = "red";
+                errorInFields = true;
+            } else boxCycle.style.borderColor = "#ced4da";
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            } else {
+                output.style.color = "black";
+                let dueDate = new Date(lmp.getTime());
+                let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
+                let cycleLengthInDays = cycle;
 
-        let diffInMilliseconds = (cycleLengthInDays - 28) * 24 * 60 * 60 * 1000;
-        dueDate = new Date(dueDate.getTime() + pregnancyLength + diffInMilliseconds);
+                let diffInMilliseconds = (cycleLengthInDays - 28) * 24 * 60 * 60 * 1000;
+                dueDate = new Date(dueDate.getTime() + pregnancyLength + diffInMilliseconds);
 
-        let presentAgeWeek = calculateUnbornBabyAgeWeek(lmp, cycle);
-        let presentAgeDays = calculateUnbornBabyAgeDays(lmp, cycle);
-        if (presentAgeDays == 7) {
-          presentAgeWeek = presentAgeWeek + 1;
-          presentAgeDays = 0;
+                let presentAgeWeek = calculateUnbornBabyAgeWeek(lmp, cycle);
+                let presentAgeDays = calculateUnbornBabyAgeDays(lmp, cycle);
+                if (presentAgeDays == 7) {
+                    presentAgeWeek = presentAgeWeek + 1;
+                    presentAgeDays = 0;
+                }
+                let options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                document.getElementById("output").innerHTML = "Due date: " + dueDate.toLocaleDateString("en-US", options) + "<br> Your baby is " + presentAgeWeek + " weeks and " + presentAgeDays + " days old";
+            }
+
+
         }
-        let options = {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        };
-        document.getElementById("output").innerHTML = "Due date: " + dueDate.toLocaleDateString("en-US", options) + "<br> Your baby is " + presentAgeWeek + " weeks and " + presentAgeDays + " days old";
-      }
 
+        function calculateUnbornBabyAgeWeek(lmp, cycle) {
+            let today = new Date();
+            let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
+            let diffInMilliseconds = today - averageLMP;
+            let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
+            let unbornBabyAgeInWeeks = Math.floor(diffInDays / 7);
+            return unbornBabyAgeInWeeks;
 
-    }
+        }
 
-    function calculateUnbornBabyAgeWeek(lmp, cycle) {
-      let today = new Date();
-      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-      let diffInMilliseconds = today - averageLMP;
-      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-      let unbornBabyAgeInWeeks = Math.floor(diffInDays / 7);
-      return unbornBabyAgeInWeeks;
+        function calculateUnbornBabyAgeDays(lmp, cycle) {
+            let today = new Date();
+            let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
+            let diffInMilliseconds = today - averageLMP;
+            let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
+            let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
+            return unbornBabyAgeInDays;
+        }
 
-    }
+    </script>
+    <script>
+        /* Open the side navigation */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
-    function calculateUnbornBabyAgeDays(lmp, cycle) {
-      let today = new Date();
-      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-      let diffInMilliseconds = today - averageLMP;
-      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-      let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
-      return unbornBabyAgeInDays;
-    }
+        /* Close/hide the side navigation */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
 
-  </script>
-  <script>
-    /* Open the side navigation */
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-    }
+        /* Floating side drawer animation */
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("mySidenav").style.bottom = "70px";
+            } else {
+                document.getElementById("mySidenav").style.bottom = "-250px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
 
-    /* Close/hide the side navigation */
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
+    </script>
+    <script>
+        $('.custom-field-height').on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    </script>
 
-    /* Floating side drawer animation */
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function () {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        document.getElementById("mySidenav").style.bottom = "70px";
-      } else {
-        document.getElementById("mySidenav").style.bottom = "-250px";
-      }
-      prevScrollpos = currentScrollPos;
-    }
-
-  </script>
-  <script>
-    $('.custom-field-height').on('input', function () {
-      this.style.height = 'auto';
-      this.style.height = (this.scrollHeight) + 'px';
-    });
-  </script>
-
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Home</a>
-    <a href="#">Support Us!</a>
-  </div>
-
-  <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
-
-  <!-- for floating buttons -->
-  <div class="float">
-    <i class="fas fa-hand-pointer"></i>
-    <div class="float-icons icon-circle">
-      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
-          class="fab fa-whatsapp"></i></a>
-      <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
-      <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Home</a>
+        <a href="#">Support Us!</a>
     </div>
-  </div>
+
+    <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
+
+    <!-- for floating buttons -->
+    <div class="float">
+        <i class="fas fa-hand-pointer"></i>
+        <div class="float-icons icon-circle">
+            <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
+                    class="fab fa-whatsapp"></i></a>
+            <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
+        </div>
+    </div>
+
+    <!-- for floating buttons -->
+    <script>
+        const float = document.querySelector('.float');
+
+        float.addEventListener('click', () => {
+            float.classList.toggle('active');
+        });
 
 
-  <script>
-    const float = document.querySelector('.float');
+    </script>
 
-    float.addEventListener('click', () => {
-      float.classList.toggle('active');
-    });
+    <!-- side floating menu for large screens -->
+    <div class="floating-icons">
+        <div class="floating-icon">
+            <a href="#" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        <div class="floating-icon">
+            <a href="#" target="_blank">
+                <i class="fab fa-telegram"></i>
+            </a>
+        </div>
+        <div class="floating-icon">
+            <a href="#" target="_blank">
+                <i class="fas fa-hand-holding-heart"></i>
+            </a>
+        </div>
+    </div>
 
 
-  </script>
+
+
+
+
 
 
 </body>
