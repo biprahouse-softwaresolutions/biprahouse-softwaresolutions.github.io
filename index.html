@@ -96,7 +96,7 @@
       font-size: large;
     }
 
-    
+
 
 
     #output {
@@ -212,12 +212,32 @@
       left: 10px;
     }
 
+    #visitor-counter {
+      position: fixed;
+      bottom: 40px;
+      /* width: 100%; */
+      /* background-color: #f1f1f1; */
+      text-align: center;
+      padding: 10px;
+    }
+
+    #visitor-counter span {
+      font-weight: bold;
+    }
+
+    #visitor-counter p {
+      color: #ffc107;
+    }
+
     /* Set the style of the menu icon on small screens */
     @media screen and (max-width: 530px) {
       #sideButton {
         display: block;
       }
     }
+
+
+
 
     /* Set the style of the floating menu icon on small screens */
     .float {
@@ -405,7 +425,8 @@
             <div class="input-group date" data-provide="datepicker">
               <input type="text" class="form-control custom-field-height" id="lmp"
                 placeholder="Enter your last menstrual period"
-                style="background-color: white;border-right: none;padding-right: 38px;box-shadow: none;border-color:rgb(206, 212, 218);" readonly required>
+                style="background-color: white;border-right: none;padding-right: 38px;box-shadow: none;border-color:rgb(206, 212, 218);"
+                readonly required>
               <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
                 border-bottom-right-radius: 0.25rem; border-left: none;padding-right:8px">
                 <span><i class="far fa-calendar-alt"></i></span>
@@ -504,11 +525,21 @@
     /* Open the side navigation */
     function openNav() {
       document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("visitor-counter").style.display = "block";
+      var items = document.querySelectorAll('.sidenavMenuItems');
+      for (var i = 0; i < items.length; i++) {
+        items[i].style.display = "block";
+      }
     }
 
     /* Close/hide the side navigation */
     function closeNav() {
       document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("visitor-counter").style.display = "none";
+      var items = document.querySelectorAll('.sidenavMenuItems');
+      for (var i = 0; i < items.length; i++) {
+        items[i].style.display = "none";
+      }
     }
 
     /* Floating side drawer animation */
@@ -533,8 +564,11 @@
 
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Home</a>
-    <a href="#">Support Us!</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Home</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Support Us!</a>
+    <div id="visitor-counter" style="display: none">
+      <p>Total Visitors: <span id="count"></span></p>
+    </div>
   </div>
 
   <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
