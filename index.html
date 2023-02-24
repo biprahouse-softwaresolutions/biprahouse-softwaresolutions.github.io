@@ -1,30 +1,32 @@
+<!-- <?php
+// Include the counter.php file
+require_once('config.php');
+?> -->
+
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
+  <meta name="description" content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
   <meta property="og:image" content="https://example.com/image.jpg">
   <meta property="og:title" content="Baby Birth Calculator">
   <meta property="og:description" content="Start planning for your new arrival today">
   <link rel="shortcut icon" type="image/png" href="icon.png">
   <link rel="icon" type="image/png" href="icon.png">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
 
 
   <title>Baby Birth Calculator</title>
+  <!-- main function -->
   <style>
     body::before {
       content: "";
@@ -96,9 +98,6 @@
       font-size: large;
     }
 
-
-
-
     #output {
       font-weight: bold;
       padding-left: 5px;
@@ -108,9 +107,9 @@
     p {
       margin-top: 10px;
     }
-
-
-
+  </style>
+  <!-- The side navigation menu -->
+  <style>
     /* The side navigation menu */
     .sidenav {
       height: 100%;
@@ -130,7 +129,7 @@
       /* Disable horizontal scroll */
       padding-top: 60px;
       /* Place content 60px from the top */
-      transition: 0.5s;
+      transition: 0.3s;
       /* 0.5 second transition effect to slide in the sidenav */
     }
 
@@ -141,7 +140,7 @@
       font-size: 25px;
       color: #818181;
       display: block;
-      transition: 0.3s;
+      /* transition: 0.8s; */
     }
 
     /* When you mouse over the navigation links, change their color */
@@ -214,7 +213,7 @@
 
     #visitor-counter {
       position: fixed;
-      bottom: 40px;
+      bottom: 70px;
       /* width: 100%; */
       /* background-color: #f1f1f1; */
       text-align: center;
@@ -223,6 +222,8 @@
 
     #visitor-counter span {
       font-weight: bold;
+      color: #07ff07;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     #visitor-counter p {
@@ -235,11 +236,9 @@
         display: block;
       }
     }
-
-
-
-
-    /* Set the style of the floating menu icon on small screens */
+  </style>
+  <!-- Set the style of the floating menu icon on small screens -->
+  <style>
     .float {
       display: none;
       position: fixed;
@@ -333,9 +332,10 @@
       }
 
     }
-
-    /* style for side menu for large screens */
-    /* Show the icons only on screens wider than 768px */
+  </style>
+  <!-- style for side menu for large screens -->
+  <!-- Show the icons only on screens wider than 768px -->
+  <style>
     .floating-icons {
       display: none;
     }
@@ -386,8 +386,9 @@
         border-radius: 50%;
       }
     }
-
-    /* for crack animation */
+  </style>
+  <!-- for crack animation -->
+  <style>
     canvas {
       position: absolute;
       top: 0;
@@ -401,14 +402,13 @@
   </style>
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('.input-group.date').datepicker({
         dateFormat: 'dd-mm-yy',
         autoclose: true,
         todayHighlight: true
       });
     });
-
   </script>
 </head>
 
@@ -416,17 +416,13 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2 class="text-center"
-          style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
+        <h2 class="text-center" style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
           Baby Birth Calculator</h2>
         <form style="padding-left: 5px;padding-right:5px;">
           <div class="form-group">
             <label for="lmp">Last Menstrual Period (LMP):</label>
             <div class="input-group date" data-provide="datepicker">
-              <input type="text" class="form-control custom-field-height" id="lmp"
-                placeholder="Enter your last menstrual period"
-                style="background-color: white;border-right: none;padding-right: 38px;box-shadow: none;border-color:rgb(206, 212, 218);"
-                readonly required>
+              <input type="text" class="form-control custom-field-height" id="lmp" placeholder="Enter your last menstrual period" style="background-color: white;border-right: none;padding-right: 38px;box-shadow: none;border-color:rgb(206, 212, 218);" readonly required>
               <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
                 border-bottom-right-radius: 0.25rem; border-left: none;padding-right:8px">
                 <span><i class="far fa-calendar-alt"></i></span>
@@ -436,16 +432,16 @@
 
           <div class="form-group" style="margin-bottom: 10px;">
             <label for="cycle">Menstrual Cycle Length(in days):</label>
-            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1"
-              placeholder="Enter your menstrual cycle length" value="28">
+            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1" placeholder="Enter your menstrual cycle length" value="28">
           </div>
-          <button type="submit" class="btn btn-primary" id="fireworks-btn"
-            onclick="calculateDueDate()">Calculate</button>
+          <button type="submit" class="btn btn-primary" id="fireworks-btn" onclick="calculateDueDate()">Calculate</button>
         </form>
         <p id="output"></p>
       </div>
     </div>
   </div>
+
+  <!-- main function to calculate -->
   <script>
     function calculateDueDate() {
       event.preventDefault();
@@ -519,23 +515,26 @@
       let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
       return unbornBabyAgeInDays;
     }
-
   </script>
+  <!-- for side drawer and visitors count -->
   <script>
     /* Open the side navigation */
     function openNav() {
       document.getElementById("mySidenav").style.width = "250px";
-      document.getElementById("visitor-counter").style.display = "block";
-      var items = document.querySelectorAll('.sidenavMenuItems');
-      for (var i = 0; i < items.length; i++) {
-        items[i].style.display = "block";
-      }
+      setTimeout(() => {
+        var items = document.querySelectorAll('.sidenavMenuItems');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.display = "block";
+        }
+        // document.getElementById("visitor-counter").style.display = "block";
+      }, 200);
+
     }
 
     /* Close/hide the side navigation */
     function closeNav() {
       document.getElementById("mySidenav").style.width = "0";
-      document.getElementById("visitor-counter").style.display = "none";
+      // document.getElementById("visitor-counter").style.display = "none";
       var items = document.querySelectorAll('.sidenavMenuItems');
       for (var i = 0; i < items.length; i++) {
         items[i].style.display = "none";
@@ -544,7 +543,7 @@
 
     /* Floating side drawer animation */
     var prevScrollpos = window.pageYOffset;
-    window.onscroll = function () {
+    window.onscroll = function() {
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById("mySidenav").style.bottom = "70px";
@@ -553,22 +552,15 @@
       }
       prevScrollpos = currentScrollPos;
     }
-
-  </script>
-  <script>
-    $('.custom-field-height').on('input', function () {
-      this.style.height = 'auto';
-      this.style.height = (this.scrollHeight) + 'px';
-    });
   </script>
 
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#" class="sidenavMenuItems" style="display: none">Home</a>
     <a href="#" class="sidenavMenuItems" style="display: none">Support Us!</a>
-    <div id="visitor-counter" style="display: none">
-      <p>Total Visitors: <span id="count"></span></p>
-    </div>
+    <!-- <div id="visitor-counter" style="display: none">
+      <p>Total Visitors: <span id="count"><?php echo $count; ?></span></p>
+    </div> -->
   </div>
 
   <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
@@ -577,8 +569,7 @@
   <div class="float">
     <i class="fas fa-hand-pointer"></i>
     <div class="float-icons icon-circle">
-      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
-          class="fab fa-whatsapp"></i></a>
+      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i class="fab fa-whatsapp"></i></a>
       <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
       <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
     </div>
@@ -591,8 +582,6 @@
     float.addEventListener('click', () => {
       float.classList.toggle('active');
     });
-
-
   </script>
 
   <!-- side floating menu for large screens -->
@@ -668,11 +657,15 @@
       animate();
     }
 
-    // const fireworksBtn = document.getElementById("fireworks-btn");
-    // fireworksBtn.addEventListener("click", startFireworks);
   </script>
-
-
+  
+  <!-- for main function -->
+  <script>
+    $('.custom-field-height').on('input', function() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+  </script>
 
 
 
