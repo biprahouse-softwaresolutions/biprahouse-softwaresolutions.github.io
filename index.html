@@ -1,741 +1,339 @@
-<!-- <?php
-// Include the counter.php file
-require_once('config.php');
-?> -->
-
 <!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
-  <meta property="og:image" content="https://example.com/image.jpg">
-  <meta property="og:title" content="Baby Birth Calculator">
-  <meta property="og:description" content="Start planning for your new arrival today">
-  <link rel="shortcut icon" type="image/png" href="icon.png">
-  <link rel="icon" type="image/png" href="icon.png">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        /* Add a custom class to the fields to adjust their height on mobile */
+        @media (max-width: 767px) {
+
+            .custom-field-height,
+            .custom-select-height {
+                height: calc(100vh / 12) !important;
+            }
+
+            .nav-link {
+                padding-left: 10px;
+                padding-right: 14px;
+            }
+        }
 
 
-  <title>Baby Birth Calculator</title>
-  <!-- main function -->
-  <style>
-    body::before {
-      content: "";
-      background-image: url('https://source.unsplash.com/random/1600x900/?newborn-baby&&q=auto');
-      background-size: cover;
-      opacity: 0.5;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-repeat: no-repeat;
-      z-index: -1;
-      background-position: center;
-    }
+        @media (min-width: 530px) {
+            .container-fluid {
+                width: 80vw;
+            }
+        }
 
-    @media (max-width: 640px) {
-      body::before {
-        background-image: url('https://source.unsplash.com/random/640x480/?newborn-baby&&q=low');
-      }
-    }
+        @media (min-width: 770px) {
+            .container-fluid {
+                width: 60vw;
+            }
+        }
 
-    .container {
-      padding-left: 0px;
-      padding-right: 0px;
-    }
+        @media (min-width: 1100px) {
+            .container-fluid {
+                width: 40vw;
+            }
+        }
 
-    .text-center {
-      background-color: #111;
-      color: white;
-      padding-bottom: 0.5rem;
-      padding-top: 0.5rem;
-      font-size: 1.5rem;
-      opacity: 0.9;
-    }
+        @media (max-width: 500px) {
+            .text-center {
+                font-size: 8vw !important;
+            }
+        }
 
-    form {
-      padding-left: 5px;
-      padding-right: 5px;
-    }
+        .form-group {
+            margin-bottom: 0px;
+        }
 
-    .form-group {
-      margin-bottom: 0px;
-      font-weight: 600;
-      font-size: large;
-    }
+        .nav-tabs .nav-link.active {
+            background-color: #e5e6ea;
+        }
 
-    #lmp {
-      background-color: white;
-      border-right: none;
-      padding-right: 38px;
-      box-shadow: none;
-      border-color: rgb(206, 212, 218);
-    }
+        #output1,
+        #output2,
+        #output3 {
+            font-weight: bold;
+        }
 
-    #iconBox {
-      background-color: white;
-      border: 1px solid;
-      border-color: rgb(206, 212, 218);
-      border-top-right-radius: 0.25rem;
-      border-bottom-right-radius: 0.25rem;
-      border-left: none;
-      padding-right: 8px
-    }
-
-    #output {
-      display: none;
-      font-weight: bold;
-      padding: 10px;
-      margin-top: 10px;
-      margin-right: 5px;
-      margin-left: 5px;
-      background-color: rgb(20 10 10 / 48%);
-      font-family: Helvetica, sans-serif;
-      font-size: 16px;
-    }
-
-    #dateText {
-      color: rgb(96 255 196);
-      font-weight: bold;
-      font-size: 20px;
-      font-family:Georgia, serif ;
-    }
-
-    #disclaimer {
-      font-family: Arial, sans-serif;
-      color: #deff05;
-      font-size: 11px;
-
-    }
-
-    @media (max-width: 767px) {
-      .custom-field-height {
-        height: 62px !important;
-      }
-
-      .input-group-addon span {
-        font-size: 40px !important;
-      }
-    }
-
-    @media (min-width: 530px) {
-      .container {
-        width: 80vw;
-      }
-    }
-
-    @media (min-width: 770px) {
-      .container {
-        width: 60vw;
-      }
-    }
-
-    @media (min-width: 1100px) {
-      .container {
-        width: 40vw;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .text-center {
-        margin-bottom: 1rem !important;
-      }
-    }
-  </style>
-  <!-- The side navigation menu -->
-  <style>
-    /* The side navigation menu */
-    .sidenav {
-      height: 100%;
-      /* 100% Full-height */
-      width: 0;
-      /* 0 width - change this with JavaScript */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Stay on top */
-      top: 0;
-      /* Stay at the top */
-      left: 0;
-      background-color: #111;
-      /* Black*/
-      overflow-x: hidden;
-      /* Disable horizontal scroll */
-      padding-top: 60px;
-      /* Place content 60px from the top */
-      transition: 0.3s;
-      /* 0.5 second transition effect to slide in the sidenav */
-    }
-
-    /* The navigation menu links */
-    .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      /* transition: 0.8s; */
-    }
-
-    /* When you mouse over the navigation links, change their color */
-    .sidenav a:hover {
-      color: #f1f1f1;
-    }
-
-    /* Position and style the close button (top right corner) */
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-
-    /* Add animation to "slide in" the sidenav */
-    @keyframes slideIn {
-      from {
-        left: -250px;
-      }
-
-      to {
-        left: 0;
-      }
-    }
-
-    @keyframes slideOut {
-      from {
-        left: 0;
-      }
-
-      to {
-        left: -250px;
-      }
-    }
-
-    /* Add animation to "slide out" the sidenav */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
-
-      to {
-        opacity: 0;
-      }
-    }
-
-    /* Set the style of the menu icon */
-    #sideButton {
-      display: none;
-      color: white;
-      font-size: 30px;
-      cursor: pointer;
-      position: fixed;
-      z-index: 2;
-      top: 0px;
-      left: 10px;
-    }
-
-    #visitor-counter {
-      position: fixed;
-      bottom: 70px;
-      /* width: 100%; */
-      /* background-color: #f1f1f1; */
-      text-align: center;
-      padding: 10px;
-    }
-
-    #visitor-counter span {
-      font-weight: bold;
-      color: #07ff07;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    #visitor-counter p {
-      color: #ffc107;
-    }
-
-    /* Set the style of the menu icon on small screens */
-    @media screen and (max-width: 530px) {
-      #sideButton {
-        display: block;
-      }
-    }
-  </style>
-  <!-- Set the style of the floating menu icon on small screens -->
-  <style>
-    .float {
-      display: none;
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 40px;
-      right: 40px;
-      background-color: #ff0000;
-      color: #FFF;
-      border-radius: 50px;
-      text-align: center;
-      box-shadow: 2px 2px 3px #999;
-      z-index: 100;
-      cursor: pointer;
-    }
-
-    .float i {
-      margin-top: 12px;
-    }
-
-    .float-icons {
-      position: fixed;
-      bottom: 120px;
-      right: 50px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .float:hover .float-icons {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .float-icons a {
-      display: block;
-      margin: 10px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 40px;
-      background: #25d366;
-      color: #ffffff;
-      box-shadow: 1px 1px 2px #999;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .float-icons a:nth-of-type(2) {
-      background: #0088cc;
-    }
-
-    .float-icons a:nth-of-type(3) {
-      background: #ffc107;
-    }
-
-    .float-icons a:hover {
-      background: #555;
-      color: #FFF;
-      box-shadow: 2px 2px 3px #999;
-    }
-
-    @media (max-width: 530px) {
-      .float {
-        display: block;
-        width: 50px;
-        height: 50px;
-        bottom: 130px;
-        right: 30px;
-        opacity: 0.99;
-      }
-
-      .icon-circle i {
-        margin-top: 8px;
-      }
-
-      .float-icons {
-        bottom: 200px;
-        right: 30px;
-      }
-
-      .float-icons a {
-        margin: 8px;
-        width: 40px;
-        height: 40px;
-        line-height: 32px;
-      }
-
-      .float i {
-        font-size: 1.5em;
-      }
-
-    }
-  </style>
-  <!-- style for side menu for large screens -->
-  <!-- Show the icons only on screens wider than 768px -->
-  <style>
-    .floating-icons {
-      display: none;
-    }
-
-    @media (min-width: 531px) {
-      .floating-icons {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        position: fixed;
-        right: 8px;
-        bottom: 50%;
-        z-index: 999;
-      }
-
-      .floating-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        background-color: #25d366;
-        border-radius: 50%;
-        margin-bottom: 8px;
-      }
-
-      .floating-icon:nth-of-type(2) {
-        background-color: #0088cc;
-      }
-
-      .floating-icon:nth-of-type(3) {
-        background-color: #ffc107;
-      }
-
-      .floating-icon a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        color: #fff;
-        font-size: 24px;
-        text-decoration: none;
-      }
-
-      .floating-icon :hover {
-        background-color: #555;
-        border-radius: 50%;
-      }
-    }
-  </style>
-  <!-- for crack animation -->
-  <style>
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-    }
-  </style>
-
-  <script>
-    $(document).ready(function () {
-      $('.input-group.date').datepicker({
-        dateFormat: 'dd-mm-yy',
-        autoclose: true,
-        todayHighlight: true
-      });
-    });
-  </script>
+        p {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2 class="text-center">Baby Birth Calculator</h2>
-        <form>
-          <div class="form-group">
-            <label for="lmp">Last Menstrual Period (LMP):</label>
-            <div class="input-group date" data-provide="datepicker">
-              <input type="text" class="form-control custom-field-height" id="lmp"
-                placeholder="Enter your last menstrual period" readonly required>
-              <div class="input-group-addon" id="iconBox">
-                <span><i class="far fa-calendar-alt"></i></span>
-              </div>
+    <div class="container-fluid">
+        <h1 class="text-center">SIP Calculator</h1>
+        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab"
+                    aria-controls="nav-future" aria-selected="true">Future Value</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-amount-tab" data-toggle="tab" href="#nav-amount" role="tab"
+                    aria-controls="nav-amount" aria-selected="false">SIP Amount</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-rate-tab" data-toggle="tab" href="#nav-rate" role="tab"
+                    aria-controls="nav-rate" aria-selected="false">SIP Duration</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-future" role="tabpanel" aria-labelledby="nav-future-tab">
+                <form>
+                    <div class="form-group">
+                        <label for="sipAmount">Monthly SIP amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="sipAmount1" min="0"
+                            step="0.01" placeholder="Enter the monthly SIP amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Expected annual rate of return:</label>
+                        <input type="number" class="form-control custom-field-height" id="rate1" min="0" max="100"
+                            step="0.01" placeholder="Enter the expected annual rate of return" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="period">Investment period (in months):</label>
+                        <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
+                            placeholder="Enter the investment period in months" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inflationRate">Inflation rate adjustment:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="inflationRate"
+                                onchange="toggleInflationRate()" required>
+                            <label class="form-check-label" for="inflationRate"></label>
+                        </div>
+                        <input type="number" class="form-control custom-field-height" id="inflation1" min="0" max="100"
+                            step="0.01" placeholder="Enter the inflation rate" disabled value="7">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
+                </form>
+                <p id="output1"></p>
             </div>
-          </div>
-
-          <div class="form-group" style="margin-bottom: 10px;">
-            <label for="cycle">Menstrual Cycle Length(in days):</label>
-            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1"
-              placeholder="Enter your menstrual cycle length" value="28">
-          </div>
-          <button type="submit" class="btn btn-primary" id="fireworks-btn"
-            onclick="calculateDueDate()">Calculate</button>
-        </form>
-        <p id="output"></p>
-      </div>
+            <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
+                <form>
+                    <div class="form-group">
+                        <label for="totalAmount">Total target amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="totalAmount2" min="0"
+                            step="0.01" placeholder="Enter the total target amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Expected annual rate of return:</label>
+                        <input type="number" class="form-control custom-field-height" id="rate2" min="0" max="100"
+                            step="0.01" placeholder="Enter the expected annual rate of return" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="period">Investment period (in months):</label>
+                        <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
+                            placeholder="Enter the investment period in months" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inflationRate">Inflation rate adjustment:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="inflationRate"
+                                onchange="toggleInflationRate()" required>
+                            <label class="form-check-label" for="inflationRate"></label>
+                        </div>
+                        <input type="number" class="form-control custom-field-height" id="inflation2" min="0" max="100"
+                            step="0.01" placeholder="Enter the inflation rate" disabled value="7">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateSIP()">Calculate</button>
+                </form>
+                <p id="output2"></p>
+            </div>
+            <div class="tab-pane fade" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
+                <form>
+                    <div class="form-group">
+                        <label for="totalAmount">Total target amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="totalAmount3" min="0"
+                            step="0.01" placeholder="Enter the total target amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sipAmount">SIP amount:</label>
+                        <input type="number" class="form-control custom-field-height" id="sipAmount3" min="0"
+                            step="0.01" placeholder="Enter the SIP amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Expected annual rate of return:</label>
+                        <input type="number" class="form-control custom-field-height" id="rate3" min="0" max="100"
+                            step="0.01" placeholder="Enter the expected annual rate of return" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inflationRate">Inflation rate adjustment:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="inflationRate"
+                                onchange="toggleInflationRate()" required>
+                            <label class="form-check-label" for="inflationRate"></label>
+                        </div>
+                        <input type="number" class="form-control custom-field-height" id="inflation3" min="0" max="100"
+                            step="0.01" placeholder="Enter the inflation rate" disabled value="7">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateInvPeriod()">Calculate</button>
+                </form>
+                <p id="output3"></p>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <!-- main function to calculate -->
-  <script>
-    function calculateDueDate() {
-      event.preventDefault();
-      let lmpInput = document.getElementById("lmp").value;
-      let lmp = new Date(lmpInput);
-      let cycle = document.getElementById("cycle").value;
-
-      let output = document.getElementById("output");
-      let boxDate = document.getElementById("lmp");
-      let boxIcon = document.getElementById("iconBox");
-      let boxCycle = document.getElementById("cycle");
-      let errorInFields = false;
-
-      output.style.display = "block";
-
-      if (!lmp || isNaN(lmp) || lmp <= 0) {
-        boxDate.style.borderColor = "red";
-        boxIcon.style.borderColor = "red";
-        errorInFields = true;
-      } else {
-        boxDate.style.borderColor = "#ced4da";
-        boxIcon.style.borderColor = "#ced4da";
-      }
-      if (!cycle || isNaN(cycle) || cycle <= 0) {
-        boxCycle.style.borderColor = "red";
-        errorInFields = true;
-      } else boxCycle.style.borderColor = "#ced4da";
-      if (errorInFields) {
-        output.style.color = "red";
-        output.innerHTML = "Please enter valid input in all fields";
-      } else {
-        output.style.color = "white";
-        let dueDate = new Date(lmp.getTime());
-        let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
-        let cycleLengthInDays = cycle;
-
-        let diffInMilliseconds = (cycleLengthInDays - 28) * 24 * 60 * 60 * 1000;
-        dueDate = new Date(dueDate.getTime() + pregnancyLength + diffInMilliseconds);
-
-        let presentAgeWeek = calculateUnbornBabyAgeWeek(lmp, cycle);
-        let presentAgeDays = calculateUnbornBabyAgeDays(lmp, cycle);
-        if (presentAgeDays == 7) {
-          presentAgeWeek = presentAgeWeek + 1;
-          presentAgeDays = 0;
+    <script>
+        function toggleInflationRate() {
+            let inflation = document.getElementById("inflation");
+            if (inflation.disabled) {
+                inflation.disabled = false;
+            } else {
+                inflation.disabled = true;
+            }
         }
-        let options = {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        };
-        var weekString = presentAgeWeek > 1 ? "weeks" : "week";
-        var dayString = presentAgeDays > 1 ? "days" : "day";
-        var outputText = "Expected due date: <span id= 'dateText'>" + dueDate.toLocaleDateString("en-US", options) + "</span><br> Your baby is " + presentAgeWeek + " " + weekString + " and " + presentAgeDays + " " + dayString + " old" + "<br><span id='disclaimer'></span>"
+        function calculateFV() {
+            // event.preventDefault();
+            let sipAmount = document.getElementById("sipAmount1").value;
+            let rate = document.getElementById("rate1").value / 1200;
+            let period = document.getElementById("period1").value;
+            let inflationAdjustment = document.getElementById("inflationRate").checked;
+            let inflationRate = document.getElementById("inflation1").value / 1200;
 
-        output.innerHTML = outputText;
+            let output = document.getElementById("output1");
+            let boxAmount = document.getElementById("sipAmount1");
+            let boxRate = document.getElementById("rate1");
+            let boxPeriod = document.getElementById("period1");
+            let errorInFields = false;
 
-        // Start animation for disclaimer text
-        var disclaimerElement = document.getElementById("disclaimer");
-        var disclaimerText = "Disclaimer: Delivery date may vary depending on various factors";
-        var i = 0;
 
-        function typeWriter() {
-          if (i < disclaimerText.length) {
-            disclaimerElement.innerHTML += disclaimerText.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-          }
+            if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
+                boxAmount.style.borderColor = "red";
+                errorInFields = true;
+            } else boxAmount.style.borderColor = "#ced4da";
+            if (!rate || isNaN(rate) || rate <= 0) {
+                boxRate.style.borderColor = "red";
+                errorInFields = true;
+            } else boxRate.style.borderColor = "#ced4da";
+            if (!period || isNaN(period) || period <= 0) {
+                boxPeriod.style.borderColor = "red";
+                errorInFields = true;
+            } else boxPeriod.style.borderColor = "#ced4da";
+
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            } else {
+                output.style.color = "black";
+                if (inflationAdjustment) {
+                    rate = rate - inflationRate;
+                }
+                let futureValue = sipAmount * (1 + rate) * (Math.pow(1 + rate, period) - 1) / rate;
+                document.getElementById("output1").innerHTML = "Future value of investment: " + futureValue.toFixed(2) +
+                    "<br> Total return : " + (futureValue - (period * sipAmount)).toFixed(2);
+            }
         }
-        setTimeout(typeWriter, 1000);
+        function calculateSIP() {
+            // event.preventDefault();
+            let totalAmount = document.getElementById("totalAmount2").value;
+            let rate = document.getElementById("rate2").value / 1200;
+            let period = document.getElementById("period2").value;
+            let inflationAdjustment = document.getElementById("inflationRate").checked;
+            let inflationRate = document.getElementById("inflation2").value / 1200;
 
-        startFireworks();
-      }
+            let output = document.getElementById("output2");
+            let boxAmount = document.getElementById("totalAmount2");
+            let boxRate = document.getElementById("rate2");
+            let boxPeriod = document.getElementById("period2");
+            let errorInFields = false;
 
-    }
+            if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+                boxAmount.style.borderColor = "red";
+                errorInFields = true;
+            } else boxAmount.style.borderColor = "#ced4da";
+            if (!rate || isNaN(rate) || rate <= 0) {
+                boxRate.style.borderColor = "red";
+                errorInFields = true;
+            } else boxRate.style.borderColor = "#ced4da";
+            if (!period || isNaN(period) || period <= 0) {
+                boxPeriod.style.borderColor = "red";
+                errorInFields = true;
+            } else boxPeriod.style.borderColor = "#ced4da";
 
-    function calculateUnbornBabyAgeWeek(lmp, cycle) {
-      let today = new Date();
-      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-      let diffInMilliseconds = today - averageLMP;
-      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-      let unbornBabyAgeInWeeks = Math.floor(diffInDays / 7);
-      return unbornBabyAgeInWeeks;
-
-    }
-
-    function calculateUnbornBabyAgeDays(lmp, cycle) {
-      let today = new Date();
-      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-      let diffInMilliseconds = today - averageLMP;
-      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-      let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
-      return unbornBabyAgeInDays;
-    }
-  </script>
-  <!-- for side drawer and visitors count -->
-  <script>
-    /* Open the side navigation */
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-      setTimeout(() => {
-        var items = document.querySelectorAll('.sidenavMenuItems');
-        for (var i = 0; i < items.length; i++) {
-          items[i].style.display = "block";
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            } else {
+                output.style.color = "black";
+                if (inflationAdjustment) {
+                    rate = rate - inflationRate;
+                }
+                let sipAmount = totalAmount * rate / ((1 + rate) * (Math.pow(1 + rate, period) - 1));
+                document.getElementById("output2").innerHTML = "SIP amount required: " + sipAmount.toFixed(2);
+            }
         }
-        // document.getElementById("visitor-counter").style.display = "block";
-      }, 200);
 
-    }
 
-    /* Close/hide the side navigation */
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-      // document.getElementById("visitor-counter").style.display = "none";
-      var items = document.querySelectorAll('.sidenavMenuItems');
-      for (var i = 0; i < items.length; i++) {
-        items[i].style.display = "none";
-      }
-    }
+        function calculateInvPeriod() {
+            // event.preventDefault();
+            let totalAmount = document.getElementById("totalAmount3").value;
+            let sipAmount = document.getElementById("sipAmount3").value;
+            let rate = document.getElementById("rate3").value / 1200;
+            let inflationAdjustment = document.getElementById("inflationRate").checked;
+            let inflationRate = document.getElementById("inflation3").value / 1200;
 
-    /* Floating side drawer animation */
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function () {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        document.getElementById("mySidenav").style.bottom = "70px";
-      } else {
-        document.getElementById("mySidenav").style.bottom = "-250px";
-      }
-      prevScrollpos = currentScrollPos;
-    }
-  </script>
+            let output = document.getElementById("output3");
+            let boxAmount = document.getElementById("totalAmount3");
+            let boxRate = document.getElementById("rate3");
+            let boxAmountSip = document.getElementById("sipAmount3");
+            let errorInFields = false;
 
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#" class="sidenavMenuItems" style="display: none">Home</a>
-    <a href="#" class="sidenavMenuItems" style="display: none">Support Us!</a>
-    <!-- <div id="visitor-counter" style="display: none">
-      <p>Total Visitors: <span id="count"><?php echo $count; ?></span></p>
-    </div> -->
-  </div>
+            if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
+                boxAmountSip.style.borderColor = "red";
+                errorInFields = true;
+            } else boxAmountSip.style.borderColor = "#ced4da";
+            if (!rate || isNaN(rate) || rate <= 0) {
+                boxRate.style.borderColor = "red";
+                errorInFields = true;
+            } else boxRate.style.borderColor = "#ced4da";
+            if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+                boxAmount.style.borderColor = "red";
+                errorInFields = true;
+            } else boxAmount.style.borderColor = "#ced4da";
 
-  <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
+            if (errorInFields) {
+                output.style.color = "red";
+                output.innerHTML = "Please enter valid input in all fields";
+            } else {
+                output.style.color = "black";
+                if (inflationAdjustment) {
+                    rate = rate - inflationRate;
+                }
+                let period = Math.log10(((totalAmount * rate) / (sipAmount * (1 + rate))) + 1) / Math.log10(1 + rate);
+                document.getElementById("output3").innerHTML = "Investment period required(in months): " + period.toFixed(2);
+            }
+        }
 
-  <!-- for floating buttons -->
-  <div class="float">
-    <i class="fas fa-hand-pointer"></i>
-    <div class="float-icons icon-circle">
-      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
-          class="fab fa-whatsapp"></i></a>
-      <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
-      <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
-    </div>
-  </div>
 
-  <!-- for floating buttons -->
-  <script>
-    const float = document.querySelector('.float');
-
-    float.addEventListener('click', () => {
-      float.classList.toggle('active');
-    });
-  </script>
-
-  <!-- side floating menu for large screens -->
-  <div class="floating-icons">
-    <div class="floating-icon">
-      <a href="#" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-      </a>
-    </div>
-    <div class="floating-icon">
-      <a href="#" target="_blank">
-        <i class="fab fa-telegram"></i>
-      </a>
-    </div>
-    <div class="floating-icon">
-      <a href="#" target="_blank">
-        <i class="fas fa-hand-holding-heart"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- crackering animation -->
-  <canvas id="canvas"></canvas>
-  <script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    let particles = [];
-
-    function createParticles(x, y) {
-      const hue = Math.floor(Math.random() * 160);
-      for (let i = 0; i < 370; i++) {
-        const isLightHue = Math.random() < 0.5;
-        const hueRange = isLightHue ? [0, 60] : [200, 260];
-        const particleHue = Math.floor(Math.random() * (hueRange[1] - hueRange[0] + 1)) + hueRange[0];
-        particles.push({
-          x,
-          y,
-          xv: Math.random() * 8 - 4,
-          yv: Math.random() * 5 - 2.5,
-          size: Math.random() * 1 + 1,
-          sizeDecay: Math.random() * 0.03 + 0.01,
-          hue: particleHue,
-          brightness: Math.random() * 70 + 30
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script>
+        $('.custom-field-height').on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
         });
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particles.length; i++) {
-        ctx.beginPath();
-        ctx.arc(
-          particles[i].x,
-          particles[i].y,
-          particles[i].size,
-          0,
-          Math.PI * 2
-        );
-        ctx.fillStyle = `hsla(${particles[i].hue}, 100%, ${particles[i].brightness}%, 0.7)`;
-        ctx.fill();
-        particles[i].x += particles[i].xv;
-        particles[i].y += particles[i].yv;
-        particles[i].size -= particles[i].sizeDecay;
-        if (particles[i].size < 0.1) particles.splice(i, 1);
-      }
-      if (particles.length > 0) requestAnimationFrame(animate);
-    }
-
-    function startFireworks(e) {
-      const x = canvas.width / 2;
-      const y = canvas.height / 2;
-      const E = createParticles(x, y);
-      animate();
-    }
-
-  </script>
-
-  <!-- for main function -->
-  <script>
-    $('.custom-field-height').on('input', function () {
-      this.style.height = 'auto';
-      this.style.height = (this.scrollHeight) + 'px';
-    });
-  </script>
-
+        $(document).ready(function () {
+            $('#nav-tab a').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
 </body>
+
 </html>
