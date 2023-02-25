@@ -58,8 +58,71 @@ require_once('config.php');
       padding-right: 0px;
     }
 
-    @media (max-width: 767px) {
+    .text-center {
+      background-color: #111;
+      color: white;
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      font-size: 1.5rem;
+      opacity: 0.9;
+    }
 
+    form {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 0px;
+      font-weight: 600;
+      font-size: large;
+    }
+
+    #lmp {
+      background-color: white;
+      border-right: none;
+      padding-right: 38px;
+      box-shadow: none;
+      border-color: rgb(206, 212, 218);
+    }
+
+    #iconBox {
+      background-color: white;
+      border: 1px solid;
+      border-color: rgb(206, 212, 218);
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+      border-left: none;
+      padding-right: 8px
+    }
+
+    #output {
+      display: none;
+      font-weight: bold;
+      padding: 10px;
+      margin-top: 10px;
+      margin-right: 5px;
+      margin-left: 5px;
+      background-color: rgb(20 10 10 / 48%);
+      font-family: Helvetica, sans-serif;
+      font-size: 16px;
+    }
+
+    #dateText {
+      color: rgb(96 255 196);
+      font-weight: bold;
+      font-size: 20px;
+      font-family:Georgia, serif ;
+    }
+
+    #disclaimer {
+      font-family: Arial, sans-serif;
+      color: #deff05;
+      font-size: 11px;
+
+    }
+
+    @media (max-width: 767px) {
       .custom-field-height {
         height: 62px !important;
       }
@@ -67,9 +130,7 @@ require_once('config.php');
       .input-group-addon span {
         font-size: 40px !important;
       }
-
     }
-
 
     @media (min-width: 530px) {
       .container {
@@ -91,26 +152,8 @@ require_once('config.php');
 
     @media (max-width: 500px) {
       .text-center {
-        font-size: 8vw !important;
         margin-bottom: 1rem !important;
       }
-    }
-
-    .form-group {
-      margin-bottom: 0px;
-      font-weight: 600;
-      font-size: large;
-    }
-
-    #output {
-      font-weight: bold;
-      padding-left: 5px;
-      padding-right: 5px;
-    }
-
-    p {
-      margin-top: 10px;
-      color: #FFF !important;
     }
   </style>
   <!-- The side navigation menu -->
@@ -421,19 +464,14 @@ require_once('config.php');
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2 class="text-center"
-          style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
-          Baby Birth Calculator</h2>
-        <form style="padding-left: 5px;padding-right:5px;">
+        <h2 class="text-center">Baby Birth Calculator</h2>
+        <form>
           <div class="form-group">
             <label for="lmp">Last Menstrual Period (LMP):</label>
             <div class="input-group date" data-provide="datepicker">
               <input type="text" class="form-control custom-field-height" id="lmp"
-                placeholder="Enter your last menstrual period"
-                style="background-color: white;border-right: none;padding-right: 38px;box-shadow: none;border-color:rgb(206, 212, 218);"
-                readonly required>
-              <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
-                border-bottom-right-radius: 0.25rem; border-left: none;padding-right:8px">
+                placeholder="Enter your last menstrual period" readonly required>
+              <div class="input-group-addon" id="iconBox">
                 <span><i class="far fa-calendar-alt"></i></span>
               </div>
             </div>
@@ -466,6 +504,8 @@ require_once('config.php');
       let boxCycle = document.getElementById("cycle");
       let errorInFields = false;
 
+      output.style.display = "block";
+
       if (!lmp || isNaN(lmp) || lmp <= 0) {
         boxDate.style.borderColor = "red";
         boxIcon.style.borderColor = "red";
@@ -482,7 +522,7 @@ require_once('config.php');
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
-        output.style.color = "black";
+        output.style.color = "white";
         let dueDate = new Date(lmp.getTime());
         let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
         let cycleLengthInDays = cycle;
@@ -503,26 +543,13 @@ require_once('config.php');
         };
         var weekString = presentAgeWeek > 1 ? "weeks" : "week";
         var dayString = presentAgeDays > 1 ? "days" : "day";
-        var outputText = "Expected due date: <span style='color: rgb(96 255 196); font-weight: bold;font-size: 20px;'>" + dueDate.toLocaleDateString("en-US", options) + "</span><br> Your baby is " + presentAgeWeek + " " + weekString + " and " + presentAgeDays + " " + dayString + " old" + "<br><span id='disclaimer' style='font-family: Arial, sans-serif; color: #ff0505;line-height:5px !important;'></span>"
+        var outputText = "Expected due date: <span id= 'dateText'>" + dueDate.toLocaleDateString("en-US", options) + "</span><br> Your baby is " + presentAgeWeek + " " + weekString + " and " + presentAgeDays + " " + dayString + " old" + "<br><span id='disclaimer'></span>"
 
         output.innerHTML = outputText;
 
-        // Styling for the output element
-        output.style.background = "rgb(20 10 10 / 48%)";
-        output.style.padding = "20px";
-        output.style.marginRight = "5px",
-          output.style.marginLeft = "5px",
-          output.style.fontFamily = "Helvetica, sans-serif";
-        output.style.fontSize = "16px";
-
-        // Styling for the disclaimer line
-        output.getElementsByTagName("span")[0].style.fontFamily = "Georgia, serif";
-        output.getElementsByTagName("span")[0].style.fontSize = "20px";
-        output.getElementsByTagName("span")[1].style.fontSize = "10px";
-
         // Start animation for disclaimer text
         var disclaimerElement = document.getElementById("disclaimer");
-        var disclaimerText = "Disclaimer: Due date may vary depending on various factors.";
+        var disclaimerText = "Disclaimer: Due date may vary depending on various factors";
         var i = 0;
 
         function typeWriter() {
@@ -532,13 +559,10 @@ require_once('config.php');
             setTimeout(typeWriter, 50);
           }
         }
-
         setTimeout(typeWriter, 1000);
-
 
         startFireworks();
       }
-
 
     }
 
@@ -713,9 +737,5 @@ require_once('config.php');
     });
   </script>
 
-
-
-
 </body>
-
 </html>
