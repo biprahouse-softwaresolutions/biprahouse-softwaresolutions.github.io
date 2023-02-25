@@ -9,19 +9,23 @@ require_once('config.php');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
+  <meta name="description"
+    content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
   <meta property="og:image" content="https://example.com/image.jpg">
   <meta property="og:title" content="Baby Birth Calculator">
   <meta property="og:description" content="Start planning for your new arrival today">
   <link rel="shortcut icon" type="image/png" href="icon.png">
   <link rel="icon" type="image/png" href="icon.png">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
 
 
@@ -106,6 +110,7 @@ require_once('config.php');
 
     p {
       margin-top: 10px;
+      color: #FFF !important;
     }
   </style>
   <!-- The side navigation menu -->
@@ -402,7 +407,7 @@ require_once('config.php');
   </style>
 
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('.input-group.date').datepicker({
         dateFormat: 'dd-mm-yy',
         autoclose: true,
@@ -416,13 +421,17 @@ require_once('config.php');
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2 class="text-center" style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
+        <h2 class="text-center"
+          style="background-color: #111;color: white;padding-bottom: 0.5rem !important;padding-top: 0.5rem !important ;font-size: 1.5rem !important;opacity: 0.9;">
           Baby Birth Calculator</h2>
         <form style="padding-left: 5px;padding-right:5px;">
           <div class="form-group">
             <label for="lmp">Last Menstrual Period (LMP):</label>
             <div class="input-group date" data-provide="datepicker">
-              <input type="text" class="form-control custom-field-height" id="lmp" placeholder="Enter your last menstrual period" style="background-color: white;border-right: none;padding-right: 38px;box-shadow: none;border-color:rgb(206, 212, 218);" readonly required>
+              <input type="text" class="form-control custom-field-height" id="lmp"
+                placeholder="Enter your last menstrual period"
+                style="background-color: white;border-right: none;padding-right: 38px;box-shadow: none;border-color:rgb(206, 212, 218);"
+                readonly required>
               <div class="input-group-addon" id="iconBox" style="background-color: white;border: 1px solid ;border-color: rgb(206, 212, 218);border-top-right-radius: 0.25rem;
                 border-bottom-right-radius: 0.25rem; border-left: none;padding-right:8px">
                 <span><i class="far fa-calendar-alt"></i></span>
@@ -432,9 +441,11 @@ require_once('config.php');
 
           <div class="form-group" style="margin-bottom: 10px;">
             <label for="cycle">Menstrual Cycle Length(in days):</label>
-            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1" placeholder="Enter your menstrual cycle length" value="28">
+            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1"
+              placeholder="Enter your menstrual cycle length" value="28">
           </div>
-          <button type="submit" class="btn btn-primary" id="fireworks-btn" onclick="calculateDueDate()">Calculate</button>
+          <button type="submit" class="btn btn-primary" id="fireworks-btn"
+            onclick="calculateDueDate()">Calculate</button>
         </form>
         <p id="output"></p>
       </div>
@@ -490,7 +501,41 @@ require_once('config.php');
           month: 'long',
           day: 'numeric'
         };
-        document.getElementById("output").innerHTML = "Due date: " + dueDate.toLocaleDateString("en-US", options) + "<br> Your baby is " + presentAgeWeek + " weeks and " + presentAgeDays + " days old";
+        var weekString = presentAgeWeek > 1 ? "weeks" : "week";
+        var dayString = presentAgeDays > 1 ? "days" : "day";
+        var outputText = "Expected due date: <span style='color: rgb(96 255 196); font-weight: bold;font-size: 20px;'>" + dueDate.toLocaleDateString("en-US", options) + "</span><br> Your baby is " + presentAgeWeek + " " + weekString + " and " + presentAgeDays + " " + dayString + " old" + "<br><span id='disclaimer' style='font-family: Arial, sans-serif; color: #ff0505;line-height:5px !important;'></span>"
+
+        output.innerHTML = outputText;
+
+        // Styling for the output element
+        output.style.background = "rgb(20 10 10 / 48%)";
+        output.style.padding = "20px";
+        output.style.marginRight = "5px",
+          output.style.marginLeft = "5px",
+          output.style.fontFamily = "Helvetica, sans-serif";
+        output.style.fontSize = "16px";
+
+        // Styling for the disclaimer line
+        output.getElementsByTagName("span")[0].style.fontFamily = "Georgia, serif";
+        output.getElementsByTagName("span")[0].style.fontSize = "20px";
+        output.getElementsByTagName("span")[1].style.fontSize = "10px";
+
+        // Start animation for disclaimer text
+        var disclaimerElement = document.getElementById("disclaimer");
+        var disclaimerText = "Disclaimer: Due date may vary depending on various factors.";
+        var i = 0;
+
+        function typeWriter() {
+          if (i < disclaimerText.length) {
+            disclaimerElement.innerHTML += disclaimerText.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+          }
+        }
+
+        setTimeout(typeWriter, 1000);
+
+
         startFireworks();
       }
 
@@ -543,7 +588,7 @@ require_once('config.php');
 
     /* Floating side drawer animation */
     var prevScrollpos = window.pageYOffset;
-    window.onscroll = function() {
+    window.onscroll = function () {
       var currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById("mySidenav").style.bottom = "70px";
@@ -569,7 +614,8 @@ require_once('config.php');
   <div class="float">
     <i class="fas fa-hand-pointer"></i>
     <div class="float-icons icon-circle">
-      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i class="fab fa-whatsapp"></i></a>
+      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
+          class="fab fa-whatsapp"></i></a>
       <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
       <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
     </div>
@@ -658,10 +704,10 @@ require_once('config.php');
     }
 
   </script>
-  
+
   <!-- for main function -->
   <script>
-    $('.custom-field-height').on('input', function() {
+    $('.custom-field-height').on('input', function () {
       this.style.height = 'auto';
       this.style.height = (this.scrollHeight) + 'px';
     });
