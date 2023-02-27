@@ -1,339 +1,422 @@
+<!-- <?php
+// Include the counter.php file
+require_once('config.php');
+?> -->
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        /* Add a custom class to the fields to adjust their height on mobile */
-        @media (max-width: 767px) {
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-            .custom-field-height,
-            .custom-select-height {
-                height: calc(100vh / 12) !important;
-            }
+  <!-- styles for main container -->
+  <style>
+    body::before {
+      content: "";
+      background-image: url('https://source.unsplash.com/random/1600x900/?money&&q=auto');
+      background-size: cover;
+      /* opacity: 0.5; */
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-repeat: no-repeat;
+      z-index: -1;
+      background-position: center;
+    }
 
-            .nav-link {
-                padding-left: 10px;
-                padding-right: 14px;
-            }
-        }
+    @media (max-width: 640px) {
+      body::before {
+        background-image: url('https://source.unsplash.com/random/640x480/?investing,savings,returns,finance,money&&q=low');
+      }
+    }
+
+    .container-fluid {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    form {
+      background-color:rgb(20 10 10 / 70%) ;
+
+    }
+
+    .text-center {
+      background-color: #111 !important;
+      color: white;
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .nav-tabs,.tab-content {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    /* Add a custom class to the fields to adjust their height on mobile */
+    @media (max-width: 767px) {
+
+      .custom-field-height,
+      .custom-select-height {
+        height: calc(100vh / 12) !important;
+      }
+
+      .nav-link {
+        padding-left: 10px;
+        padding-right: 14px;
+      }
+    }
 
 
-        @media (min-width: 530px) {
-            .container-fluid {
-                width: 80vw;
-            }
-        }
+    @media (min-width: 530px) {
+      .container-fluid {
+        width: 80vw;
+      }
+    }
 
-        @media (min-width: 770px) {
-            .container-fluid {
-                width: 60vw;
-            }
-        }
+    @media (min-width: 770px) {
+      .container-fluid {
+        width: 60vw;
+      }
+    }
 
-        @media (min-width: 1100px) {
-            .container-fluid {
-                width: 40vw;
-            }
-        }
+    @media (min-width: 1100px) {
+      .container-fluid {
+        width: 40vw;
+      }
+    }
 
-        @media (max-width: 500px) {
-            .text-center {
-                font-size: 8vw !important;
-            }
-        }
 
-        .form-group {
-            margin-bottom: 0px;
-        }
+    .form-group {
+      margin-bottom: 0px;
+      margin-left: 35px;
+      margin-right: 35px;
+    }
 
-        .nav-tabs .nav-link.active {
-            background-color: #e5e6ea;
-        }
+    .form-group label {
+      color:white;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-        #output1,
-        #output2,
-        #output3 {
-            font-weight: bold;
-        }
+    .form-control:disabled{
+      background-color: #9b9898;
+    }
 
-        p {
-            margin-top: 10px;
-        }
-    </style>
+    .btn {
+      margin-top: 10px;
+      margin-left: 35px;
+      margin-right: 35px;
+      margin-bottom: 10px;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #e5e6ea;
+    }
+
+    .nav-tabs .nav-link {
+      color: #fff700;
+      background-color:rgb(0 0 0 / 70%) ;
+      border: 1px solid white;
+    }
+
+    #nav-amount-tab{
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+
+    #output1,
+    #output2,
+    #output3 {
+      display: none;
+      font-weight: bold;
+      margin-top: 10px;
+      background-color: rgb(0 0 0 / 70%);
+      font-family: Helvetica, sans-serif;
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    p {
+      
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <h1 class="text-center">SIP Calculator</h1>
-        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab"
-                    aria-controls="nav-future" aria-selected="true">Future Value</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="nav-amount-tab" data-toggle="tab" href="#nav-amount" role="tab"
-                    aria-controls="nav-amount" aria-selected="false">SIP Amount</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="nav-rate-tab" data-toggle="tab" href="#nav-rate" role="tab"
-                    aria-controls="nav-rate" aria-selected="false">SIP Duration</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-future" role="tabpanel" aria-labelledby="nav-future-tab">
-                <form>
-                    <div class="form-group">
-                        <label for="sipAmount">Monthly SIP amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="sipAmount1" min="0"
-                            step="0.01" placeholder="Enter the monthly SIP amount" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rate">Expected annual rate of return:</label>
-                        <input type="number" class="form-control custom-field-height" id="rate1" min="0" max="100"
-                            step="0.01" placeholder="Enter the expected annual rate of return" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="period">Investment period (in months):</label>
-                        <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
-                            placeholder="Enter the investment period in months" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inflationRate">Inflation rate adjustment:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inflationRate"
-                                onchange="toggleInflationRate()" required>
-                            <label class="form-check-label" for="inflationRate"></label>
-                        </div>
-                        <input type="number" class="form-control custom-field-height" id="inflation1" min="0" max="100"
-                            step="0.01" placeholder="Enter the inflation rate" disabled value="7">
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
-                </form>
-                <p id="output1"></p>
+  <div class="container-fluid">
+    <h1 class="text-center">SIP Calculator</h1>
+    <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab"
+          aria-controls="nav-future" aria-selected="true">Future Value</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="nav-amount-tab" data-toggle="tab" href="#nav-amount" role="tab"
+          aria-controls="nav-amount" aria-selected="false">SIP Amount</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="nav-rate-tab" data-toggle="tab" href="#nav-rate" role="tab" aria-controls="nav-rate"
+          aria-selected="false">SIP Duration</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-future" role="tabpanel" aria-labelledby="nav-future-tab">
+        <form>
+          <div class="form-group">
+            <label for="sipAmount">Monthly SIP amount:</label>
+            <input type="number" class="form-control custom-field-height" id="sipAmount1" min="0" step="0.01"
+              placeholder="Enter the monthly SIP amount" required>
+          </div>
+          <div class="form-group">
+            <label for="rate">Expected annual rate of return(%):</label>
+            <input type="number" class="form-control custom-field-height" id="rate1" min="0" max="100" step="0.01"
+              placeholder="Enter the expected annual rate of return" required>
+          </div>
+          <div class="form-group">
+            <label for="period">Investment period (in months):</label>
+            <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
+              placeholder="Enter the investment period in months" required>
+          </div>
+          <div class="form-group">
+            <label for="inflationRate">Inflation rate adjustment:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="inflationRate1" onchange="toggleInflationRate('inflation1')"
+                required>
+              <label class="form-check-label" for="inflationRate"></label>
             </div>
-            <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
-                <form>
-                    <div class="form-group">
-                        <label for="totalAmount">Total target amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="totalAmount2" min="0"
-                            step="0.01" placeholder="Enter the total target amount" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rate">Expected annual rate of return:</label>
-                        <input type="number" class="form-control custom-field-height" id="rate2" min="0" max="100"
-                            step="0.01" placeholder="Enter the expected annual rate of return" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="period">Investment period (in months):</label>
-                        <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
-                            placeholder="Enter the investment period in months" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inflationRate">Inflation rate adjustment:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inflationRate"
-                                onchange="toggleInflationRate()" required>
-                            <label class="form-check-label" for="inflationRate"></label>
-                        </div>
-                        <input type="number" class="form-control custom-field-height" id="inflation2" min="0" max="100"
-                            step="0.01" placeholder="Enter the inflation rate" disabled value="7">
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="calculateSIP()">Calculate</button>
-                </form>
-                <p id="output2"></p>
+            <input type="number" class="form-control custom-field-height" id="inflation1" min="0" max="100" step="0.01"
+              placeholder="Enter the inflation rate" disabled value="7">
+          </div>
+          <button type="button" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
+        </form>
+        <p id="output1"></p>
+      </div>
+
+      <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
+        <form>
+          <div class="form-group">
+            <label for="totalAmount">Total target amount:</label>
+            <input type="number" class="form-control custom-field-height" id="totalAmount2" min="0" step="0.01"
+              placeholder="Enter the total target amount" required>
+          </div>
+          <div class="form-group">
+            <label for="rate">Expected annual rate of return(%):</label>
+            <input type="number" class="form-control custom-field-height" id="rate2" min="0" max="100" step="0.01"
+              placeholder="Enter the expected annual rate of return" required>
+          </div>
+          <div class="form-group">
+            <label for="period">Investment period (in months):</label>
+            <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
+              placeholder="Enter the investment period in months" required>
+          </div>
+          <div class="form-group">
+            <label for="inflationRate">Inflation rate adjustment:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="inflationRate2" onchange="toggleInflationRate('inflation2')"
+                required>
+              <label class="form-check-label" for="inflationRate"></label>
             </div>
-            <div class="tab-pane fade" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
-                <form>
-                    <div class="form-group">
-                        <label for="totalAmount">Total target amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="totalAmount3" min="0"
-                            step="0.01" placeholder="Enter the total target amount" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="sipAmount">SIP amount:</label>
-                        <input type="number" class="form-control custom-field-height" id="sipAmount3" min="0"
-                            step="0.01" placeholder="Enter the SIP amount" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rate">Expected annual rate of return:</label>
-                        <input type="number" class="form-control custom-field-height" id="rate3" min="0" max="100"
-                            step="0.01" placeholder="Enter the expected annual rate of return" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inflationRate">Inflation rate adjustment:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inflationRate"
-                                onchange="toggleInflationRate()" required>
-                            <label class="form-check-label" for="inflationRate"></label>
-                        </div>
-                        <input type="number" class="form-control custom-field-height" id="inflation3" min="0" max="100"
-                            step="0.01" placeholder="Enter the inflation rate" disabled value="7">
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="calculateInvPeriod()">Calculate</button>
-                </form>
-                <p id="output3"></p>
+            <input type="number" class="form-control custom-field-height" id="inflation2" min="0" max="100" step="0.01"
+              placeholder="Enter the inflation rate" disabled value="7">
+          </div>
+          <button type="button" class="btn btn-primary" onclick="calculateSIP()">Calculate</button>
+        </form>
+        <p id="output2"></p>
+      </div>
+
+      <div class="tab-pane fade" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
+        <form>
+          <div class="form-group">
+            <label for="totalAmount">Total target amount:</label>
+            <input type="number" class="form-control custom-field-height" id="totalAmount3" min="0" step="0.01"
+              placeholder="Enter the total target amount" required>
+          </div>
+          <div class="form-group">
+            <label for="sipAmount">SIP amount:</label>
+            <input type="number" class="form-control custom-field-height" id="sipAmount3" min="0" step="0.01"
+              placeholder="Enter the SIP amount" required>
+          </div>
+          <div class="form-group">
+            <label for="rate">Expected annual rate of return:</label>
+            <input type="number" class="form-control custom-field-height" id="rate3" min="0" max="100" step="0.01"
+              placeholder="Enter the expected annual rate of return" required>
+          </div>
+          <div class="form-group">
+            <label for="inflationRate">Inflation rate adjustment:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="inflationRate3" onchange="toggleInflationRate('inflation3')"
+                required>
+              <label class="form-check-label" for="inflationRate"></label>
             </div>
-        </div>
+            <input type="number" class="form-control custom-field-height" id="inflation3" min="0" max="100" step="0.01"
+              placeholder="Enter the inflation rate" disabled value="7">
+          </div>
+          <button type="button" class="btn btn-primary" onclick="calculateInvPeriod()">Calculate</button>
+        </form>
+        <p id="output3"></p>
+      </div>
     </div>
-    <script>
-        function toggleInflationRate() {
-            let inflation = document.getElementById("inflation");
-            if (inflation.disabled) {
-                inflation.disabled = false;
-            } else {
-                inflation.disabled = true;
-            }
+  </div>
+  <script>
+    function toggleInflationRate(id) {
+      let inflation = document.getElementById(id);
+      if (inflation.disabled) {
+        inflation.disabled = false;
+      } else {
+        inflation.disabled = true;
+      }
+    }
+    function calculateFV() {
+      // event.preventDefault();
+      let sipAmount = document.getElementById("sipAmount1").value;
+      let rate = document.getElementById("rate1").value / 1200;
+      let period = document.getElementById("period1").value;
+      let inflationAdjustment = document.getElementById("inflationRate1").checked;
+      let inflationRate = document.getElementById("inflation1").value / 1200;
+
+      let output = document.getElementById("output1");
+      let boxAmount = document.getElementById("sipAmount1");
+      let boxRate = document.getElementById("rate1");
+      let boxPeriod = document.getElementById("period1");
+      let errorInFields = false;
+      output.style.display = "block";
+
+      if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
+        boxAmount.style.borderColor = "red";
+        errorInFields = true;
+      } else boxAmount.style.borderColor = "#ced4da";
+      if (!rate || isNaN(rate) || rate <= 0) {
+        boxRate.style.borderColor = "red";
+        errorInFields = true;
+      } else boxRate.style.borderColor = "#ced4da";
+      if (!period || isNaN(period) || period <= 0) {
+        boxPeriod.style.borderColor = "red";
+        errorInFields = true;
+      } else boxPeriod.style.borderColor = "#ced4da";
+
+      if (errorInFields) {
+        output.style.color = "red";
+        output.innerHTML = "Please enter valid input in all fields";
+      } else {
+        output.style.color = "black";
+        if (inflationAdjustment) {
+          rate = rate - inflationRate;
         }
-        function calculateFV() {
-            // event.preventDefault();
-            let sipAmount = document.getElementById("sipAmount1").value;
-            let rate = document.getElementById("rate1").value / 1200;
-            let period = document.getElementById("period1").value;
-            let inflationAdjustment = document.getElementById("inflationRate").checked;
-            let inflationRate = document.getElementById("inflation1").value / 1200;
+        let futureValue = sipAmount * (1 + rate) * (Math.pow(1 + rate, period) - 1) / rate;
+        document.getElementById("output1").innerHTML = "Future value of investment:<span id= 'futureVAlueText'> " +              futureValue.toFixed(2) + "</span><br> Total return : " + (futureValue - (period * sipAmount)).toFixed(2);
+      }
+    }
+    function calculateSIP() {
+      // event.preventDefault();
+      let totalAmount = document.getElementById("totalAmount2").value;
+      let rate = document.getElementById("rate2").value / 1200;
+      let period = document.getElementById("period2").value;
+      let inflationAdjustment = document.getElementById("inflationRate2").checked;
+      let inflationRate = document.getElementById("inflation2").value / 1200;
 
-            let output = document.getElementById("output1");
-            let boxAmount = document.getElementById("sipAmount1");
-            let boxRate = document.getElementById("rate1");
-            let boxPeriod = document.getElementById("period1");
-            let errorInFields = false;
+      let output = document.getElementById("output2");
+      let boxAmount = document.getElementById("totalAmount2");
+      let boxRate = document.getElementById("rate2");
+      let boxPeriod = document.getElementById("period2");
+      let errorInFields = false;
+      output.style.display = "block";
+      if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+        boxAmount.style.borderColor = "red";
+        errorInFields = true;
+      } else boxAmount.style.borderColor = "#ced4da";
+      if (!rate || isNaN(rate) || rate <= 0) {
+        boxRate.style.borderColor = "red";
+        errorInFields = true;
+      } else boxRate.style.borderColor = "#ced4da";
+      if (!period || isNaN(period) || period <= 0) {
+        boxPeriod.style.borderColor = "red";
+        errorInFields = true;
+      } else boxPeriod.style.borderColor = "#ced4da";
 
-
-            if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
-                boxAmount.style.borderColor = "red";
-                errorInFields = true;
-            } else boxAmount.style.borderColor = "#ced4da";
-            if (!rate || isNaN(rate) || rate <= 0) {
-                boxRate.style.borderColor = "red";
-                errorInFields = true;
-            } else boxRate.style.borderColor = "#ced4da";
-            if (!period || isNaN(period) || period <= 0) {
-                boxPeriod.style.borderColor = "red";
-                errorInFields = true;
-            } else boxPeriod.style.borderColor = "#ced4da";
-
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
-                if (inflationAdjustment) {
-                    rate = rate - inflationRate;
-                }
-                let futureValue = sipAmount * (1 + rate) * (Math.pow(1 + rate, period) - 1) / rate;
-                document.getElementById("output1").innerHTML = "Future value of investment: " + futureValue.toFixed(2) +
-                    "<br> Total return : " + (futureValue - (period * sipAmount)).toFixed(2);
-            }
+      if (errorInFields) {
+        output.style.color = "red";
+        output.innerHTML = "Please enter valid input in all fields";
+      } else {
+        output.style.color = "black";
+        if (inflationAdjustment) {
+          rate = rate - inflationRate;
         }
-        function calculateSIP() {
-            // event.preventDefault();
-            let totalAmount = document.getElementById("totalAmount2").value;
-            let rate = document.getElementById("rate2").value / 1200;
-            let period = document.getElementById("period2").value;
-            let inflationAdjustment = document.getElementById("inflationRate").checked;
-            let inflationRate = document.getElementById("inflation2").value / 1200;
+        let sipAmount = totalAmount * rate / ((1 + rate) * (Math.pow(1 + rate, period) - 1));
+        document.getElementById("output2").innerHTML = "SIP amount required: " + sipAmount.toFixed(2);
+      }
+    }
 
-            let output = document.getElementById("output2");
-            let boxAmount = document.getElementById("totalAmount2");
-            let boxRate = document.getElementById("rate2");
-            let boxPeriod = document.getElementById("period2");
-            let errorInFields = false;
 
-            if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
-                boxAmount.style.borderColor = "red";
-                errorInFields = true;
-            } else boxAmount.style.borderColor = "#ced4da";
-            if (!rate || isNaN(rate) || rate <= 0) {
-                boxRate.style.borderColor = "red";
-                errorInFields = true;
-            } else boxRate.style.borderColor = "#ced4da";
-            if (!period || isNaN(period) || period <= 0) {
-                boxPeriod.style.borderColor = "red";
-                errorInFields = true;
-            } else boxPeriod.style.borderColor = "#ced4da";
+    function calculateInvPeriod() {
+      // event.preventDefault();
+      let totalAmount = document.getElementById("totalAmount3").value;
+      let sipAmount = document.getElementById("sipAmount3").value;
+      let rate = document.getElementById("rate3").value / 1200;
+      let inflationAdjustment = document.getElementById("inflationRate3").checked;
+      let inflationRate = document.getElementById("inflation3").value / 1200;
 
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
-                if (inflationAdjustment) {
-                    rate = rate - inflationRate;
-                }
-                let sipAmount = totalAmount * rate / ((1 + rate) * (Math.pow(1 + rate, period) - 1));
-                document.getElementById("output2").innerHTML = "SIP amount required: " + sipAmount.toFixed(2);
-            }
+      let output = document.getElementById("output3");
+      let boxAmount = document.getElementById("totalAmount3");
+      let boxRate = document.getElementById("rate3");
+      let boxAmountSip = document.getElementById("sipAmount3");
+      let errorInFields = false;
+      output.style.display = "block";
+      if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
+        boxAmountSip.style.borderColor = "red";
+        errorInFields = true;
+      } else boxAmountSip.style.borderColor = "#ced4da";
+      if (!rate || isNaN(rate) || rate <= 0) {
+        boxRate.style.borderColor = "red";
+        errorInFields = true;
+      } else boxRate.style.borderColor = "#ced4da";
+      if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+        boxAmount.style.borderColor = "red";
+        errorInFields = true;
+      } else boxAmount.style.borderColor = "#ced4da";
+
+      if (errorInFields) {
+        output.style.color = "red";
+        output.innerHTML = "Please enter valid input in all fields";
+      } else {
+        output.style.color = "black";
+        if (inflationAdjustment) {
+          rate = rate - inflationRate;
         }
+        let period = Math.log10(((totalAmount * rate) / (sipAmount * (1 + rate))) + 1) / Math.log10(1 + rate);
+        document.getElementById("output3").innerHTML = "Investment period required(in months): " + period.toFixed(2);
+      }
+    }
 
 
-        function calculateInvPeriod() {
-            // event.preventDefault();
-            let totalAmount = document.getElementById("totalAmount3").value;
-            let sipAmount = document.getElementById("sipAmount3").value;
-            let rate = document.getElementById("rate3").value / 1200;
-            let inflationAdjustment = document.getElementById("inflationRate").checked;
-            let inflationRate = document.getElementById("inflation3").value / 1200;
-
-            let output = document.getElementById("output3");
-            let boxAmount = document.getElementById("totalAmount3");
-            let boxRate = document.getElementById("rate3");
-            let boxAmountSip = document.getElementById("sipAmount3");
-            let errorInFields = false;
-
-            if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
-                boxAmountSip.style.borderColor = "red";
-                errorInFields = true;
-            } else boxAmountSip.style.borderColor = "#ced4da";
-            if (!rate || isNaN(rate) || rate <= 0) {
-                boxRate.style.borderColor = "red";
-                errorInFields = true;
-            } else boxRate.style.borderColor = "#ced4da";
-            if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
-                boxAmount.style.borderColor = "red";
-                errorInFields = true;
-            } else boxAmount.style.borderColor = "#ced4da";
-
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
-                if (inflationAdjustment) {
-                    rate = rate - inflationRate;
-                }
-                let period = Math.log10(((totalAmount * rate) / (sipAmount * (1 + rate))) + 1) / Math.log10(1 + rate);
-                document.getElementById("output3").innerHTML = "Investment period required(in months): " + period.toFixed(2);
-            }
-        }
-
-
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-    <script>
-        $('.custom-field-height').on('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-        $(document).ready(function () {
-            $('#nav-tab a').on('click', function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
-        });
-    </script>
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script>
+    $('.custom-field-height').on('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+    $(document).ready(function () {
+      $('#nav-tab a').on('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+    });
+  </script>
 </body>
 
 </html>
