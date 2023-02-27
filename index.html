@@ -409,7 +409,7 @@ require_once('config.php');
           <div class="form-group">
             <label for="rate">Expected annual rate of return(%):</label>
             <input type="number" class="form-control custom-field-height" id="rate1" min="0" max="100" step="0.01"
-              placeholder="Enter the expected annual rate of return" required>
+              placeholder="Enter the annual rate of return" required>
           </div>
           <div class="form-group">
             <label for="period">Investment period (in months):</label>
@@ -426,7 +426,7 @@ require_once('config.php');
             <input type="number" class="form-control custom-field-height" id="inflation1" min="0" max="100" step="0.01"
               placeholder="Enter the inflation rate" disabled value="7">
           </div>
-          <button type="button" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
+          <button type="button" value="Submit" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
         </form>
         <p id="output1"></p>
       </div>
@@ -506,7 +506,7 @@ require_once('config.php');
       }
     }
     function calculateFV() {
-      // event.preventDefault();
+      event.preventDefault();
       let sipAmount = document.getElementById("sipAmount1").value;
       let rate = document.getElementById("rate1").value / 1200;
       let period = document.getElementById("period1").value;
@@ -564,7 +564,7 @@ require_once('config.php');
       }
     }
     function calculateSIP() {
-      // event.preventDefault();
+      event.preventDefault();
       let totalAmount = document.getElementById("totalAmount2").value;
       let rate = document.getElementById("rate2").value / 1200;
       let period = document.getElementById("period2").value;
@@ -619,7 +619,7 @@ require_once('config.php');
 
 
     function calculateInvPeriod() {
-      // event.preventDefault();
+      event.preventDefault();
       let totalAmount = document.getElementById("totalAmount3").value;
       let sipAmount = document.getElementById("sipAmount3").value;
       let rate = document.getElementById("rate3").value / 1200;
@@ -761,12 +761,7 @@ require_once('config.php');
       this.style.height = 'auto';
       this.style.height = (this.scrollHeight) + 'px';
     });
-    $(document).ready(function () {
-      $('#nav-tab a').on('click', function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-      });
-    });
+    
   </script>
 </body>
 
