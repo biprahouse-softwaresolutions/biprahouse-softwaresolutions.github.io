@@ -11,6 +11,9 @@ require_once('config.php');
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- for floating buttons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+
 
   <!-- styles for main container -->
   <style>
@@ -40,7 +43,7 @@ require_once('config.php');
       padding-right: 0px;
     }
 
-    form {
+    .tab-content form {
       background-color: rgb(20 10 10 / 70%);
 
     }
@@ -148,6 +151,231 @@ require_once('config.php');
       font-weight: bold;
       font-size: 20px;
       font-family: Georgia, serif;
+    }
+  </style>
+  <!-- The side navigation menu -->
+  <style>
+    /* The side navigation menu */
+    .sidenav {
+      height: 100%;
+      /* 100% Full-height */
+      width: 0;
+      /* 0 width - change this with JavaScript */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Stay on top */
+      top: 0;
+      /* Stay at the top */
+      left: 0;
+      background-color: #087089;
+      /* Black*/
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      padding-top: 60px;
+      /* Place content 60px from the top */
+      transition: 0.3s;
+      /* 0.5 second transition effect to slide in the sidenav */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      /* transition: 0.8s; */
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    /* Add animation to "slide in" the sidenav */
+    @keyframes slideIn {
+      from {
+        left: -250px;
+      }
+
+      to {
+        left: 0;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        left: 0;
+      }
+
+      to {
+        left: -250px;
+      }
+    }
+
+    /* Add animation to "slide out" the sidenav */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* Set the style of the menu icon */
+    #sideButton {
+      display: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      position: fixed;
+      z-index: 2;
+      top: 0px;
+      left: 10px;
+    }
+
+    #visitor-counter {
+      position: fixed;
+      bottom: 70px;
+      /* width: 100%; */
+      /* background-color: #f1f1f1; */
+      text-align: center;
+      padding: 10px;
+    }
+
+    #visitor-counter span {
+      font-weight: bold;
+      color: #07ff07;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #visitor-counter p {
+      color: #ffc107;
+    }
+
+    /* Set the style of the menu icon on small screens */
+    @media screen and (max-width: 530px) {
+      #sideButton {
+        display: block;
+      }
+    }
+  </style>
+  <!-- Set the style of the floating menu icon on small screens -->
+  <style>
+    .float {
+      display: none;
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #ff0000;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 100;
+      cursor: pointer;
+    }
+
+    .float i {
+      margin-top: 12px;
+    }
+
+    .float-icons {
+      position: fixed;
+      bottom: 120px;
+      right: 50px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .float:hover .float-icons {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .float-icons a {
+      display: block;
+      margin: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      background: #25d366;
+      color: #ffffff;
+      box-shadow: 1px 1px 2px #999;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .float-icons a:nth-of-type(2) {
+      background: #0088cc;
+    }
+
+    .float-icons a:nth-of-type(3) {
+      background: #ffc107;
+    }
+
+    .float-icons a:hover {
+      background: #555;
+      color: #FFF;
+      box-shadow: 2px 2px 3px #999;
+    }
+
+    @media (max-width: 530px) {
+      .float {
+        display: block;
+        width: 50px;
+        height: 50px;
+        bottom: 130px;
+        right: 30px;
+        opacity: 0.99;
+      }
+
+      .icon-circle i {
+        margin-top: 8px;
+      }
+
+      .float-icons {
+        bottom: 200px;
+        right: 30px;
+      }
+
+      .float-icons a {
+        margin: 8px;
+        width: 40px;
+        height: 40px;
+        line-height: 32px;
+      }
+
+      .float i {
+        font-size: 1.5em;
+      }
+
     }
   </style>
 </head>
@@ -333,8 +561,6 @@ require_once('config.php');
         document.getElementById("output1").innerHTML += "<br> Total return : ";
         document.getElementById("output1").appendChild(totalReturnSpan);
 
-
-        // document.getElementById("output1").innerHTML = "Future value of investment: " + futureValue.toFixed(2) + "<br> Total return : " + (futureValue - (period * sipAmount)).toFixed(2);
       }
     }
     function calculateSIP() {
@@ -423,17 +649,104 @@ require_once('config.php');
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
-        output.style.color = "black";
+        output.style.color = "white";
         if (inflationAdjustment) {
           rate = rate - inflationRate;
         }
         let period = Math.log10(((totalAmount * rate) / (sipAmount * (1 + rate))) + 1) / Math.log10(1 + rate);
-        document.getElementById("output3").innerHTML = "Investment period required(in months): " + period.toFixed(2);
+
+        // Create a new span element with a class of "specialText"
+        var spanElement3 = document.createElement("span");
+        spanElement3.className = "specialText";
+
+        // Create a new text node containing the toFixed() result
+        var textNode3 = document.createTextNode(period.toFixed(2));
+
+        // Append the text node to the span element
+        spanElement3.appendChild(textNode3);
+
+        // Set the inner HTML of the output element to the static text plus the span element
+        document.getElementById("output3").innerHTML = "Investment period required(in months): ";
+        document.getElementById("output3").appendChild(spanElement3);
       }
     }
 
 
   </script>
+  <!-- for side drawer and visitors count -->
+  <script>
+    /* Open the side navigation */
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("sideButton").style.display = "none";
+      setTimeout(() => {
+        var items = document.querySelectorAll('.sidenavMenuItems');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.display = "block";
+        }
+        // document.getElementById("visitor-counter").style.display = "block";
+      }, 200);
+
+    }
+
+    /* Close/hide the side navigation */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("visitor-counter").style.display = "none";
+      var items = document.querySelectorAll('.sidenavMenuItems');
+      for (var i = 0; i < items.length; i++) {
+        items[i].style.display = "none";
+      }
+      setTimeout(() => {
+        document.getElementById("sideButton").style.display = "block";
+      }, 200);
+    }
+
+    /* Floating side drawer animation */
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById("mySidenav").style.bottom = "70px";
+      } else {
+        document.getElementById("mySidenav").style.bottom = "-250px";
+      }
+      prevScrollpos = currentScrollPos;
+    }
+  </script>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Home</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Support Us!</a>
+    <!-- <div id="visitor-counter" style="display: none">
+      <p>Total Visitors: <span id="count"><?php echo $count; ?></span></p>
+    </div> -->
+  </div>
+
+  <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
+
+  <!-- for floating buttons -->
+  <div class="float">
+    <i class="fas fa-hand-pointer"></i>
+    <div class="float-icons icon-circle">
+      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
+          class="fab fa-whatsapp"></i></a>
+      <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
+      <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
+    </div>
+  </div>
+
+  <!-- for floating buttons -->
+  <script>
+    const float = document.querySelector('.float');
+
+    float.addEventListener('click', () => {
+      float.classList.toggle('active');
+    });
+  </script>
+
+  <!-- main function part -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
