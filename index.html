@@ -41,7 +41,7 @@ require_once('config.php');
     }
 
     form {
-      background-color:rgb(20 10 10 / 70%) ;
+      background-color: rgb(20 10 10 / 70%);
 
     }
 
@@ -53,7 +53,8 @@ require_once('config.php');
       font-size: 1.5rem;
     }
 
-    .nav-tabs,.tab-content {
+    .nav-tabs,
+    .tab-content {
       padding-left: 5px;
       padding-right: 5px;
     }
@@ -99,12 +100,12 @@ require_once('config.php');
     }
 
     .form-group label {
-      color:white;
+      color: white;
       font-weight: bold;
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    .form-control:disabled{
+    .form-control:disabled {
       background-color: #9b9898;
     }
 
@@ -121,11 +122,11 @@ require_once('config.php');
 
     .nav-tabs .nav-link {
       color: #fff700;
-      background-color:rgb(0 0 0 / 70%) ;
+      background-color: rgb(0 0 0 / 70%);
       border: 1px solid white;
     }
 
-    #nav-amount-tab{
+    #nav-amount-tab {
       margin-left: 2px;
       margin-right: 2px;
     }
@@ -142,8 +143,11 @@ require_once('config.php');
       padding: 10px;
     }
 
-    p {
-      
+    .specialText {
+      color: rgb(96 255 196);
+      font-weight: bold;
+      font-size: 20px;
+      font-family: Georgia, serif;
     }
   </style>
 </head>
@@ -187,8 +191,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="inflationRate1" onchange="toggleInflationRate('inflation1')"
-                required>
+              <input class="form-check-input" type="checkbox" id="inflationRate1"
+                onchange="toggleInflationRate('inflation1')" required>
               <label class="form-check-label" for="inflationRate"></label>
             </div>
             <input type="number" class="form-control custom-field-height" id="inflation1" min="0" max="100" step="0.01"
@@ -219,8 +223,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="inflationRate2" onchange="toggleInflationRate('inflation2')"
-                required>
+              <input class="form-check-input" type="checkbox" id="inflationRate2"
+                onchange="toggleInflationRate('inflation2')" required>
               <label class="form-check-label" for="inflationRate"></label>
             </div>
             <input type="number" class="form-control custom-field-height" id="inflation2" min="0" max="100" step="0.01"
@@ -251,8 +255,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="inflationRate3" onchange="toggleInflationRate('inflation3')"
-                required>
+              <input class="form-check-input" type="checkbox" id="inflationRate3"
+                onchange="toggleInflationRate('inflation3')" required>
               <label class="form-check-label" for="inflationRate"></label>
             </div>
             <input type="number" class="form-control custom-field-height" id="inflation3" min="0" max="100" step="0.01"
@@ -305,12 +309,32 @@ require_once('config.php');
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
-        output.style.color = "black";
+        output.style.color = "white";
         if (inflationAdjustment) {
           rate = rate - inflationRate;
         }
         let futureValue = sipAmount * (1 + rate) * (Math.pow(1 + rate, period) - 1) / rate;
-        document.getElementById("output1").innerHTML = "Future value of investment:<span id= 'futureVAlueText'> " +              futureValue.toFixed(2) + "</span><br> Total return : " + (futureValue - (period * sipAmount)).toFixed(2);
+
+        // Create a new span element for futureValue
+        var futureValueSpan = document.createElement("span");
+        futureValueSpan.className = "specialText";
+        var futureValueTextNode = document.createTextNode(futureValue.toFixed(2));
+        futureValueSpan.appendChild(futureValueTextNode);
+
+        // Create a new span element for total return
+        var totalReturnSpan = document.createElement("span");
+        totalReturnSpan.className = "specialText";
+        var totalReturnTextNode = document.createTextNode((futureValue - (period * sipAmount)).toFixed(2));
+        totalReturnSpan.appendChild(totalReturnTextNode);
+
+        // Set the inner HTML of the output element to the static text plus the two span elements
+        document.getElementById("output1").innerHTML = "Future value of investment: ";
+        document.getElementById("output1").appendChild(futureValueSpan);
+        document.getElementById("output1").innerHTML += "<br> Total return : ";
+        document.getElementById("output1").appendChild(totalReturnSpan);
+
+
+        // document.getElementById("output1").innerHTML = "Future value of investment: " + futureValue.toFixed(2) + "<br> Total return : " + (futureValue - (period * sipAmount)).toFixed(2);
       }
     }
     function calculateSIP() {
@@ -344,12 +368,26 @@ require_once('config.php');
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
-        output.style.color = "black";
+        output.style.color = "white";
         if (inflationAdjustment) {
           rate = rate - inflationRate;
         }
         let sipAmount = totalAmount * rate / ((1 + rate) * (Math.pow(1 + rate, period) - 1));
-        document.getElementById("output2").innerHTML = "SIP amount required: " + sipAmount.toFixed(2);
+
+        // Create a new span element with a class of "specialText"
+        var spanElement = document.createElement("span");
+        spanElement.className = "specialText";
+
+        // Create a new text node containing the toFixed() result
+        var textNode = document.createTextNode(sipAmount.toFixed(2));
+
+        // Append the text node to the span element
+        spanElement.appendChild(textNode);
+
+        // Set the inner HTML of the output element to the static text plus the span element
+        document.getElementById("output2").innerHTML = "SIP amount required: ";
+        document.getElementById("output2").appendChild(spanElement);
+
       }
     }
 
