@@ -656,7 +656,7 @@ require_once('config.php');
         spanElement3.appendChild(textNode3);
 
         // Set the inner HTML of the output element to the static text plus the span element
-        document.getElementById("output3").innerHTML = "Investment period required(in months): ";
+        document.getElementById("output3").innerHTML = "Investment required(in months): ";
         document.getElementById("output3").appendChild(spanElement3);
       }
     }
@@ -730,16 +730,11 @@ require_once('config.php');
   <!-- for floating buttons -->
   <script>
     const float = document.querySelector('.float');
-  
+
     float.addEventListener('click', () => {
-      if (float.classList.contains('active')) {
-        float.classList.remove('active');
-      } else {
-        float.classList.add('active');
-      }
+      float.classList.toggle('active');
     });
   </script>
-  
 
   <!-- main function part -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
