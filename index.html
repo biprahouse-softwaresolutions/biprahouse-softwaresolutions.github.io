@@ -48,6 +48,8 @@ require_once('config.php');
 
     }
 
+
+
     .text-center {
       background-color: #111 !important;
       color: white;
@@ -287,10 +289,6 @@ require_once('config.php');
     .float {
       display: none;
       position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 40px;
-      right: 40px;
       background-color: #ff0000;
       color: #FFF;
       border-radius: 50px;
@@ -298,16 +296,22 @@ require_once('config.php');
       /* box-shadow: 2px 2px 3px #999; */
       z-index: 100;
       cursor: pointer;
+      width: 50px;
+      height: 50px;
+      bottom: 120px;
+      right: 15px;
+      opacity: 0.99;
     }
 
     .float i {
       margin-top: 12px;
+      font-size: 1.5em;
     }
 
     .float-icons {
       position: fixed;
-      bottom: 240px;
-      right: 50px;
+      bottom: 200px;
+      right: 10px;
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease-in-out;
@@ -320,16 +324,16 @@ require_once('config.php');
 
     .float-icons a {
       display: block;
-      margin: 10px;
-      width: 40px;
-      height: 40px;
       border-radius: 50%;
       text-align: center;
-      line-height: 40px;
       background: #25d366;
       color: #ffffff;
       /* box-shadow: 1px 1px 2px #999; */
       transition: all 0.3s ease-in-out;
+      margin: 8px;
+      width: 40px;
+      height: 40px;
+      line-height: 32px;
     }
 
     .float-icons a:nth-of-type(2) {
@@ -346,36 +350,14 @@ require_once('config.php');
       box-shadow: 2px 2px 3px #999;
     }
 
+    .icon-circle i {
+      margin-top: 8px;
+    }
+
     @media (max-width: 530px) {
       .float {
         display: block;
-        width: 50px;
-        height: 50px;
-        bottom: 200px;
-        right: 15px;
-        opacity: 0.99;
       }
-
-      .icon-circle i {
-        margin-top: 8px;
-      }
-
-      .float-icons {
-        bottom: 200px;
-        right: 30px;
-      }
-
-      .float-icons a {
-        margin: 8px;
-        width: 40px;
-        height: 40px;
-        line-height: 32px;
-      }
-
-      .float i {
-        font-size: 1.5em;
-      }
-
     }
   </style>
 </head>
@@ -414,7 +396,7 @@ require_once('config.php');
           <div class="form-group">
             <label for="period">Investment period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
-              placeholder="Enter the investment period in months" required>
+              placeholder="Enter the investment period" required>
           </div>
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
@@ -424,7 +406,7 @@ require_once('config.php');
               <label class="form-check-label" for="inflationRate"></label>
             </div>
             <input type="number" class="form-control custom-field-height" id="inflation1" min="0" max="100" step="0.01"
-              placeholder="Enter the inflation rate" disabled value="7" autocorrect="off" autocapitalize="off">
+              placeholder="Enter the inflation rate" disabled value="7">
           </div>
           <button type="button" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
         </form>
@@ -761,7 +743,7 @@ require_once('config.php');
       this.style.height = 'auto';
       this.style.height = (this.scrollHeight) + 'px';
     });
-    
+
   </script>
 </body>
 
