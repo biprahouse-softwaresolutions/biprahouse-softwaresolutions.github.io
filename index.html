@@ -6,7 +6,15 @@ require_once('config.php');
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
+  <meta property="og:image" content="https://example.com/image.jpg">
+  <meta property="og:title" content="Baby Birth Calculator">
+  <meta property="og:description" content="Start planning for your new arrival today">
+  <link rel="shortcut icon" type="image/png" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -722,11 +730,16 @@ require_once('config.php');
   <!-- for floating buttons -->
   <script>
     const float = document.querySelector('.float');
-
+  
     float.addEventListener('click', () => {
-      float.classList.toggle('active');
+      if (float.classList.contains('active')) {
+        float.classList.remove('active');
+      } else {
+        float.classList.add('active');
+      }
     });
   </script>
+  
 
   <!-- main function part -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
