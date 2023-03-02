@@ -352,11 +352,11 @@ require_once('config.php');
       background: #ffc107;
     }
 
-    .float-icons a:hover {
+    /* .float-icons a:hover {
       background: #555;
       color: #FFF;
       box-shadow: 2px 2px 3px #999;
-    }
+    } */
 
     .icon-circle i {
       margin-top: 8px;
@@ -453,7 +453,7 @@ require_once('config.php');
             <label for="sipAmount">Monthly SIP amount:</label>
             <input type="number" class="form-control custom-field-height" id="sipAmount1" min="0" step="1"
               placeholder="Enter the monthly SIP amount"
-              onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              onkeypress="return isNumberKey(event)" oninput="checkInput(this)" required>
           </div>
           <div class="form-group">
             <label for="rate">Expected annual rate of return(%):</label>
@@ -463,7 +463,7 @@ require_once('config.php');
           <div class="form-group">
             <label for="period">Investment period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
-              placeholder="Enter the investment period" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              placeholder="Enter the investment period" onkeypress="return isNumberKey(event)" oninput="checkInput(this)"
               required>
           </div>
           <div class="form-group">
@@ -734,8 +734,20 @@ require_once('config.php');
       }
     }
 
-
   </script>
+  <script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode == 45 || charCode == 46) {
+            return false;
+        }
+        return true;
+    }
+    
+    function checkInput(input) {
+        input.value = input.value.replace(/[^\d]/g, '');
+    }
+    </script>
   <!-- for side drawer and visitors count -->
   <script>
     /* Open the side navigation */
