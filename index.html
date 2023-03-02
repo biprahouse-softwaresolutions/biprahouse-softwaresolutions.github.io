@@ -382,7 +382,7 @@ require_once('config.php');
         justify-content: flex-end;
         position: fixed;
         right: 8px;
-        bottom: 50%;
+        bottom: 35%;
         z-index: 999;
       }
 
@@ -392,16 +392,20 @@ require_once('config.php');
         justify-content: center;
         width: 50px;
         height: 50px;
-        background-color: #25d366;
+        background-color: #2533d3;
         border-radius: 50%;
         margin-bottom: 8px;
       }
 
       .floating-icon:nth-of-type(2) {
-        background-color: #0088cc;
+        background-color: #25d366;
       }
 
       .floating-icon:nth-of-type(3) {
+        background-color: #0088cc;
+      }
+
+      .floating-icon:nth-of-type(4) {
         background-color: #ffc107;
       }
 
@@ -448,7 +452,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="sipAmount">Monthly SIP amount:</label>
             <input type="number" class="form-control custom-field-height" id="sipAmount1" min="0" step="1"
-              placeholder="Enter the monthly SIP amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              placeholder="Enter the monthly SIP amount"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
           </div>
           <div class="form-group">
             <label for="rate">Expected annual rate of return(%):</label>
@@ -458,7 +463,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="period">Investment period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
-              placeholder="Enter the investment period" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              placeholder="Enter the investment period" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              required>
           </div>
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
@@ -480,7 +486,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="totalAmount">Total target amount:</label>
             <input type="number" class="form-control custom-field-height" id="totalAmount2" min="0" step="1"
-              placeholder="Enter the total target amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              placeholder="Enter the total target amount"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
           </div>
           <div class="form-group">
             <label for="rate">Expected annual rate of return(%):</label>
@@ -490,7 +497,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="period">Investment period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
-              placeholder="Enter the investment period" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              placeholder="Enter the investment period" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              required>
           </div>
           <div class="form-group">
             <label for="inflationRate">Inflation rate adjustment:</label>
@@ -512,12 +520,14 @@ require_once('config.php');
           <div class="form-group">
             <label for="totalAmount">Total target amount:</label>
             <input type="number" class="form-control custom-field-height" id="totalAmount3" min="0" step="1"
-              placeholder="Enter the total target amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              placeholder="Enter the total target amount"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
           </div>
           <div class="form-group">
             <label for="sipAmount">SIP amount:</label>
             <input type="number" class="form-control custom-field-height" id="sipAmount3" min="0" step="1"
-              placeholder="Enter the SIP amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              placeholder="Enter the SIP amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              required>
           </div>
           <div class="form-group">
             <label for="rate">Expected annual rate of return:</label>
@@ -781,7 +791,7 @@ require_once('config.php');
 
   <!-- for floating buttons -->
   <div class="float">
-    <i class="fas fa-hand-pointer"></i>
+    <i class="fas fa-share-alt"></i>
     <div class="float-icons icon-circle">
       <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
           class="fab fa-whatsapp"></i></a>
@@ -800,6 +810,11 @@ require_once('config.php');
   </script>
   <!-- side floating menu for large screens -->
   <div class="floating-icons">
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </a>
+    </div>
     <div class="floating-icon">
       <a href="#" target="_blank">
         <i class="fab fa-whatsapp"></i>
