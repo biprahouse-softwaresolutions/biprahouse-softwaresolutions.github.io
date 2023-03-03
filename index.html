@@ -487,7 +487,8 @@ require_once('config.php');
             <label for="totalAmount">Total target amount:</label>
             <input type="number" class="form-control custom-field-height" id="totalAmount2" min="0" step="1"
               placeholder="Enter the total target amount"
-              onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              onkeypress="return isNumberKey(event)"
+              oninput="checkInput(this)" required>
           </div>
           <div class="form-group">
             <label for="rate">Expected annual rate of return(%):</label>
@@ -497,7 +498,8 @@ require_once('config.php');
           <div class="form-group">
             <label for="period">Investment period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
-              placeholder="Enter the investment period" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              placeholder="Enter the investment period" onkeypress="return isNumberKey(event)"
+              oninput="checkInput(this)"
               required>
           </div>
           <div class="form-group">
@@ -521,12 +523,14 @@ require_once('config.php');
             <label for="totalAmount">Total target amount:</label>
             <input type="number" class="form-control custom-field-height" id="totalAmount3" min="0" step="1"
               placeholder="Enter the total target amount"
-              onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+              onkeypress="return isNumberKey(event)"
+              oninput="checkInput(this)" required>
           </div>
           <div class="form-group">
             <label for="sipAmount">SIP amount:</label>
             <input type="number" class="form-control custom-field-height" id="sipAmount3" min="0" step="1"
-              placeholder="Enter the SIP amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              placeholder="Enter the SIP amount" onkeypress="return isNumberKey(event)"
+              oninput="checkInput(this)"
               required>
           </div>
           <div class="form-group">
