@@ -10,10 +10,10 @@ require_once('config.php');
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-    content="Calculate your potential return on investment, SIP amount needed to reach your financial goals, and SIP period with our comprehensive online SIP calculator. Start planning your future now and reach your financial targets.">
+    content="Calculate your loan repayments, loan capacity, and compare reducing and flat rate options with our comprehensive online loan calculator. Get started now and find the best loan solution for you.">
   <meta property="og:image" content="https://example.com/image.jpg">
   <meta property="og:title" content="Comprehensive Loan Calculator">
-  <meta property="og:description" content="Start planning your future now">
+  <meta property="og:description" content="Find the best loan solution for you">
   <link rel="shortcut icon" type="image/png" href="icon.png">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -161,6 +161,7 @@ require_once('config.php');
       font-family: Helvetica, sans-serif;
       font-size: 16px;
       padding: 10px;
+      border-radius: 0.25em;
     }
 
     .specialText {
@@ -352,10 +353,14 @@ require_once('config.php');
     }
 
     .float-icons a:nth-of-type(2) {
-      background: #0088cc;
+      background: #1800cc;
     }
 
     .float-icons a:nth-of-type(3) {
+      background: #0088cc;
+    }
+
+    .float-icons a:nth-of-type(4) {
       background: #ffc107;
     }
 
@@ -399,7 +404,7 @@ require_once('config.php');
         justify-content: center;
         width: 50px;
         height: 50px;
-        background-color: #2533d3;
+        background-color: #1c0424;
         border-radius: 50%;
         margin-bottom: 8px;
       }
@@ -409,10 +414,14 @@ require_once('config.php');
       }
 
       .floating-icon:nth-of-type(3) {
-        background-color: #0088cc;
+        background-color: #2533d3;
       }
 
       .floating-icon:nth-of-type(4) {
+        background-color: #0088cc;
+      }
+
+      .floating-icon:nth-of-type(5) {
         background-color: #ffc107;
       }
 
@@ -978,6 +987,8 @@ require_once('config.php');
     <div class="float-icons icon-circle">
       <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
           class="fab fa-whatsapp"></i></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.example.com" target="_blank"><i
+          class="fab fa-facebook"></i></a>
       <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
       <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
     </div>
@@ -1001,6 +1012,11 @@ require_once('config.php');
     <div class="floating-icon">
       <a href="#" target="_blank">
         <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fab fa-facebook"></i>
       </a>
     </div>
     <div class="floating-icon">
