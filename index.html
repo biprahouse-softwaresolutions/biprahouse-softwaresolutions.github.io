@@ -52,7 +52,8 @@ require_once('config.php');
 
     .tab-content form {
       background-color: rgb(20 10 10 / 70%);
-
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
     }
 
 
@@ -130,7 +131,7 @@ require_once('config.php');
       margin-top: 10px;
       margin-left: 35px;
       margin-right: 35px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     .nav-tabs .nav-link.active {
@@ -167,6 +168,269 @@ require_once('config.php');
       font-weight: bold;
       font-size: 20px;
       font-family: Georgia, serif;
+    }
+  </style>
+  <!-- The side navigation menu -->
+  <style>
+    /* The side navigation menu */
+    .sidenav {
+      height: 100%;
+      /* 100% Full-height */
+      width: 0;
+      /* 0 width - change this with JavaScript */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Stay on top */
+      top: 0;
+      /* Stay at the top */
+      left: 0;
+      background-color: #087089;
+      /* Black*/
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      padding-top: 60px;
+      /* Place content 60px from the top */
+      transition: 0.3s;
+      /* 0.5 second transition effect to slide in the sidenav */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      /* transition: 0.8s; */
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    /* Add animation to "slide in" the sidenav */
+    @keyframes slideIn {
+      from {
+        left: -250px;
+      }
+
+      to {
+        left: 0;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        left: 0;
+      }
+
+      to {
+        left: -250px;
+      }
+    }
+
+    /* Add animation to "slide out" the sidenav */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* Set the style of the menu icon */
+    #sideButton {
+      display: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      position: fixed;
+      z-index: 2;
+      top: 0px;
+      left: 10px;
+    }
+
+    #visitor-counter {
+      position: fixed;
+      bottom: 70px;
+      /* width: 100%; */
+      /* background-color: #f1f1f1; */
+      text-align: center;
+      padding: 10px;
+    }
+
+    #visitor-counter span {
+      font-weight: bold;
+      color: #07ff07;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #visitor-counter p {
+      color: #ffc107;
+    }
+
+    /* Set the style of the menu icon on small screens */
+    @media screen and (max-width: 530px) {
+      #sideButton {
+        display: block;
+      }
+    }
+  </style>
+  <!-- Set the style of the floating menu icon on small screens -->
+  <style>
+    .float {
+      display: none;
+      position: fixed;
+      background-color: #ff0000;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      /* box-shadow: 2px 2px 3px #999; */
+      z-index: 100;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      bottom: 160px;
+      right: 15px;
+      opacity: 0.99;
+    }
+
+    .float i {
+      margin-top: 12px;
+      font-size: 1.5em;
+    }
+
+    .float-icons {
+      position: fixed;
+      bottom: 220px;
+      right: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .float:hover .float-icons {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .float-icons a {
+      display: block;
+      border-radius: 50%;
+      text-align: center;
+      background: #25d366;
+      color: #ffffff;
+      /* box-shadow: 1px 1px 2px #999; */
+      transition: all 0.3s ease-in-out;
+      margin: 8px;
+      width: 40px;
+      height: 40px;
+      line-height: 32px;
+    }
+
+    .float-icons a:nth-of-type(2) {
+      background: #0088cc;
+    }
+
+    .float-icons a:nth-of-type(3) {
+      background: #ffc107;
+    }
+
+    /* .float-icons a:hover {
+      background: #555;
+      color: #FFF;
+      box-shadow: 2px 2px 3px #999;
+    } */
+
+    .icon-circle i {
+      margin-top: 8px;
+    }
+
+    @media (max-width: 530px) {
+      .float {
+        display: block;
+      }
+    }
+  </style>
+  <!-- style for side menu for large screens -->
+  <!-- Show the icons only on screens wider than 768px -->
+  <style>
+    .floating-icons {
+      display: none;
+    }
+
+    @media (min-width: 531px) {
+      .floating-icons {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: fixed;
+        right: 8px;
+        bottom: 35%;
+        z-index: 999;
+      }
+
+      .floating-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background-color: #2533d3;
+        border-radius: 50%;
+        margin-bottom: 8px;
+      }
+
+      .floating-icon:nth-of-type(2) {
+        background-color: #25d366;
+      }
+
+      .floating-icon:nth-of-type(3) {
+        background-color: #0088cc;
+      }
+
+      .floating-icon:nth-of-type(4) {
+        background-color: #ffc107;
+      }
+
+      .floating-icon a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        font-size: 24px;
+        text-decoration: none;
+      }
+
+      .floating-icon :hover {
+        background-color: #555;
+        border-radius: 50%;
+      }
     }
   </style>
 </head>
@@ -654,6 +918,104 @@ require_once('config.php');
       return R;
     }
   </script>
+
+  <!-- for side drawer and visitors count -->
+  <script>
+    /* Open the side navigation */
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("sideButton").style.display = "none";
+      setTimeout(() => {
+        var items = document.querySelectorAll('.sidenavMenuItems');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.display = "block";
+        }
+        // document.getElementById("visitor-counter").style.display = "block";
+      }, 200);
+
+    }
+
+    /* Close/hide the side navigation */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("visitor-counter").style.display = "none";
+      var items = document.querySelectorAll('.sidenavMenuItems');
+      for (var i = 0; i < items.length; i++) {
+        items[i].style.display = "none";
+      }
+      setTimeout(() => {
+        document.getElementById("sideButton").style.display = "block";
+      }, 200);
+    }
+
+    /* Floating side drawer animation */
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById("mySidenav").style.bottom = "70px";
+      } else {
+        document.getElementById("mySidenav").style.bottom = "-250px";
+      }
+      prevScrollpos = currentScrollPos;
+    }
+  </script>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Home</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Support Us!</a>
+    <!-- <div id="visitor-counter" style="display: none">
+      <p>Total Visitors: <span id="count"><?php echo $count; ?></span></p>
+    </div> -->
+  </div>
+
+  <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
+
+  <!-- for floating buttons -->
+  <div class="float">
+    <i class="fas fa-share-alt"></i>
+    <div class="float-icons icon-circle">
+      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
+          class="fab fa-whatsapp"></i></a>
+      <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
+      <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
+    </div>
+  </div>
+
+  <!-- for floating buttons -->
+  <script>
+    const float = document.querySelector('.float');
+
+    float.addEventListener('click', () => {
+      float.classList.toggle('active');
+    });
+  </script>
+  <!-- side floating menu for large screens -->
+  <div class="floating-icons">
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fab fa-telegram"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fas fa-hand-holding-heart"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- for main function -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
