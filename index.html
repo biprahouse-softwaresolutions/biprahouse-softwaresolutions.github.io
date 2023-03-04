@@ -2,6 +2,7 @@
 // Include the counter.php file
 require_once('config.php');
 ?> -->
+
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +12,7 @@ require_once('config.php');
   <meta name="description"
     content="Calculate your potential return on investment, SIP amount needed to reach your financial goals, and SIP period with our comprehensive online SIP calculator. Start planning your future now and reach your financial targets.">
   <meta property="og:image" content="https://example.com/image.jpg">
-  <meta property="og:title" content="Comprehensive SIP Calculator">
+  <meta property="og:title" content="Comprehensive Loan Calculator">
   <meta property="og:description" content="Start planning your future now">
   <link rel="shortcut icon" type="image/png" href="icon.png">
   <link rel="icon" type="image/png" href="icon.png">
@@ -21,13 +22,11 @@ require_once('config.php');
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- for floating buttons -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
-
-
-  <!-- styles for main container -->
   <style>
+    /* Add a custom class to the fields to adjust their height on mobile */
     body::before {
       content: "";
-      background-image: url('https://source.unsplash.com/random/1600x900/?money&&q=auto');
+      background-image: url('https://source.unsplash.com/random/1600x900/?investing,savings,returns,finance,money,lightcolor&&q=auto');
       background-size: cover;
       /* opacity: 0.5; */
       position: absolute;
@@ -72,17 +71,19 @@ require_once('config.php');
       padding-right: 5px;
     }
 
+    .custom-field-height,
+    .custom-select-height {
+      height: calc(100vh / 14) !important;
+    }
+
+
     /* Add a custom class to the fields to adjust their height on mobile */
     @media (max-width: 767px) {
 
-      .custom-field-height,
-      .custom-select-height {
-        height: calc(100vh / 14) !important;
-      }
 
       .nav-link {
         padding-left: 10px;
-        padding-right: 14px;
+        padding-right: 10px;
       }
     }
 
@@ -93,18 +94,17 @@ require_once('config.php');
       }
     }
 
-    @media (min-width: 770px) {
+    @media (min-width: 720px) {
       .container-fluid {
-        width: 60vw;
+        width: 50vw;
       }
     }
 
-    @media (min-width: 1100px) {
+    @media (min-width: 1150px) {
       .container-fluid {
         width: 40vw;
       }
     }
-
 
     .form-group {
       margin-bottom: 0px;
@@ -116,6 +116,10 @@ require_once('config.php');
       color: white;
       font-weight: bold;
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #e5e6ea;
     }
 
     .form-control:disabled {
@@ -139,14 +143,16 @@ require_once('config.php');
       border: 1px solid white;
     }
 
-    #nav-amount-tab {
-      margin-left: 2px;
-      margin-right: 2px;
+    .nav-tabs .nav-item {
+      flex: 1;
+      text-align: center;
     }
+
 
     #output1,
     #output2,
-    #output3 {
+    #output3,
+    #output4 {
       display: none;
       font-weight: bold;
       margin-top: 10px;
@@ -163,698 +169,491 @@ require_once('config.php');
       font-family: Georgia, serif;
     }
   </style>
-  <!-- The side navigation menu -->
-  <style>
-    /* The side navigation menu */
-    .sidenav {
-      height: 100%;
-      /* 100% Full-height */
-      width: 0;
-      /* 0 width - change this with JavaScript */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Stay on top */
-      top: 0;
-      /* Stay at the top */
-      left: 0;
-      background-color: #087089;
-      /* Black*/
-      overflow-x: hidden;
-      /* Disable horizontal scroll */
-      padding-top: 60px;
-      /* Place content 60px from the top */
-      transition: 0.3s;
-      /* 0.5 second transition effect to slide in the sidenav */
-    }
-
-    /* The navigation menu links */
-    .sidenav a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      /* transition: 0.8s; */
-    }
-
-    /* When you mouse over the navigation links, change their color */
-    .sidenav a:hover {
-      color: #f1f1f1;
-    }
-
-    /* Position and style the close button (top right corner) */
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-
-    /* Add animation to "slide in" the sidenav */
-    @keyframes slideIn {
-      from {
-        left: -250px;
-      }
-
-      to {
-        left: 0;
-      }
-    }
-
-    @keyframes slideOut {
-      from {
-        left: 0;
-      }
-
-      to {
-        left: -250px;
-      }
-    }
-
-    /* Add animation to "slide out" the sidenav */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
-
-      to {
-        opacity: 0;
-      }
-    }
-
-    /* Set the style of the menu icon */
-    #sideButton {
-      display: none;
-      color: white;
-      font-size: 30px;
-      cursor: pointer;
-      position: fixed;
-      z-index: 2;
-      top: 0px;
-      left: 10px;
-    }
-
-    #visitor-counter {
-      position: fixed;
-      bottom: 70px;
-      /* width: 100%; */
-      /* background-color: #f1f1f1; */
-      text-align: center;
-      padding: 10px;
-    }
-
-    #visitor-counter span {
-      font-weight: bold;
-      color: #07ff07;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    #visitor-counter p {
-      color: #ffc107;
-    }
-
-    /* Set the style of the menu icon on small screens */
-    @media screen and (max-width: 530px) {
-      #sideButton {
-        display: block;
-      }
-    }
-  </style>
-  <!-- Set the style of the floating menu icon on small screens -->
-  <style>
-    .float {
-      display: none;
-      position: fixed;
-      background-color: #ff0000;
-      color: #FFF;
-      border-radius: 50px;
-      text-align: center;
-      /* box-shadow: 2px 2px 3px #999; */
-      z-index: 100;
-      cursor: pointer;
-      width: 50px;
-      height: 50px;
-      bottom: 160px;
-      right: 15px;
-      opacity: 0.99;
-    }
-
-    .float i {
-      margin-top: 12px;
-      font-size: 1.5em;
-    }
-
-    .float-icons {
-      position: fixed;
-      bottom: 220px;
-      right: 10px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .float:hover .float-icons {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .float-icons a {
-      display: block;
-      border-radius: 50%;
-      text-align: center;
-      background: #25d366;
-      color: #ffffff;
-      /* box-shadow: 1px 1px 2px #999; */
-      transition: all 0.3s ease-in-out;
-      margin: 8px;
-      width: 40px;
-      height: 40px;
-      line-height: 32px;
-    }
-
-    .float-icons a:nth-of-type(2) {
-      background: #0088cc;
-    }
-
-    .float-icons a:nth-of-type(3) {
-      background: #ffc107;
-    }
-
-    /* .float-icons a:hover {
-      background: #555;
-      color: #FFF;
-      box-shadow: 2px 2px 3px #999;
-    } */
-
-    .icon-circle i {
-      margin-top: 8px;
-    }
-
-    @media (max-width: 530px) {
-      .float {
-        display: block;
-      }
-    }
-  </style>
-  <!-- style for side menu for large screens -->
-  <!-- Show the icons only on screens wider than 768px -->
-  <style>
-    .floating-icons {
-      display: none;
-    }
-
-    @media (min-width: 531px) {
-      .floating-icons {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        position: fixed;
-        right: 8px;
-        bottom: 35%;
-        z-index: 999;
-      }
-
-      .floating-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        background-color: #2533d3;
-        border-radius: 50%;
-        margin-bottom: 8px;
-      }
-
-      .floating-icon:nth-of-type(2) {
-        background-color: #25d366;
-      }
-
-      .floating-icon:nth-of-type(3) {
-        background-color: #0088cc;
-      }
-
-      .floating-icon:nth-of-type(4) {
-        background-color: #ffc107;
-      }
-
-      .floating-icon a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        color: #fff;
-        font-size: 24px;
-        text-decoration: none;
-      }
-
-      .floating-icon :hover {
-        background-color: #555;
-        border-radius: 50%;
-      }
-    }
-  </style>
 </head>
 
 <body>
   <div class="container-fluid">
-    <h1 class="text-center">SIP Calculator</h1>
+    <h1 class="text-center">Loan Calculator</h1>
     <ul class="nav nav-tabs" id="nav-tab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab"
-          aria-controls="nav-future" aria-selected="true">Future Value</a>
+        <a class="nav-link active" id="nav-emi-tab" data-toggle="tab" href="#nav-emi" role="tab" aria-controls="nav-emi"
+          aria-selected="true">EMI</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="nav-amount-tab" data-toggle="tab" href="#nav-amount" role="tab"
-          aria-controls="nav-amount" aria-selected="false">SIP Amount</a>
+          aria-controls="nav-amount" aria-selected="false">Amount</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="nav-rate-tab" data-toggle="tab" href="#nav-rate" role="tab" aria-controls="nav-rate"
-          aria-selected="false">SIP Duration</a>
+        <a class="nav-link" id="nav-duration-tab" data-toggle="tab" href="#nav-duration" role="tab"
+          aria-controls="nav-duration" aria-selected="false">Tenure</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="nav-comparison-tab" data-toggle="tab" href="#nav-comparison" role="tab"
+          aria-controls="nav-comparison" aria-selected="false">Comparison</a>
       </li>
     </ul>
 
+
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-future" role="tabpanel" aria-labelledby="nav-future-tab">
+      <div class="tab-pane fade show active" id="nav-emi" role="tabpanel" aria-labelledby="nav-emi-tab">
         <form>
           <div class="form-group">
-            <label for="sipAmount">Monthly SIP amount:</label>
-            <input type="number" class="form-control custom-field-height" id="sipAmount1" min="0" step="1"
-              placeholder="Enter the monthly SIP amount" onkeypress="return isNumberKey(event)"
-              oninput="checkInput(this)" required>
+            <label for="loanAmount" class="custom-label">Loan amount:</label>
+            <input type="number" class="form-control custom-field-height" id="loanAmount1" min="0" step="1"
+              placeholder="Enter the loan amount" required>
           </div>
+
           <div class="form-group">
-            <label for="rate">Expected annual rate of return(%):</label>
+            <label for="rate" class="custom-label">Annual interest rate:</label>
             <input type="number" class="form-control custom-field-height" id="rate1" min="0" max="100" step="0.01"
-              placeholder="Enter the annual rate of return" required>
+              placeholder="Enter the rate of interest" required>
           </div>
+
           <div class="form-group">
-            <label for="period">Investment period (in months):</label>
+            <label for="rateType" class="custom-label">Rate type:</label>
+            <select class="custom-select custom-select-height" id="rateType">
+              <option selected value="reducing">Reducing</option>
+              <option value="flat">Flat</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="period" class="custom-label">Loan tenure (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period1" min="0" step="1"
-              placeholder="Enter the investment period" onkeypress="return isNumberKey(event)"
-              oninput="checkInput(this)" required>
+              placeholder="Enter the loan period" required>
           </div>
-          <div class="form-group">
-            <label for="inflationRate">Inflation rate adjustment:</label>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="inflationRate1"
-                onchange="toggleInflationRate('inflation1')" required>
-              <label class="form-check-label" for="inflationRate"></label>
-            </div>
-            <input type="number" class="form-control custom-field-height" id="inflation1" min="0" max="100" step="0.01"
-              placeholder="Enter the inflation rate" disabled value="7">
-          </div>
-          <button type="button" class="btn btn-primary" onclick="calculateFV()">Calculate</button>
+
+
+
+          <button type="button" class="btn btn-primary" onclick="calculateEMI()">Calculate</button>
         </form>
         <p id="output1"></p>
       </div>
 
+
       <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
         <form>
+
           <div class="form-group">
-            <label for="totalAmount">Total target amount:</label>
-            <input type="number" class="form-control custom-field-height" id="totalAmount2" min="0" step="1"
-              placeholder="Enter the total target amount"
-              onkeypress="return isNumberKey(event)"
-              oninput="checkInput(this)" required>
-          </div>
-          <div class="form-group">
-            <label for="rate">Expected annual rate of return(%):</label>
+            <label for="rate" class="custom-label">Annual rate of interest:</label>
             <input type="number" class="form-control custom-field-height" id="rate2" min="0" max="100" step="0.01"
-              placeholder="Enter the annual rate of return" required>
+              placeholder="Enter the annual rate of interest" required>
           </div>
+
           <div class="form-group">
-            <label for="period">Investment period (in months):</label>
+            <label for="rateType" class="custom-label">Rate type:</label>
+            <select class="custom-select custom-select-height" id="rateType2">
+              <option selected value="reducing">Reducing</option>
+              <option value="flat">Flat</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="period" class="custom-label">Loan period (in months):</label>
             <input type="number" class="form-control custom-field-height" id="period2" min="0" step="1"
-              placeholder="Enter the investment period" onkeypress="return isNumberKey(event)"
-              oninput="checkInput(this)"
-              required>
+              placeholder="Enter the loan period in months" required>
           </div>
-          <div class="form-group">
-            <label for="inflationRate">Inflation rate adjustment:</label>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="inflationRate2"
-                onchange="toggleInflationRate('inflation2')" required>
-              <label class="form-check-label" for="inflationRate"></label>
-            </div>
-            <input type="number" class="form-control custom-field-height" id="inflation2" min="0" max="100" step="0.01"
-              placeholder="Enter the inflation rate" disabled value="7">
+
+
+
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="monthlyEMI2" class="custom-label">EMI amount:</label>
+            <input type="number" class="form-control custom-field-height" id="monthlyEMI2" min="0" step="1"
+              placeholder="Enter your EMI amount" required>
           </div>
-          <button type="button" class="btn btn-primary" onclick="calculateSIP()">Calculate</button>
+
+
+
+          <button type="button" class="btn btn-primary" onclick="calculateAmount()">Calculate</button>
         </form>
         <p id="output2"></p>
       </div>
 
-      <div class="tab-pane fade" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
+      <div class="tab-pane fade" id="nav-duration" role="tabpanel" aria-labelledby="nav-duration-tab">
         <form>
+
           <div class="form-group">
-            <label for="totalAmount">Total target amount:</label>
-            <input type="number" class="form-control custom-field-height" id="totalAmount3" min="0" step="1"
-              placeholder="Enter the total target amount"
-              onkeypress="return isNumberKey(event)"
-              oninput="checkInput(this)" required>
+            <label for="loanAmount" class="custom-label">Loan amount:</label>
+            <input type="number" class="form-control custom-field-height" id="loanAmount3" min="0" step="1"
+              placeholder="Enter the loan amount" required>
           </div>
+
           <div class="form-group">
-            <label for="sipAmount">SIP amount:</label>
-            <input type="number" class="form-control custom-field-height" id="sipAmount3" min="0" step="1"
-              placeholder="Enter the SIP amount" onkeypress="return isNumberKey(event)"
-              oninput="checkInput(this)"
-              required>
+            <label for="monthlyEMI1" class="custom-label">EMI amount:</label>
+            <input type="number" class="form-control custom-field-height" id="monthlyEMI3" min="0" step="1"
+              placeholder="Enter your EMI amount" required>
           </div>
+
           <div class="form-group">
-            <label for="rate">Expected annual rate of return:</label>
+            <label for="rate" class="custom-label">Annual interest rate:</label>
             <input type="number" class="form-control custom-field-height" id="rate3" min="0" max="100" step="0.01"
-              placeholder="Enter the annual rate of return" required>
+              placeholder="Enter the rate of interest" required>
           </div>
-          <div class="form-group">
-            <label for="inflationRate">Inflation rate adjustment:</label>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="inflationRate3"
-                onchange="toggleInflationRate('inflation3')" required>
-              <label class="form-check-label" for="inflationRate"></label>
-            </div>
-            <input type="number" class="form-control custom-field-height" id="inflation3" min="0" max="100" step="0.01"
-              placeholder="Enter the inflation rate" disabled value="7">
+
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="rateType" class="custom-label">Rate type:</label>
+            <select class="custom-select custom-select-height" id="rateType3">
+              <option selected value="reducing">Reducing</option>
+              <option value="flat">Flat</option>
+            </select>
           </div>
+
+
           <button type="button" class="btn btn-primary" onclick="calculateInvPeriod()">Calculate</button>
         </form>
         <p id="output3"></p>
       </div>
+
+      <div class="tab-pane fade" id="nav-comparison" role="tabpanel" aria-labelledby="nav-comparison-tab">
+        <form>
+          <div class="form-group">
+            <label for="loanAmount" class="custom-label">Loan amount:</label>
+            <input type="number" class="form-control custom-field-height" id="loanAmount4" min="0" step="1"
+              placeholder="Enter the loan amount" required>
+          </div>
+
+          <div class="form-group">
+            <label for="rate" class="custom-label">Annual rate of interest:</label>
+            <input type="number" class="form-control custom-field-height" id="rate4" min="0" max="100" step="0.01"
+              placeholder="Enter the annual rate of interest" required>
+          </div>
+
+          <div class="form-group">
+            <label for="rateType" class="custom-label">Rate type:</label>
+            <select class="custom-select custom-select-height" id="rateType4">
+              <option selected value="reducing">Reducing</option>
+              <option value="flat">Flat</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="period" class="custom-label">Loan period (in months):</label>
+            <input type="number" class="form-control custom-field-height" id="period4" min="0" step="1"
+              placeholder="Enter the loan period in months" required>
+          </div>
+
+          <button type="button" class="btn btn-primary" onclick="calculateEqvRate()">Calculate</button>
+        </form>
+        <p id="output4"></p>
+      </div>
     </div>
   </div>
   <script>
-    function toggleInflationRate(id) {
-      let inflation = document.getElementById(id);
-      if (inflation.disabled) {
-        inflation.disabled = false;
-      } else {
-        inflation.disabled = true;
-      }
-    }
-    function calculateFV() {
-      event.preventDefault();
-      let sipAmount = document.getElementById("sipAmount1").value;
+
+    function calculateEMI() {
+      // event.preventDefault();
+      let loanAmount = parseFloat(document.getElementById("loanAmount1").value);
       let rate = document.getElementById("rate1").value / 1200;
       let period = document.getElementById("period1").value;
-      let inflationAdjustment = document.getElementById("inflationRate1").checked;
-      let inflationRate = document.getElementById("inflation1").value / 1200;
-
+      let rateType = document.getElementById("rateType").value;
+      let emiValue = 0;
+      let totalInterest = 0;
       let output = document.getElementById("output1");
-      let boxAmount = document.getElementById("sipAmount1");
+      let boxAmount = document.getElementById("loanAmount1");
       let boxRate = document.getElementById("rate1");
       let boxPeriod = document.getElementById("period1");
       let errorInFields = false;
+
       output.style.display = "block";
 
-      if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
+
+      if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
         boxAmount.style.borderColor = "red";
         errorInFields = true;
-      } else boxAmount.style.borderColor = "#ced4da";
+      }
       if (!rate || isNaN(rate) || rate <= 0) {
         boxRate.style.borderColor = "red";
         errorInFields = true;
-      } else boxRate.style.borderColor = "#ced4da";
+      }
       if (!period || isNaN(period) || period <= 0) {
         boxPeriod.style.borderColor = "red";
         errorInFields = true;
-      } else boxPeriod.style.borderColor = "#ced4da";
+      }
 
       if (errorInFields) {
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
         output.style.color = "white";
-        if (inflationAdjustment) {
-          rate = rate - inflationRate;
+        boxAmount.style.borderColor = "#ced4da";
+        boxRate.style.borderColor = "#ced4da";
+        boxPeriod.style.borderColor = "#ced4da";
+        if (rateType == "reducing") {
+          emiValue = (loanAmount * rate * (1 + rate) ** period) / ((1 + rate) ** period - 1);
+          // emiValue = (loanAmount * rate) / (1 - (1 + rate) ** (-period));
+          totalInterest = emiValue * period - loanAmount;
+        } else {
+          totalInterest = loanAmount * rate * period;
+          emiValue = (loanAmount + totalInterest) / period;
+
         }
-        let futureValue = sipAmount * (1 + rate) * (Math.pow(1 + rate, period) - 1) / rate;
-        let totalInvestment = sipAmount * period;
 
-        // Create a new span element for totalInvestment
-        var totalInvestmentSpan = document.createElement("span");
-        totalInvestmentSpan.className = "specialText";
-        var totalInvestmentTextNode = document.createTextNode(totalInvestment);
-        totalInvestmentSpan.appendChild(totalInvestmentTextNode);
 
-        // Create a new span element for futureValue
-        var futureValueSpan = document.createElement("span");
-        futureValueSpan.className = "specialText";
-        var futureValueTextNode = document.createTextNode(Math.ceil(futureValue));
-        futureValueSpan.appendChild(futureValueTextNode);
 
-        // Create a new span element for total return
-        var totalReturnSpan = document.createElement("span");
-        totalReturnSpan.className = "specialText";
-        var totalReturnTextNode = document.createTextNode(Math.ceil((futureValue - (period * sipAmount))));
-        totalReturnSpan.appendChild(totalReturnTextNode);
+        // Create a new span element for emi
+        var emiSpan = document.createElement("span");
+        emiSpan.className = "specialText";
+        var emiTextNode = document.createTextNode(Math.ceil(emiValue));
+        emiSpan.appendChild(emiTextNode);
+
+        // Create a new span element for totalInterestPaid
+        var totalInterestPaidSpan = document.createElement("span");
+        totalInterestPaidSpan.className = "specialText";
+        var totalInterestPaidTextNode = document.createTextNode(Math.ceil(totalInterest));
+        totalInterestPaidSpan.appendChild(totalInterestPaidTextNode);
+
+        // Create a new span element for totalAmountPaid
+        var totalAmountPaidSpan = document.createElement("span");
+        totalAmountPaidSpan.className = "specialText";
+        var totalAmountPaidTextNode = document.createTextNode(Math.ceil((totalInterest + loanAmount)));
+        totalAmountPaidSpan.appendChild(totalAmountPaidTextNode);
 
         // Set the inner HTML of the output element to the static text plus the two span elements
-        document.getElementById("output1").innerHTML = "Total investment: ";
-        document.getElementById("output1").appendChild(totalInvestmentSpan);
-        document.getElementById("output1").innerHTML += "<br> Total maturity amount: ";
-        document.getElementById("output1").appendChild(futureValueSpan);
-        document.getElementById("output1").innerHTML += "<br> Total return : ";
-        document.getElementById("output1").appendChild(totalReturnSpan);
-
+        document.getElementById("output1").innerHTML = "Your EMI is : ";
+        document.getElementById("output1").appendChild(emiSpan);
+        document.getElementById("output1").innerHTML += "<br> Total interest paid : ";
+        document.getElementById("output1").appendChild(totalInterestPaidSpan);
+        document.getElementById("output1").innerHTML += "<br> Total amount paid : ";
+        document.getElementById("output1").appendChild(totalAmountPaidSpan);
       }
     }
-    function calculateSIP() {
-      event.preventDefault();
-      let totalAmount = document.getElementById("totalAmount2").value;
+    function calculateAmount() {
+      // event.preventDefault();
+      let monthlyEMI = document.getElementById("monthlyEMI2").value;
       let rate = document.getElementById("rate2").value / 1200;
       let period = document.getElementById("period2").value;
-      let inflationAdjustment = document.getElementById("inflationRate2").checked;
-      let inflationRate = document.getElementById("inflation2").value / 1200;
-
+      let rateType = document.getElementById("rateType2").value;
+      let loanAmount = 0;
+      let totalInterest = 0;
       let output = document.getElementById("output2");
-      let boxAmount = document.getElementById("totalAmount2");
+      let boxEMI = document.getElementById("monthlyEMI2");
       let boxRate = document.getElementById("rate2");
       let boxPeriod = document.getElementById("period2");
       let errorInFields = false;
       output.style.display = "block";
-      if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
-        boxAmount.style.borderColor = "red";
+
+
+      if (!monthlyEMI || isNaN(monthlyEMI) || monthlyEMI <= 0) {
+        boxEMI.style.borderColor = "red";
         errorInFields = true;
-      } else boxAmount.style.borderColor = "#ced4da";
+      }
       if (!rate || isNaN(rate) || rate <= 0) {
         boxRate.style.borderColor = "red";
         errorInFields = true;
-      } else boxRate.style.borderColor = "#ced4da";
+      }
       if (!period || isNaN(period) || period <= 0) {
         boxPeriod.style.borderColor = "red";
         errorInFields = true;
-      } else boxPeriod.style.borderColor = "#ced4da";
+      }
 
       if (errorInFields) {
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
         output.style.color = "white";
-        if (inflationAdjustment) {
-          rate = rate - inflationRate;
+        boxEMI.style.borderColor = "#ced4da";
+        boxRate.style.borderColor = "#ced4da";
+        boxPeriod.style.borderColor = "#ced4da";
+
+        if (rateType == "reducing") {
+          loanAmount = monthlyEMI / (rate * (Math.pow(1 + rate, period)) / (Math.pow(1 + rate, period) - 1));
+          console.log("inside Reducing");
+        } else {
+
+          loanAmount = (monthlyEMI * period) / (rate * period + 1);
         }
-        let sipAmount = totalAmount * rate / ((1 + rate) * (Math.pow(1 + rate, period) - 1));
 
-        // Create a new span element with a class of "specialText"
-        var spanElement = document.createElement("span");
-        spanElement.className = "specialText";
+        totalInterest = monthlyEMI * period - loanAmount;
 
-        // Create a new text node containing the toFixed() result
-        var textNode = document.createTextNode(sipAmount.toFixed(2));
 
-        // Append the text node to the span element
-        spanElement.appendChild(textNode);
+        // Create a new span element for loanAmount
+        var loanAmountSpan = document.createElement("span");
+        loanAmountSpan.className = "specialText";
+        var loanAmountTextNode = document.createTextNode(Math.ceil(loanAmount));
+        loanAmountSpan.appendChild(loanAmountTextNode);
 
-        // Set the inner HTML of the output element to the static text plus the span element
-        document.getElementById("output2").innerHTML = "SIP amount required: ";
-        document.getElementById("output2").appendChild(spanElement);
+        // Create a new span element for totalInterestPaid
+        var totalInterestPaidSpan = document.createElement("span");
+        totalInterestPaidSpan.className = "specialText";
+        var totalInterestPaidTextNode = document.createTextNode(Math.ceil(totalInterest));
+        totalInterestPaidSpan.appendChild(totalInterestPaidTextNode);
 
+        // Create a new span element for totalAmountPaid
+        var totalAmountPaidSpan = document.createElement("span");
+        totalAmountPaidSpan.className = "specialText";
+        var totalAmountPaidTextNode = document.createTextNode((Math.ceil(totalInterest + loanAmount)));
+        totalAmountPaidSpan.appendChild(totalAmountPaidTextNode);
+
+        // Set the inner HTML of the output element to the static text plus the two span elements
+        document.getElementById("output2").innerHTML = "You can take loan upto : ";
+        document.getElementById("output2").appendChild(loanAmountSpan);
+        document.getElementById("output2").innerHTML += "<br> Total interest paid : ";
+        document.getElementById("output2").appendChild(totalInterestPaidSpan);
+        document.getElementById("output2").innerHTML += "<br> Total amount paid : ";
+        document.getElementById("output2").appendChild(totalAmountPaidSpan);
       }
     }
 
 
     function calculateInvPeriod() {
-      event.preventDefault();
-      let totalAmount = document.getElementById("totalAmount3").value;
-      let sipAmount = document.getElementById("sipAmount3").value;
+      // event.preventDefault();
+      let loanAmount = parseFloat(document.getElementById("loanAmount3").value);
       let rate = document.getElementById("rate3").value / 1200;
-      let inflationAdjustment = document.getElementById("inflationRate3").checked;
-      let inflationRate = document.getElementById("inflation3").value / 1200;
-
+      let emiValue = document.getElementById("monthlyEMI3").value;
+      let rateType = document.getElementById("rateType3").value;
+      let period = 0;
+      let totalInterest = 0;
       let output = document.getElementById("output3");
-      let boxAmount = document.getElementById("totalAmount3");
+      let boxEMI = document.getElementById("monthlyEMI3");
       let boxRate = document.getElementById("rate3");
-      let boxAmountSip = document.getElementById("sipAmount3");
+      let boxAmount = document.getElementById("loanAmount3");
       let errorInFields = false;
       output.style.display = "block";
-      if (!sipAmount || isNaN(sipAmount) || sipAmount <= 0) {
-        boxAmountSip.style.borderColor = "red";
+
+
+      if (!emiValue || isNaN(emiValue) || emiValue <= 0) {
+        boxEMI.style.borderColor = "red";
         errorInFields = true;
-      } else boxAmountSip.style.borderColor = "#ced4da";
+      }
       if (!rate || isNaN(rate) || rate <= 0) {
         boxRate.style.borderColor = "red";
         errorInFields = true;
-      } else boxRate.style.borderColor = "#ced4da";
-      if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+      }
+      if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
         boxAmount.style.borderColor = "red";
         errorInFields = true;
-      } else boxAmount.style.borderColor = "#ced4da";
+      }
+
+      if (errorInFields) {
+        output.style.color = "red";
+        output.innerHTML = "Please enter valid input in all fields";
+      }
+
+      else {
+        output.style.color = "white";
+        boxEMI.style.borderColor = "#ced4da";
+        boxRate.style.borderColor = "#ced4da";
+        boxAmount.style.borderColor = "#ced4da";
+        if (rateType == "reducing") {
+          period = (Math.log(emiValue) - Math.log(emiValue - (loanAmount * rate))) / Math.log(1 + rate);
+
+        } else {
+          period = loanAmount / (emiValue - loanAmount * rate);
+
+        }
+
+        totalInterest = emiValue * period - loanAmount;
+        // Create a new span element for loanTenure
+        var loanTenureSpan = document.createElement("span");
+        loanTenureSpan.className = "specialText";
+        var loanTenureTextNode = document.createTextNode((period).toFixed(1));
+        loanTenureSpan.appendChild(loanTenureTextNode);
+
+        // Create a new span element for totalInterestPaid
+        var totalInterestPaidSpan = document.createElement("span");
+        totalInterestPaidSpan.className = "specialText";
+        var totalInterestPaidTextNode = document.createTextNode(Math.ceil(totalInterest));
+        totalInterestPaidSpan.appendChild(totalInterestPaidTextNode);
+
+        // Create a new span element for totalAmountPaid
+        var totalAmountPaidSpan = document.createElement("span");
+        totalAmountPaidSpan.className = "specialText";
+        var totalAmountPaidTextNode = document.createTextNode((Math.ceil(totalInterest + loanAmount)));
+        totalAmountPaidSpan.appendChild(totalAmountPaidTextNode);
+
+        // Set the inner HTML of the output element to the static text plus the two span elements
+        document.getElementById("output3").innerHTML = "Your loan tenure(in months) : ";
+        document.getElementById("output3").appendChild(loanTenureSpan);
+        document.getElementById("output3").innerHTML += "<br> Total interest paid : ";
+        document.getElementById("output3").appendChild(totalInterestPaidSpan);
+        document.getElementById("output3").innerHTML += "<br> Total amount paid : ";
+        document.getElementById("output3").appendChild(totalAmountPaidSpan);
+      }
+    }
+
+    function calculateEqvRate() {
+      // event.preventDefault();
+      let loanAmount = parseFloat(document.getElementById("loanAmount4").value);
+      let rate = document.getElementById("rate4").value / 1200;
+      let period = document.getElementById("period4").value;
+      let rateType = document.getElementById("rateType4").value;
+      let output = document.getElementById("output4");
+      let boxAmount = document.getElementById("loanAmount4");
+      let boxRate = document.getElementById("rate4");
+      let boxPeriod = document.getElementById("period4");
+      let errorInFields = false;
+      let emiValue = 0;
+      let totalInterest = 0;
+      let total = 0;
+      output.style.display = "block";
+
+      if (!loanAmount || isNaN(loanAmount) || loanAmount <= 0) {
+        boxAmount.style.borderColor = "red";
+        errorInFields = true;
+      }
+      if (!rate || isNaN(rate) || rate <= 0) {
+        boxRate.style.borderColor = "red";
+        errorInFields = true;
+      }
+      if (!period || isNaN(period) || period <= 0) {
+        boxPeriod.style.borderColor = "red";
+        errorInFields = true;
+      }
 
       if (errorInFields) {
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
         output.style.color = "white";
-        if (inflationAdjustment) {
-          rate = rate - inflationRate;
+        boxAmount.style.borderColor = "#ced4da";
+        boxRate.style.borderColor = "#ced4da";
+        boxPeriod.style.borderColor = "#ced4da";
+        var eqvRate = 0;
+        // Create a new span element for eqvRate
+        var eqvRateSpan = document.createElement("span");
+        eqvRateSpan.className = "specialText";
+        if (rateType == "reducing") {
+
+          emiValue = (loanAmount * rate * (1 + rate) ** period) / ((1 + rate) ** period - 1);
+          totalInterest = emiValue * period - loanAmount;
+          eqvRate = (emiValue * period - loanAmount) * 1200 / (period * loanAmount);
+          var eqvRateTextNode = document.createTextNode(eqvRate.toFixed(2));
+          eqvRateSpan.appendChild(eqvRateTextNode);
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output4").innerHTML = "Equivalent flat rate is : ";
+          document.getElementById("output4").appendChild(eqvRateSpan);
+        } else {
+          eqvRate = solveForRate(loanAmount, rate, period);
+          var eqvRateTextNode = document.createTextNode(eqvRate.toFixed(2));
+          eqvRateSpan.appendChild(eqvRateTextNode);
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output4").innerHTML = "Equivalent reducing rate is : ";
+          document.getElementById("output4").appendChild(eqvRateSpan);
         }
-        let period = Math.log10(((totalAmount * rate) / (sipAmount * (1 + rate))) + 1) / Math.log10(1 + rate);
-
-        // Create a new span element with a class of "specialText"
-        var spanElement3 = document.createElement("span");
-        spanElement3.className = "specialText";
-
-        // Create a new text node containing the toFixed() result
-        var textNode3 = document.createTextNode(period.toFixed(2));
-
-        // Append the text node to the span element
-        spanElement3.appendChild(textNode3);
-
-        // Set the inner HTML of the output element to the static text plus the span element
-        document.getElementById("output3").innerHTML = "Investment period(in months): ";
-        document.getElementById("output3").appendChild(spanElement3);
       }
     }
 
-  </script>
-  <script>
-    function isNumberKey(evt) {
-      var charCode = (evt.which) ? evt.which : evt.keyCode;
-      if (charCode == 45 || charCode == 46) {
-        return false;
-      }
-      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        return false;
-      }
-      if (evt.key === "-" || evt.key === "+") {
-        return false;
-      }
-      return true;
-    }
 
-    function checkInput(input) {
-      input.value = input.value.replace(/[^\d]/g, '');
-    }
-  </script>
-  <!-- for side drawer and visitors count -->
-  <script>
-    /* Open the side navigation */
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-      document.getElementById("sideButton").style.display = "none";
-      setTimeout(() => {
-        var items = document.querySelectorAll('.sidenavMenuItems');
-        for (var i = 0; i < items.length; i++) {
-          items[i].style.display = "block";
+    function solveForRate(loanAmount, flatRate, loanPeriod) {
+      console.log("loanAmount : " + loanAmount);
+      console.log("flatRate : " + flatRate);
+      console.log("loanPeriod : " + loanPeriod);
+      let R = 1.7 * flatRate * 1200;
+      let maxIterations = Math.ceil(((1.9 * flatRate * 1200) - (1.7 * flatRate * 1200)) / 0.01);
+
+      for (let i = 0; i < maxIterations; i++) {
+        let functionL = (loanAmount * (R / 1200) * (1 + (R / 1200)) ** loanPeriod) / ((1 + (R / 1200)) ** loanPeriod - 1);
+        let functionR = (loanAmount * flatRate * loanPeriod + loanAmount) / loanPeriod;
+        if (Math.abs(functionL - functionR) <= 0.5) {
+          return R;
         }
-        // document.getElementById("visitor-counter").style.display = "block";
-      }, 200);
-
-    }
-
-    /* Close/hide the side navigation */
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-      // document.getElementById("visitor-counter").style.display = "none";
-      var items = document.querySelectorAll('.sidenavMenuItems');
-      for (var i = 0; i < items.length; i++) {
-        items[i].style.display = "none";
+        R = R + 0.01;
       }
-      setTimeout(() => {
-        document.getElementById("sideButton").style.display = "block";
-      }, 200);
-    }
-
-    /* Floating side drawer animation */
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function () {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        document.getElementById("mySidenav").style.bottom = "70px";
-      } else {
-        document.getElementById("mySidenav").style.bottom = "-250px";
-      }
-      prevScrollpos = currentScrollPos;
+      return R;
     }
   </script>
-
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#" class="sidenavMenuItems" style="display: none">Home</a>
-    <a href="#" class="sidenavMenuItems" style="display: none">Support Us!</a>
-    <!-- <div id="visitor-counter" style="display: none">
-      <p>Total Visitors: <span id="count"><?php echo $count; ?></span></p>
-    </div> -->
-  </div>
-
-  <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
-
-  <!-- for floating buttons -->
-  <div class="float">
-    <i class="fas fa-share-alt"></i>
-    <div class="float-icons icon-circle">
-      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
-          class="fab fa-whatsapp"></i></a>
-      <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
-      <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
-    </div>
-  </div>
-
-  <!-- for floating buttons -->
-  <script>
-    const float = document.querySelector('.float');
-
-    float.addEventListener('click', () => {
-      float.classList.toggle('active');
-    });
-  </script>
-  <!-- side floating menu for large screens -->
-  <div class="floating-icons">
-    <div class="floating-icon">
-      <a href="#" target="_blank">
-        <i class="fa fa-home" aria-hidden="true"></i>
-      </a>
-    </div>
-    <div class="floating-icon">
-      <a href="#" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-      </a>
-    </div>
-    <div class="floating-icon">
-      <a href="#" target="_blank">
-        <i class="fab fa-telegram"></i>
-      </a>
-    </div>
-    <div class="floating-icon">
-      <a href="#" target="_blank">
-        <i class="fas fa-hand-holding-heart"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- main function part -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -869,7 +668,12 @@ require_once('config.php');
       this.style.height = 'auto';
       this.style.height = (this.scrollHeight) + 'px';
     });
-
+    $(document).ready(function () {
+      $('#nav-tab a').on('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+    });
   </script>
 </body>
 
