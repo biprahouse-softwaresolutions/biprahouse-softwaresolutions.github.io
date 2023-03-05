@@ -146,6 +146,14 @@ require_once('config.php');
       font-family: Georgia, serif;
     }
 
+    @keyframes blink {
+      10% {
+        opacity: 0;
+        background-color: red;
+      }
+    }
+
+
     /* Add a custom class to the fields to adjust their height on mobile */
     @media (max-width: 530px) {
 
@@ -561,28 +569,95 @@ require_once('config.php');
         let weightToLose = ((bmi - 25) * (height / 100 * height / 100)).toFixed(1);
         $('#textToBeReplaced').text("BMI = " + bmi);
 
+        // Create a new span element for weightToLose
+        var weightToLoseSpan = document.createElement("span");
+        weightToLoseSpan.className = "specialText";
+        var weightToLoseTextNode = document.createTextNode(weightToLose);
+        weightToLoseSpan.appendChild(weightToLoseTextNode);
+
+        // Create a new span element for weightToGain
+        var weightToGainSpan = document.createElement("span");
+        weightToGainSpan.className = "specialText";
+        var weightToGainTextNode = document.createTextNode(weightToGain);
+        weightToGainSpan.appendChild(weightToGainTextNode);
+
+
+
+
+
         if (bmi < 18.5) {
 
-          document.getElementById("output").innerHTML =
-            "You are underweight. You should gain minimum " + weightToGain + " kg to become normal.";
+          // document.getElementById("output").innerHTML =
+          //   "You are underweight. You should gain minimum " + weightToGain + " kg to become normal.";
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output").innerHTML = "You are underweight. You should gain minimum ";
+          document.getElementById("output").appendChild(weightToGainSpan);
+          document.getElementById("output").innerHTML += " kg to become normal.";
+          blink();
+          setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("You are underweight. You need some more protein");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+          }, 2000);
+
         } else if (bmi < 25) {
           document.getElementById("output").innerHTML =
             "You have normal weight. ";
+
+            setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("Good going");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+          }, 1000);
         } else if (bmi < 30) {
 
-          document.getElementById("output").innerHTML =
-            "You are overweight. You need to lose minimum " + weightToLose + " kg to become normal.";
+          // document.getElementById("output").innerHTML =
+          //   "You are overweight. You need to lose minimum " + weightToLose + " kg to become normal.";
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output").innerHTML = "You are overweight. You need to lose minimum ";
+          document.getElementById("output").appendChild(weightToLoseSpan);
+          document.getElementById("output").innerHTML += " kg to become normal.";
+          blink();
+          setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("You are overweight and its time to think about workout");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+          }, 2000);
         } else {
 
-          document.getElementById("output").innerHTML =
-            "You are obese. You need to lose minimum " + weightToLose + " kg to become normal.";
+          // document.getElementById("output").innerHTML =
+          //   "You are obese. You need to lose minimum " + weightToLose + " kg to become normal.";
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output").innerHTML = "You are obese. You need to lose minimum ";
+          document.getElementById("output").appendChild(weightToLoseSpan);
+          document.getElementById("output").innerHTML += " kg to become normal.";
+          blink();
+
+          setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("You are obese and you need some serious workout");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+          }, 3000);
         }
 
       }
 
     }
 
+    function blink() {
+      var output = document.getElementById("output");
+      output.style.animation = "blink 1s infinite";
+      setTimeout(function () {
+        output.style.animation = "";
+      }, 2000); // stop the animation after 3 seconds
+    }
+
+
   </script>
+
   <!-- for side drawer and visitors count -->
   <script>
     /* Open the side navigation */
