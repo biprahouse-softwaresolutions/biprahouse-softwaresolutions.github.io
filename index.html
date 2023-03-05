@@ -58,7 +58,10 @@ require_once('config.php');
       margin-left: 2px;
       margin-right: 2px;
     }
-
+    .col-12{
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
 
 
     .text-center {
@@ -91,6 +94,10 @@ require_once('config.php');
       .container-fluid {
         width: 80vw;
       }
+      .mainClass,#output {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
     }
 
     @media (min-width: 720px) {
@@ -424,7 +431,7 @@ require_once('config.php');
 
 <body>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="margin-left: 0px; margin-right: 0px;">
       <div class="col-12">
         <h2 class="text-center">BMI Calculator</h2>
         <div class="mainClass">
