@@ -1,234 +1,697 @@
+<!-- <?php
+// Include the counter.php file
+require_once('config.php');
+?> -->
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Calculate your potential returns from Fixed Deposits (FDs) and Recurring Deposits (RDs) with our online FD and RD calculator. Choose from multiple payout options and interest compounding frequencies for a personalized calculation. Start planning your savings now.">
+  <meta property="og:image" content="https://example.com/image.jpg">
+  <meta property="og:title" content="Fixed and Recurring Deposit Calculator">
+  <meta property="og:description" content="Start planning your savings now">
+  <link rel="shortcut icon" type="image/png" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- for floating buttons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
 
-    <title>BMI Calculator</title>
-    <style>
-        @media (max-width: 767px) {
+  <title>BMI Calculator</title>
+  <style>
+    body::before {
+      content: "";
+      background-image: url('https://source.unsplash.com/random/1600x900/?mussels,body-builder,gym,fitness&&q=auto');
+      background-size: cover;
+      /* opacity: 0.5; */
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-repeat: no-repeat;
+      z-index: -1;
+      background-position: center;
+    }
 
-            .custom-field-height,
-            .custom-select-height {
-                height: calc(100vh / 12) !important;
-            }
+    @media (max-width: 640px) {
+      body::before {
+        background-image: url('https://source.unsplash.com/random/640x480/?mussels,body-builder,gym,fitness&&q=low');
+      }
+    }
 
-        }
+    .container-fluid {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
 
-
-        @media (min-width: 530px) {
-            .container {
-                width: 80vw;
-            }
-        }
-
-        @media (min-width: 770px) {
-            .container {
-                width: 60vw;
-            }
-        }
-
-        @media (min-width: 1100px) {
-            .container {
-                width: 40vw;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .text-center {
-                font-size: 8vw !important;
-                margin-bottom: 1rem !important;
-            }
-        }
-
-        .form-group {
-            margin-bottom: 0px;
-        }
+    .mainClass {
+      background-color: rgb(20 10 10 / 70%);
+      border-radius: 0.25rem;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
 
 
-        #output {
-            font-weight: bold;
-        }
 
-        p {
-            margin-top: 10px;
-            padding-left: 15px;
-        }
-    </style>
+    .text-center {
+      background-color: #111 !important;
+      color: white;
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      font-size: 1.5rem;
+      margin-bottom: 2px;
+    }
+
+
+    .custom-field-height,
+    .custom-select-height {
+      height: calc(100vh / 14) !important;
+    }
+
+    /* Add a custom class to the fields to adjust their height on mobile */
+    @media (max-width: 767px) {
+
+
+      .nav-link {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+
+
+    @media (min-width: 530px) {
+      .container-fluid {
+        width: 80vw;
+      }
+    }
+
+    @media (min-width: 720px) {
+      .container-fluid {
+        width: 50vw;
+      }
+    }
+
+    @media (min-width: 1150px) {
+      .container-fluid {
+        width: 40vw;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 0px;
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .form-group label {
+      color: white;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .btn {
+      margin-top: 10px;
+      margin-left: 35px;
+      margin-right: 35px;
+    }
+
+
+
+    .form-group {
+      margin-bottom: 0px;
+    }
+
+
+    #output {
+      display: none;
+      font-weight: bold;
+      margin-top: 10px;
+      background-color: rgb(0 0 0 / 70%);
+      font-family: Helvetica, sans-serif;
+      font-size: 16px;
+      padding: 10px;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+
+    .specialText {
+      color: rgb(96 255 196);
+      font-weight: bold;
+      font-size: 20px;
+      font-family: Georgia, serif;
+    }
+  </style>
+  <!-- The side navigation menu -->
+  <style>
+    /* The side navigation menu */
+    .sidenav {
+      height: 100%;
+      /* 100% Full-height */
+      width: 0;
+      /* 0 width - change this with JavaScript */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Stay on top */
+      top: 0;
+      /* Stay at the top */
+      left: 0;
+      background-color: #087089;
+      /* Black*/
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      padding-top: 60px;
+      /* Place content 60px from the top */
+      transition: 0.3s;
+      /* 0.5 second transition effect to slide in the sidenav */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      /* transition: 0.8s; */
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    /* Add animation to "slide in" the sidenav */
+    @keyframes slideIn {
+      from {
+        left: -250px;
+      }
+
+      to {
+        left: 0;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        left: 0;
+      }
+
+      to {
+        left: -250px;
+      }
+    }
+
+    /* Add animation to "slide out" the sidenav */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* Set the style of the menu icon */
+    #sideButton {
+      display: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      position: fixed;
+      z-index: 2;
+      top: 0px;
+      left: 10px;
+    }
+
+    #visitor-counter {
+      position: fixed;
+      bottom: 70px;
+      /* width: 100%; */
+      /* background-color: #f1f1f1; */
+      text-align: center;
+      padding: 10px;
+    }
+
+    #visitor-counter span {
+      font-weight: bold;
+      color: #07ff07;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #visitor-counter p {
+      color: #ffc107;
+    }
+
+    /* Set the style of the menu icon on small screens */
+    @media screen and (max-width: 530px) {
+      #sideButton {
+        display: block;
+      }
+    }
+  </style>
+  <!-- Set the style of the floating menu icon on small screens -->
+  <style>
+    .float {
+      display: none;
+      position: fixed;
+      background-color: #ff0000;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      /* box-shadow: 2px 2px 3px #999; */
+      z-index: 100;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      bottom: 160px;
+      right: 15px;
+      opacity: 0.99;
+    }
+
+    .float i {
+      margin-top: 12px;
+      font-size: 1.5em;
+    }
+
+    .float-icons {
+      position: fixed;
+      bottom: 220px;
+      right: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .float:hover .float-icons {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .float-icons a {
+      display: block;
+      border-radius: 50%;
+      text-align: center;
+      background: #25d366;
+      color: #ffffff;
+      /* box-shadow: 1px 1px 2px #999; */
+      transition: all 0.3s ease-in-out;
+      margin: 8px;
+      width: 40px;
+      height: 40px;
+      line-height: 32px;
+    }
+
+    .float-icons a:nth-of-type(2) {
+      background: #1800cc;
+    }
+
+    .float-icons a:nth-of-type(3) {
+      background: #0088cc;
+    }
+
+    .float-icons a:nth-of-type(4) {
+      background: #ffc107;
+    }
+
+    /* .float-icons a:hover {
+      background: #555;
+      color: #FFF;
+      box-shadow: 2px 2px 3px #999;
+    } */
+
+    .icon-circle i {
+      margin-top: 8px;
+    }
+
+    @media (max-width: 530px) {
+      .float {
+        display: block;
+      }
+    }
+  </style>
+  <!-- style for side menu for large screens -->
+  <!-- Show the icons only on screens wider than 768px -->
+  <style>
+    .floating-icons {
+      display: none;
+    }
+
+    @media (min-width: 531px) {
+      .floating-icons {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: fixed;
+        right: 8px;
+        bottom: 35%;
+        z-index: 999;
+      }
+
+      .floating-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background-color: #1c0424;
+        border-radius: 50%;
+        margin-bottom: 8px;
+      }
+
+      .floating-icon:nth-of-type(2) {
+        background-color: #25d366;
+      }
+
+      .floating-icon:nth-of-type(3) {
+        background-color: #2533d3;
+      }
+
+      .floating-icon:nth-of-type(4) {
+        background-color: #0088cc;
+      }
+
+      .floating-icon:nth-of-type(5) {
+        background-color: #ffc107;
+      }
+
+      .floating-icon a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        font-size: 24px;
+        text-decoration: none;
+      }
+
+      .floating-icon :hover {
+        background-color: #555;
+        border-radius: 50%;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="text-center">BMI Calculator</h2>
-                <form>
-                    <div class="form-group">
-                        <label for="weight">Weight (in kg):</label>
-                        <input type="number" class="form-control custom-field-height" id="weight"
-                            placeholder="Enter your weight" required>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <div class="form-row">
-                            <div class="col-8">
-                                <label for="height">Height:</label>
-                                <input type="number" class="form-control custom-field-height" id="height"
-                                    placeholder="Enter your height" required>
-                            </div>
-                            <div class="col-4">
-                                <label for="unitType" class="custom-label">Unit:</label>
-                                <select class="custom-select custom-select-height" id="unit" name="unit">
-                                    <option selected value="cm">cm</option>
-                                    <option value="in">inch</option>
-                                </select>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-primary" onclick="calculateBMI()">Calculate</button>
-                </form>
-                
-
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-center">BMI Calculator</h2>
+        <div class="mainClass">
+          <form>
+            <div class="form-group">
+              <label for="weight">Weight (in kg):</label>
+              <input type="number" class="form-control custom-field-height" id="weight" placeholder="Enter your weight"
+                required>
             </div>
-            <div class=" col-12">
-                <div class="d-flex justify-content-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300px"
-                        height="163px" viewBox="0 0 300 163">
-                        <g transform="translate(18,18)" style="font-family:arial,helvetica,sans-serif;font-size: 12px;">
-                            <defs>
-                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5"
-                                    orient="auto">
-                                    <polygon points="0 0, 10 3.5, 0 7"></polygon>
-                                </marker>
-                                <path id="curvetxt1" d="M-4 140 A140 140, 0, 0, 1, 284 140" style="fill: none;"></path>
-                                <path id="curvetxt2" d="M33 43.6 A140 140, 0, 0, 1, 280 140" style="fill: #none;">
-                                </path>
-                                <path id="curvetxt3" d="M95 3 A140 140, 0, 0, 1, 284 140" style="fill: #none;"></path>
-                                <path id="curvetxt4" d="M235.4 33 A140 140, 0, 0, 1, 284 140" style="fill: #none;">
-                                </path>
-                            </defs>
-                            <path d="M0 140 A140 140, 0, 0, 1, 6.9 96.7 L140 140 Z" fill="#bc2020"></path>
-                            <path d="M6.9 96.7 A140 140, 0, 0, 1, 12.1 83.1 L140 140 Z" fill="#d38888"></path>
-                            <path d="M12.1 83.1 A140 140, 0, 0, 1, 22.6 63.8 L140 140 Z" fill="#ffe400"></path>
-                            <path d="M22.6 63.8 A140 140, 0, 0, 1, 96.7 6.9 L140 140 Z" fill="#008137"></path>
-                            <path d="M96.7 6.9 A140 140, 0, 0, 1, 169.1 3.1 L140 140 Z" fill="#ffe400"></path>
-                            <path d="M169.1 3.1 A140 140, 0, 0, 1, 233.7 36 L140 140 Z" fill="#d38888"></path>
-                            <path d="M233.7 36 A140 140, 0, 0, 1, 273.1 96.7 L140 140 Z" fill="#bc2020"></path>
-                            <path d="M273.1 96.7 A140 140, 0, 0, 1, 280 140 L140 140 Z" fill="#8a0101"></path>
-                            <path d="M45 140 A90 90, 0, 0, 1, 230 140 Z" fill="#fff"></path>
-                            <!-- <circle cx="140" cy="140" r="5" fill="#666"></circle> -->
-                            <g style="paint-order: stroke;stroke: #fff;stroke-width: 2px;"><text x="25" y="111"
-                                    transform="rotate(-72, 25, 111)">16</text><text x="30" y="96"
-                                    transform="rotate(-66, 30, 96)">17</text><text x="35" y="83"
-                                    transform="rotate(-57, 35, 83)">18.5</text><text x="97" y="29"
-                                    transform="rotate(-18, 97, 29)">25</text><text x="157" y="20"
-                                    transform="rotate(12, 157, 20)">30</text><text x="214" y="45"
-                                    transform="rotate(42, 214, 45)">35</text><text x="252" y="95"
-                                    transform="rotate(72, 252, 95)">40</text></g>
-                            <g style="font-size: 14px;">
-                                <text>
-                                    <textPath xlink:href="#curvetxt1">Underweight</textPath>
-                                </text><text>
-                                    <textPath xlink:href="#curvetxt2">Normal</textPath>
-                                </text><text>
-                                    <textPath xlink:href="#curvetxt3">Overweight</textPath>
-                                </text><text>
-                                    <textPath xlink:href="#curvetxt4">Obesity</textPath>
-                                </text>
-                            </g>
-                            <!-- <line x1="140" y1="140" x2="65" y2="140" stroke="#666" stroke-width="2"
-                                marker-end="url(#arrowhead)">
-                                <animateTransform attributeName="transform" attributeType="XML" type="rotate"
-                                    from="0 140 140" to="160 140 140" dur="1s" fill="freeze" repeatCount="1">
-                                </animateTransform>
-                            </line> -->
-                            <text id="textToBeReplaced" x="67" y="120" style="font-size: 25px;font-weight:bold;color:#000;">BMI Meter</text>
-                        </g>
-                    </svg>
-                    
+            <div class="form-group" style="margin-bottom: 10px;">
+              <div class="form-row">
+                <div class="col-8">
+                  <label for="height">Height:</label>
+                  <input type="number" class="form-control custom-field-height" id="height"
+                    placeholder="Enter your height" required>
                 </div>
+                <div class="col-4">
+                  <label for="unitType" class="custom-label">Unit:</label>
+                  <select class="custom-select custom-select-height" id="unit" name="unit">
+                    <option selected value="cm">cm</option>
+                    <option value="in">inch</option>
+                  </select>
+                </div>
+
+              </div>
             </div>
-            <p id="output"></p>
+
+            <button type="button" class="btn btn-primary" onclick="calculateBMI()">Calculate</button>
+          </form>
+
+          <div class=" col-12">
+            <div class="d-flex justify-content-center" style="padding-bottom: 25px;">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300px"
+                height="163px" viewBox="0 0 300 163">
+                <g transform="translate(18,18)" style="font-family:arial,helvetica,sans-serif;font-size: 12px;">
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7"></polygon>
+                    </marker>
+                    <path id="curvetxt1" d="M-4 140 A140 140, 0, 0, 1, 284 140" style="fill: none;"></path>
+                    <path id="curvetxt2" d="M33 43.6 A140 140, 0, 0, 1, 280 140" style="fill: none;">
+                    </path>
+                    <path id="curvetxt3" d="M95 3 A140 140, 0, 0, 1, 284 140" style="fill: none;"></path>
+                    <path id="curvetxt4" d="M235.4 33 A140 140, 0, 0, 1, 284 140" style="fill: none;">
+                    </path>
+                  </defs>
+                  <path d="M0 140 A140 140, 0, 0, 1, 6.9 96.7 L140 140 Z" fill="#bc2020"></path>
+                  <path d="M6.9 96.7 A140 140, 0, 0, 1, 12.1 83.1 L140 140 Z" fill="#d38888"></path>
+                  <path d="M12.1 83.1 A140 140, 0, 0, 1, 22.6 63.8 L140 140 Z" fill="#ffe400"></path>
+                  <path d="M22.6 63.8 A140 140, 0, 0, 1, 96.7 6.9 L140 140 Z" fill="#008137"></path>
+                  <path d="M96.7 6.9 A140 140, 0, 0, 1, 169.1 3.1 L140 140 Z" fill="#ffe400"></path>
+                  <path d="M169.1 3.1 A140 140, 0, 0, 1, 233.7 36 L140 140 Z" fill="#d38888"></path>
+                  <path d="M233.7 36 A140 140, 0, 0, 1, 273.1 96.7 L140 140 Z" fill="#bc2020"></path>
+                  <path d="M273.1 96.7 A140 140, 0, 0, 1, 280 140 L140 140 Z" fill="#8a0101"></path>
+                  <path d="M45 140 A90 90, 0, 0, 1, 230 140 Z" fill="#fff"></path>
+                  <!-- <circle cx="140" cy="140" r="5" fill="#666"></circle> -->
+                  <g style="paint-order: stroke;stroke: #fff;stroke-width: 2px;"><text x="25" y="111"
+                      transform="rotate(-72, 25, 111)">16</text><text x="30" y="96"
+                      transform="rotate(-66, 30, 96)">17</text><text x="35" y="83"
+                      transform="rotate(-57, 35, 83)">18.5</text><text x="97" y="29"
+                      transform="rotate(-18, 97, 29)">25</text><text x="157" y="20"
+                      transform="rotate(12, 157, 20)">30</text><text x="214" y="45"
+                      transform="rotate(42, 214, 45)">35</text><text x="252" y="95"
+                      transform="rotate(72, 252, 95)">40</text></g>
+                  <g style="font-size: 14px;stroke: #dad383">
+                    <text>
+                      <textPath xlink:href="#curvetxt1">Underweight</textPath>
+                    </text><text>
+                      <textPath xlink:href="#curvetxt2">Normal</textPath>
+                    </text><text>
+                      <textPath xlink:href="#curvetxt3">Overweight</textPath>
+                    </text><text>
+                      <textPath xlink:href="#curvetxt4">Obesity</textPath>
+                    </text>
+                  </g>
+                  <!-- <line x1="140" y1="140" x2="65" y2="140" stroke="#666" stroke-width="2"
+                                  marker-end="url(#arrowhead)">
+                                  <animateTransform attributeName="transform" attributeType="XML" type="rotate"
+                                      from="0 140 140" to="160 140 140" dur="1s" fill="freeze" repeatCount="1">
+                                  </animateTransform>
+                              </line> -->
+                  <text id="textToBeReplaced" x="67" y="120" style="font-size: 25px;font-weight:bold;color:#000000;">BMI
+                    Meter</text>
+                </g>
+              </svg>
+
+            </div>
+          </div>
         </div>
+        <p id="output"></p>
+      </div>
 
     </div>
-    <script>
-        function calculateBMI() {
-            let weight = document.getElementById("weight").value;
-            let height = document.getElementById("height").value;
-            var unit = document.getElementById("unit").value;
-            let output = document.getElementById("output");
-            let boxWeight = document.getElementById("weight");
-            let boxHeight = document.getElementById("height");
-            let errorInFields = false;
 
-            if (!weight || isNaN(weight) || weight <= 0) {
-                boxWeight.style.borderColor = "red";
-                errorInFields = true;
-            } else boxWeight.style.borderColor = "#ced4da";
-            if (!height || isNaN(height) || height <= 0) {
-                boxHeight.style.borderColor = "red";
-                errorInFields = true;
-            } else boxHeight.style.borderColor = "#ced4da";
-            if (errorInFields) {
-                output.style.color = "red";
-                output.innerHTML = "Please enter valid input in all fields";
-            } else {
-                output.style.color = "black";
-                if (unit === "in") {
-                    height = height * 2.54;
-                }
-                var bmi = (weight / (height / 100 * height / 100)).toFixed(2);
-                let weightToGain = ((18.5 - bmi) * (height / 100 * height / 100)).toFixed(1);
-                let weightToLose = ((bmi - 25) * (height / 100 * height / 100)).toFixed(1);
-                $('#textToBeReplaced').text("BMI = " + bmi );
+  </div>
+  <script>
+    function calculateBMI() {
+      let weight = document.getElementById("weight").value;
+      let height = document.getElementById("height").value;
+      var unit = document.getElementById("unit").value;
+      let output = document.getElementById("output");
+      let boxWeight = document.getElementById("weight");
+      let boxHeight = document.getElementById("height");
+      let errorInFields = false;
+      output.style.display = "block";
 
-                if (bmi < 18.5) {
-                    
-                    document.getElementById("output").innerHTML =
-                        "You are underweight. You should gain minimum " + weightToGain + " kg to become normal.";
-                } else if (bmi < 25) {
-                    document.getElementById("output").innerHTML =
-                        "You have normal weight. ";
-                } else if (bmi < 30) {
-                    
-                    document.getElementById("output").innerHTML =
-                        "You are overweight. You need to lose minimum " + weightToLose + " kg to become normal.";
-                } else {
-                    
-                    document.getElementById("output").innerHTML =
-                        "You are obese. You need to lose minimum " + weightToLose + " kg to become normal.";
-                }
 
-            }
+      if (!weight || isNaN(weight) || weight <= 0) {
+        boxWeight.style.borderColor = "red";
+        errorInFields = true;
+      } else boxWeight.style.borderColor = "#ced4da";
+      if (!height || isNaN(height) || height <= 0) {
+        boxHeight.style.borderColor = "red";
+        errorInFields = true;
+      } else boxHeight.style.borderColor = "#ced4da";
+      if (errorInFields) {
+        output.style.color = "red";
+        output.innerHTML = "Please enter valid input in all fields";
+      } else {
+        output.style.color = "white";
+        if (unit === "in") {
+          height = height * 2.54;
+        }
+        var bmi = (weight / (height / 100 * height / 100)).toFixed(2);
+        let weightToGain = ((18.5 - bmi) * (height / 100 * height / 100)).toFixed(1);
+        let weightToLose = ((bmi - 25) * (height / 100 * height / 100)).toFixed(1);
+        $('#textToBeReplaced').text("BMI = " + bmi);
 
+        if (bmi < 18.5) {
+
+          document.getElementById("output").innerHTML =
+            "You are underweight. You should gain minimum " + weightToGain + " kg to become normal.";
+        } else if (bmi < 25) {
+          document.getElementById("output").innerHTML =
+            "You have normal weight. ";
+        } else if (bmi < 30) {
+
+          document.getElementById("output").innerHTML =
+            "You are overweight. You need to lose minimum " + weightToLose + " kg to become normal.";
+        } else {
+
+          document.getElementById("output").innerHTML =
+            "You are obese. You need to lose minimum " + weightToLose + " kg to become normal.";
         }
 
-    </script>
+      }
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-    <script>
-        $('.custom-field-height').on('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
-    </script>
+    }
+
+  </script>
+  <!-- for side drawer and visitors count -->
+  <script>
+    /* Open the side navigation */
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("sideButton").style.display = "none";
+      setTimeout(() => {
+        var items = document.querySelectorAll('.sidenavMenuItems');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.display = "block";
+        }
+        // document.getElementById("visitor-counter").style.display = "block";
+      }, 200);
+
+    }
+
+    /* Close/hide the side navigation */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("visitor-counter").style.display = "none";
+      var items = document.querySelectorAll('.sidenavMenuItems');
+      for (var i = 0; i < items.length; i++) {
+        items[i].style.display = "none";
+      }
+      setTimeout(() => {
+        document.getElementById("sideButton").style.display = "block";
+      }, 200);
+    }
+
+    /* Floating side drawer animation */
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById("mySidenav").style.bottom = "70px";
+      } else {
+        document.getElementById("mySidenav").style.bottom = "-250px";
+      }
+      prevScrollpos = currentScrollPos;
+    }
+  </script>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Home</a>
+    <a href="#" class="sidenavMenuItems" style="display: none">Support Us!</a>
+    <!-- <div id="visitor-counter" style="display: none">
+      <p>Total Visitors: <span id="count"><?php echo $count; ?></span></p>
+    </div> -->
+  </div>
+
+  <span style="font-size:30px;cursor:pointer" id="sideButton" onclick="openNav()">&#9776;</span>
+
+  <!-- for floating buttons -->
+  <div class="float">
+    <i class="fas fa-share-alt"></i>
+    <div class="float-icons icon-circle">
+      <a href="whatsapp://send?text=Check%20out%20this%20website:%20https://www.example.com"><i
+          class="fab fa-whatsapp"></i></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.example.com" target="_blank"><i
+          class="fab fa-facebook"></i></a>
+      <a href="https://telegram.me/share/url?url=https://www.example.com"><i class="fab fa-telegram"></i></a>
+      <a href="https://www.example.com/supportus"><i class="fas fa-hand-holding-heart"></i></a>
+    </div>
+  </div>
+
+  <!-- for floating buttons -->
+  <script>
+    const float = document.querySelector('.float');
+
+    float.addEventListener('click', () => {
+      float.classList.toggle('active');
+    });
+  </script>
+  <!-- side floating menu for large screens -->
+  <div class="floating-icons">
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fab fa-facebook"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fab fa-telegram"></i>
+      </a>
+    </div>
+    <div class="floating-icon">
+      <a href="#" target="_blank">
+        <i class="fas fa-hand-holding-heart"></i>
+      </a>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <script>
+    $('.custom-field-height').on('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+  </script>
 </body>
 
 </html>
