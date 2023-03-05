@@ -606,7 +606,7 @@ require_once('config.php');
             "You have normal weight. ";
 
             setTimeout(function () {
-            var message = new SpeechSynthesisUtterance("Good going");
+            var message = new SpeechSynthesisUtterance("Good going. You have normal weight");
             message.lang = "en-IN"; // Set the language to Indian English
             speechSynthesis.speak(message); // Use the Web Speech API to speak the message
           }, 1000);
