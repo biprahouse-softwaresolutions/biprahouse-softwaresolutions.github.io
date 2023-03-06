@@ -599,8 +599,8 @@ require_once('config.php');
             var message = new SpeechSynthesisUtterance("You are underweight. You need some more protein");
             message.lang = "en-IN"; // Set the language to Indian English
             speechSynthesis.speak(message); // Use the Web Speech API to speak the message
-            message.rate = 0.5; // Set the speech rate to half of the normal rate
-          }, 2000);
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
+          }, 3000);
 
         } else if (bmi < 25) {
           document.getElementById("output").innerHTML =
@@ -610,8 +610,8 @@ require_once('config.php');
             var message = new SpeechSynthesisUtterance("Good going. You have normal weight");
             message.lang = "en-IN"; // Set the language to Indian English
             speechSynthesis.speak(message); // Use the Web Speech API to speak the message
-            message.rate = 0.5; // Set the speech rate to half of the normal rate
-          }, 1000);
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
+          }, 2000);
         } else if (bmi < 30) {
 
           // document.getElementById("output").innerHTML =
@@ -626,8 +626,8 @@ require_once('config.php');
             var message = new SpeechSynthesisUtterance("You are overweight and its time to think about workout");
             message.lang = "en-IN"; // Set the language to Indian English
             speechSynthesis.speak(message); // Use the Web Speech API to speak the message
-            message.rate = 0.5; // Set the speech rate to half of the normal rate
-          }, 2000);
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
+          }, 3000);
         } else {
 
           // document.getElementById("output").innerHTML =
@@ -643,7 +643,7 @@ require_once('config.php');
             var message = new SpeechSynthesisUtterance("You are obese and you need some serious workout");
             message.lang = "en-IN"; // Set the language to Indian English
             speechSynthesis.speak(message); // Use the Web Speech API to speak the message
-            message.rate = 0.5; // Set the speech rate to half of the normal rate
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
           }, 3000);
         }
 
