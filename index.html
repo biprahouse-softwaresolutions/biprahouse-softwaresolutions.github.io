@@ -2,18 +2,16 @@
 // Include the counter.php file
 require_once('config.php');
 ?> -->
-
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Find out your estimated due date with our easy-to-use online baby due date calculator. Simply enter your last menstrual period and we'll calculate your due date. Start planning for your new arrival today.">
+  <meta name="description" content="Calculate your body mass index (BMI) with our simple and accurate online calculator. Our BMI calculator takes into account your height and weight to determine your overall health and well-being. Get started now and take control of your health.">
   <meta property="og:image" content="https://example.com/image.jpg">
-  <meta property="og:title" content="Baby Birth Calculator">
-  <meta property="og:description" content="Start planning for your new arrival today">
+  <meta property="og:title" content="BMI Calculator">
+  <meta property="og:description" content="Take control of your health">
   <link rel="shortcut icon" type="image/png" href="icon.png">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -22,21 +20,16 @@ require_once('config.php');
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <!-- for floating buttons -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
 
-
-  <title>Baby Birth Calculator</title>
-  <!-- main function -->
+  <title>BMI Calculator</title>
   <style>
     body::before {
       content: "";
-      background-image: url('https://source.unsplash.com/random/1600x900/?newborn-baby&&q=auto');
+      background-image: url('https://source.unsplash.com/random/1600x900/?mussels,body-builder,gym,fitness&&q=auto');
       background-size: cover;
-      opacity: 0.5;
+      /* opacity: 0.5; */
       position: absolute;
       top: 0;
       right: 0;
@@ -49,24 +42,27 @@ require_once('config.php');
 
     @media (max-width: 640px) {
       body::before {
-        background-image: url('https://source.unsplash.com/random/640x480/?newborn-baby&&q=low');
+        background-image: url('https://source.unsplash.com/random/640x480/?mussels,body-builder,gym,fitness&&q=low');
       }
     }
 
-    .col-sm-12{
-      padding-right: 0px;
-      padding-left: 0px;
-    }
-
-    .row{
-      margin-left: 0px;
-      margin-right: 0px;
-    }
-
-    .container {
+    .container-fluid {
       padding-left: 0px;
       padding-right: 0px;
     }
+
+    .mainClass {
+      background-color: rgb(20 10 10 / 70%);
+      border-radius: 0.25rem;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+
+    .col-12 {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
+
 
     .text-center {
       background-color: #111 !important;
@@ -77,18 +73,31 @@ require_once('config.php');
       margin-bottom: 2px;
     }
 
-    form {
-      background-color: rgb(0 0 0 / 70%);
-      border-radius: 0.25rem;
-      margin-left: 2px;
-      margin-right: 2px;
+
+    .custom-field-height,
+    .custom-select-height {
+      height: calc(100vh / 14) !important;
     }
 
-    .form-group {
-      /* margin-bottom: 0px; */
-      margin-left: 40px;
-      margin-right: 40px;
-      padding-top: 20px;
+
+
+    @media (min-width: 530px) {
+      .container-fluid {
+        width: 80vw;
+      }
+
+    }
+
+    @media (min-width: 720px) {
+      .container-fluid {
+        width: 50vw;
+      }
+    }
+
+    @media (min-width: 1150px) {
+      .container-fluid {
+        width: 40vw;
+      }
     }
 
     .form-group {
@@ -104,29 +113,17 @@ require_once('config.php');
     }
 
     .btn {
-      margin-top: 20px;
-      margin-left: 40px;
+      margin-top: 10px;
+      margin-left: 35px;
       margin-right: 35px;
-      margin-bottom: 30px;
     }
 
-    #lmp {
-      background-color: white;
-      border-right: none;
-      padding-right: 38px;
-      box-shadow: none;
-      border-color: rgb(206, 212, 218);
+
+
+    .form-group {
+      margin-bottom: 0px;
     }
 
-    #iconBox {
-      background-color: white;
-      border: 1px solid;
-      border-color: rgb(206, 212, 218);
-      border-top-right-radius: 0.25rem;
-      border-bottom-right-radius: 0.25rem;
-      border-left: none;
-      padding-right: 8px
-    }
 
     #output {
       display: none;
@@ -141,46 +138,31 @@ require_once('config.php');
       border-radius: 0.25rem;
     }
 
-    #dateText {
+    .specialText {
       color: rgb(96 255 196);
       font-weight: bold;
       font-size: 20px;
-      font-family:Georgia, serif ;
+      font-family: Georgia, serif;
     }
 
-    #disclaimer {
-      font-family: Arial, sans-serif;
-      color: #deff05;
-      font-size: 11px;
-
-    }
-
-    .custom-field-height {
-        height: 62px !important;
-      }
-
-      .input-group-addon span {
-        font-size: 40px !important;
-      }
-
-    @media (min-width: 530px) {
-      .container {
-        width: 78vw;
+    @keyframes blink {
+      10% {
+        opacity: 0;
+        background-color: red;
       }
     }
 
-    @media (min-width: 770px) {
-      .container {
-        width: 60vw;
+
+    /* Add a custom class to the fields to adjust their height on mobile */
+    @media (max-width: 530px) {
+
+
+      .mainClass,
+      #output {
+        margin-left: 5px;
+        margin-right: 5px;
       }
     }
-
-    @media (min-width: 1100px) {
-      .container {
-        width: 40vw;
-      }
-    }
-
   </style>
   <!-- The side navigation menu -->
   <style>
@@ -325,7 +307,7 @@ require_once('config.php');
       cursor: pointer;
       width: 50px;
       height: 50px;
-      bottom: 180px;
+      bottom: 120px;
       right: 15px;
       opacity: 0.99;
     }
@@ -337,7 +319,7 @@ require_once('config.php');
 
     .float-icons {
       position: fixed;
-      bottom: 240px;
+      bottom: 220px;
       right: 10px;
       opacity: 0;
       visibility: hidden;
@@ -385,7 +367,7 @@ require_once('config.php');
       margin-top: 8px;
     }
 
-    @media (max-width: 530.9px) {
+    @media (max-width: 530px) {
       .float {
         display: block;
       }
@@ -453,155 +435,230 @@ require_once('config.php');
       }
     }
   </style>
-  <!-- for crack animation -->
-  <style>
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-    }
-  </style>
-
-  <script>
-    $(document).ready(function () {
-      $('.input-group.date').datepicker({
-        dateFormat: 'dd-mm-yy',
-        autoclose: true,
-        todayHighlight: true
-      });
-    });
-  </script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2 class="text-center">Baby Birth Calculator</h2>
-        <form>
-          <div class="form-group">
-            <label for="lmp">Last Menstrual Period (LMP):</label>
-            <div class="input-group date" data-provide="datepicker">
-              <input type="text" class="form-control custom-field-height" id="lmp"
-                placeholder="Your last menstrual period" readonly required>
-              <div class="input-group-addon" id="iconBox">
-                <span><i class="far fa-calendar-alt"></i></span>
+  <div class="container-fluid">
+    <div class="row" style="margin-left: 0px; margin-right: 0px;">
+      <div class="col-12">
+        <h2 class="text-center">BMI Calculator</h2>
+        <div class="mainClass">
+          <form>
+            <div class="form-group" style="padding-top: 10px;">
+              <label for="weight">Weight (in kg):</label>
+              <input type="number" class="form-control custom-field-height" id="weight" placeholder="Enter your weight"
+                required>
+            </div>
+            <div class="form-group" style="margin-bottom: 10px;">
+              <div class="form-row">
+                <div class="col-8">
+                  <label for="height">Height:</label>
+                  <input type="number" class="form-control custom-field-height" id="height"
+                    placeholder="Enter your height" required>
+                </div>
+                <div class="col-4">
+                  <label for="unitType" class="custom-label">Unit:</label>
+                  <select class="custom-select custom-select-height" id="unit" name="unit">
+                    <option selected value="cm">cm</option>
+                    <option value="in">inch</option>
+                  </select>
+                </div>
+
               </div>
             </div>
-          </div>
 
-          <div class="form-group" style="margin-bottom: 10px;">
-            <label for="cycle">Menstrual Cycle Length(in days):</label>
-            <input type="number" class="form-control custom-field-height" id="cycle" min="24" max="35" step="1"
-              placeholder="Enter your menstrual cycle length" value="28">
+            <button type="button" class="btn btn-primary" onclick="calculateBMI()">Calculate</button>
+          </form>
+
+          <div class=" col-12">
+            <div class="d-flex justify-content-center" style="padding-bottom: 25px;">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300px"
+                height="163px" viewBox="0 0 300 163">
+                <g transform="translate(18,18)" style="font-family:arial,helvetica,sans-serif;font-size: 12px;">
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7"></polygon>
+                    </marker>
+                    <path id="curvetxt1" d="M-4 140 A140 140, 0, 0, 1, 284 140" style="fill: none;"></path>
+                    <path id="curvetxt2" d="M33 43.6 A140 140, 0, 0, 1, 280 140" style="fill: none;">
+                    </path>
+                    <path id="curvetxt3" d="M95 3 A140 140, 0, 0, 1, 284 140" style="fill: none;"></path>
+                    <path id="curvetxt4" d="M235.4 33 A140 140, 0, 0, 1, 284 140" style="fill: none;">
+                    </path>
+                  </defs>
+                  <path d="M0 140 A140 140, 0, 0, 1, 6.9 96.7 L140 140 Z" fill="#bc2020"></path>
+                  <path d="M6.9 96.7 A140 140, 0, 0, 1, 12.1 83.1 L140 140 Z" fill="#d38888"></path>
+                  <path d="M12.1 83.1 A140 140, 0, 0, 1, 22.6 63.8 L140 140 Z" fill="#ffe400"></path>
+                  <path d="M22.6 63.8 A140 140, 0, 0, 1, 96.7 6.9 L140 140 Z" fill="#008137"></path>
+                  <path d="M96.7 6.9 A140 140, 0, 0, 1, 169.1 3.1 L140 140 Z" fill="#ffe400"></path>
+                  <path d="M169.1 3.1 A140 140, 0, 0, 1, 233.7 36 L140 140 Z" fill="#d38888"></path>
+                  <path d="M233.7 36 A140 140, 0, 0, 1, 273.1 96.7 L140 140 Z" fill="#bc2020"></path>
+                  <path d="M273.1 96.7 A140 140, 0, 0, 1, 280 140 L140 140 Z" fill="#8a0101"></path>
+                  <path d="M45 140 A90 90, 0, 0, 1, 230 140 Z" fill="#fff"></path>
+                  <!-- <circle cx="140" cy="140" r="5" fill="#666"></circle> -->
+                  <g style="paint-order: stroke;stroke: #fff;stroke-width: 2px;"><text x="25" y="111"
+                      transform="rotate(-72, 25, 111)">16</text><text x="30" y="96"
+                      transform="rotate(-66, 30, 96)">17</text><text x="35" y="83"
+                      transform="rotate(-57, 35, 83)">18.5</text><text x="97" y="29"
+                      transform="rotate(-18, 97, 29)">25</text><text x="157" y="20"
+                      transform="rotate(12, 157, 20)">30</text><text x="214" y="45"
+                      transform="rotate(42, 214, 45)">35</text><text x="252" y="95"
+                      transform="rotate(72, 252, 95)">40</text></g>
+                  <g style="font-size: 14px;stroke: #dad383">
+                    <text>
+                      <textPath xlink:href="#curvetxt1">Underweight</textPath>
+                    </text><text>
+                      <textPath xlink:href="#curvetxt2">Normal</textPath>
+                    </text><text>
+                      <textPath xlink:href="#curvetxt3">Overweight</textPath>
+                    </text><text>
+                      <textPath xlink:href="#curvetxt4">Obesity</textPath>
+                    </text>
+                  </g>
+                  <!-- <line x1="140" y1="140" x2="65" y2="140" stroke="#666" stroke-width="2"
+                                  marker-end="url(#arrowhead)">
+                                  <animateTransform attributeName="transform" attributeType="XML" type="rotate"
+                                      from="0 140 140" to="160 140 140" dur="1s" fill="freeze" repeatCount="1">
+                                  </animateTransform>
+                              </line> -->
+                  <text id="textToBeReplaced" x="67" y="120" style="font-size: 25px;font-weight:bold;color:#000000;">BMI
+                    Meter</text>
+                </g>
+              </svg>
+
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary" id="fireworks-btn"
-            onclick="calculateDueDate()">Calculate</button>
-        </form>
+        </div>
         <p id="output"></p>
       </div>
+
     </div>
+
   </div>
-
-  <!-- main function to calculate -->
   <script>
-    function calculateDueDate() {
-      event.preventDefault();
-      let lmpInput = document.getElementById("lmp").value;
-      let lmp = new Date(lmpInput);
-      let cycle = document.getElementById("cycle").value;
-
+    function calculateBMI() {
+      let weight = document.getElementById("weight").value;
+      let height = document.getElementById("height").value;
+      var unit = document.getElementById("unit").value;
       let output = document.getElementById("output");
-      let boxDate = document.getElementById("lmp");
-      let boxIcon = document.getElementById("iconBox");
-      let boxCycle = document.getElementById("cycle");
+      let boxWeight = document.getElementById("weight");
+      let boxHeight = document.getElementById("height");
       let errorInFields = false;
-
       output.style.display = "block";
 
-      if (!lmp || isNaN(lmp) || lmp <= 0) {
-        boxDate.style.borderColor = "red";
-        boxIcon.style.borderColor = "red";
+
+      if (!weight || isNaN(weight) || weight <= 0) {
+        boxWeight.style.borderColor = "red";
         errorInFields = true;
-      } else {
-        boxDate.style.borderColor = "#ced4da";
-        boxIcon.style.borderColor = "#ced4da";
-      }
-      if (!cycle || isNaN(cycle) || cycle <= 0) {
-        boxCycle.style.borderColor = "red";
+      } else boxWeight.style.borderColor = "#ced4da";
+      if (!height || isNaN(height) || height <= 0) {
+        boxHeight.style.borderColor = "red";
         errorInFields = true;
-      } else boxCycle.style.borderColor = "#ced4da";
+      } else boxHeight.style.borderColor = "#ced4da";
       if (errorInFields) {
         output.style.color = "red";
         output.innerHTML = "Please enter valid input in all fields";
       } else {
         output.style.color = "white";
-        let dueDate = new Date(lmp.getTime());
-        let pregnancyLength = 280 * 24 * 60 * 60 * 1000;
-        let cycleLengthInDays = cycle;
-
-        let diffInMilliseconds = (cycleLengthInDays - 28) * 24 * 60 * 60 * 1000;
-        dueDate = new Date(dueDate.getTime() + pregnancyLength + diffInMilliseconds);
-
-        let presentAgeWeek = calculateUnbornBabyAgeWeek(lmp, cycle);
-        let presentAgeDays = calculateUnbornBabyAgeDays(lmp, cycle);
-        if (presentAgeDays == 7) {
-          presentAgeWeek = presentAgeWeek + 1;
-          presentAgeDays = 0;
+        if (unit === "in") {
+          height = height * 2.54;
         }
-        let options = {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        };
-        var weekString = presentAgeWeek > 1 ? "weeks" : "week";
-        var dayString = presentAgeDays > 1 ? "days" : "day";
-        var outputText = "Expected due date: <span id= 'dateText'>" + dueDate.toLocaleDateString("en-US", options) + "</span><br> Your baby is " + presentAgeWeek + " " + weekString + " and " + presentAgeDays + " " + dayString + " old" + "<br><span id='disclaimer'></span>"
+        var bmi = (weight / (height / 100 * height / 100)).toFixed(2);
+        let weightToGain = ((18.5 - bmi) * (height / 100 * height / 100)).toFixed(1);
+        let weightToLose = ((bmi - 25) * (height / 100 * height / 100)).toFixed(1);
+        $('#textToBeReplaced').text("BMI = " + bmi);
 
-        output.innerHTML = outputText;
+        // Create a new span element for weightToLose
+        var weightToLoseSpan = document.createElement("span");
+        weightToLoseSpan.className = "specialText";
+        var weightToLoseTextNode = document.createTextNode(weightToLose);
+        weightToLoseSpan.appendChild(weightToLoseTextNode);
 
-        // Start animation for disclaimer text
-        var disclaimerElement = document.getElementById("disclaimer");
-        var disclaimerText = "Disclaimer: Delivery date may vary depending on various factors";
-        var i = 0;
+        // Create a new span element for weightToGain
+        var weightToGainSpan = document.createElement("span");
+        weightToGainSpan.className = "specialText";
+        var weightToGainTextNode = document.createTextNode(weightToGain);
+        weightToGainSpan.appendChild(weightToGainTextNode);
 
-        function typeWriter() {
-          if (i < disclaimerText.length) {
-            disclaimerElement.innerHTML += disclaimerText.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-          }
+
+
+
+
+        if (bmi < 18.5) {
+
+          // document.getElementById("output").innerHTML =
+          //   "You are underweight. You should gain minimum " + weightToGain + " kg to become normal.";
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output").innerHTML = "You are underweight. You should gain minimum ";
+          document.getElementById("output").appendChild(weightToGainSpan);
+          document.getElementById("output").innerHTML += " kg to become normal.";
+          blink();
+          setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("You are underweight. You need some more protein");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
+          }, 3000);
+
+        } else if (bmi < 25) {
+          document.getElementById("output").innerHTML =
+            "You have normal weight. ";
+
+            setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("Good going. You have normal weight");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
+          }, 2000);
+        } else if (bmi < 30) {
+
+          // document.getElementById("output").innerHTML =
+          //   "You are overweight. You need to lose minimum " + weightToLose + " kg to become normal.";
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output").innerHTML = "You are overweight. You need to lose minimum ";
+          document.getElementById("output").appendChild(weightToLoseSpan);
+          document.getElementById("output").innerHTML += " kg to become normal.";
+          blink();
+          setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("You are overweight and its time to think about workout");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
+          }, 3000);
+        } else {
+
+          // document.getElementById("output").innerHTML =
+          //   "You are obese. You need to lose minimum " + weightToLose + " kg to become normal.";
+
+          // Set the inner HTML of the output element to the static text plus the two span elements
+          document.getElementById("output").innerHTML = "You are obese. You need to lose minimum ";
+          document.getElementById("output").appendChild(weightToLoseSpan);
+          document.getElementById("output").innerHTML += " kg to become normal.";
+          blink();
+
+          setTimeout(function () {
+            var message = new SpeechSynthesisUtterance("You are obese and you need some serious workout");
+            message.lang = "en-IN"; // Set the language to Indian English
+            speechSynthesis.speak(message); // Use the Web Speech API to speak the message
+            message.rate = 0.2; // Set the speech rate to half of the normal rate
+          }, 3000);
         }
-        setTimeout(typeWriter, 1000);
 
-        startFireworks();
       }
 
     }
 
-    function calculateUnbornBabyAgeWeek(lmp, cycle) {
-      let today = new Date();
-      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-      let diffInMilliseconds = today - averageLMP;
-      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-      let unbornBabyAgeInWeeks = Math.floor(diffInDays / 7);
-      return unbornBabyAgeInWeeks;
-
+    function blink() {
+      var output = document.getElementById("output");
+      output.style.animation = "blink 1s infinite";
+      setTimeout(function () {
+        output.style.animation = "";
+      }, 2000); // stop the animation after 3 seconds
     }
 
-    function calculateUnbornBabyAgeDays(lmp, cycle) {
-      let today = new Date();
-      let averageLMP = new Date(lmp.getTime() - (28 - cycle) * 24 * 60 * 60 * 1000);
-      let diffInMilliseconds = today - averageLMP;
-      let diffInDays = diffInMilliseconds / 1000 / 60 / 60 / 24;
-      let unbornBabyAgeInDays = Math.ceil(diffInDays % 7);
-      return unbornBabyAgeInDays;
-    }
+
   </script>
 
   <!-- for side drawer and visitors count -->
@@ -706,70 +763,21 @@ require_once('config.php');
       </a>
     </div>
   </div>
-
-  <!-- crackering animation -->
-  <canvas id="canvas"></canvas>
-  <script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    let particles = [];
-
-    function createParticles(x, y) {
-      const hue = Math.floor(Math.random() * 160);
-      for (let i = 0; i < 370; i++) {
-        const isLightHue = Math.random() < 0.5;
-        const hueRange = isLightHue ? [0, 60] : [200, 260];
-        const particleHue = Math.floor(Math.random() * (hueRange[1] - hueRange[0] + 1)) + hueRange[0];
-        particles.push({
-          x,
-          y,
-          xv: Math.random() * 8 - 4,
-          yv: Math.random() * 5 - 2.5,
-          size: Math.random() * 1 + 1,
-          sizeDecay: Math.random() * 0.03 + 0.01,
-          hue: particleHue,
-          brightness: Math.random() * 70 + 30
-        });
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particles.length; i++) {
-        ctx.beginPath();
-        ctx.arc(
-          particles[i].x,
-          particles[i].y,
-          particles[i].size,
-          0,
-          Math.PI * 2
-        );
-        ctx.fillStyle = `hsla(${particles[i].hue}, 100%, ${particles[i].brightness}%, 0.7)`;
-        ctx.fill();
-        particles[i].x += particles[i].xv;
-        particles[i].y += particles[i].yv;
-        particles[i].size -= particles[i].sizeDecay;
-        if (particles[i].size < 0.1) particles.splice(i, 1);
-      }
-      if (particles.length > 0) requestAnimationFrame(animate);
-    }
-
-    function startFireworks(e) {
-      const x = canvas.width / 2;
-      const y = canvas.height / 2;
-      const E = createParticles(x, y);
-      animate();
-    }
-
-  </script>
-
-  <!-- for main function -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
   <script>
     $('.custom-field-height').on('input', function () {
       this.style.height = 'auto';
       this.style.height = (this.scrollHeight) + 'px';
     });
   </script>
-
 </body>
+
 </html>
