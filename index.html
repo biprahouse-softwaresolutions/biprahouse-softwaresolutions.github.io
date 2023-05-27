@@ -1,0 +1,243 @@
+<!-- <?php
+    // Include the counter.php file
+    require_once('config.php');
+    ?> -->
+
+    <!DOCTYPE html>
+    <html>
+    
+    <head>
+      <meta charset="UTF-8">
+      <meta name="robots" content="index,follow">
+      <link rel="manifest" href="manifest.webmanifest" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description"
+        content="A comprehensive calculator for your day to day needs such as loan calculator, loan comparison, difference in interest due to change in interest rate and mode of compounding, interest difference in fixed and reducing rate, equivalent fixed rate for reducing rate, equivalent reducing rate for fixed rate, loan tenure, loan capacity, loan emi calculator, SIP calculator, BMI calculator, baby due date calculator, know the day of any date, kinow day of your birthday, know history events of your birthday, know history on a particular day etc">
+      <meta property="og:image"
+        content="https://biprahouse-softwaresolutions.github.io/icons_home/igothelp-high-resolution-logo-color-on-transparent-background-300_x_300.png">
+      <meta property="og:image:width" content="300">
+      <meta property="og:image:height" content="300">
+      <meta property="og:url" content="https://igothelp.in">
+      <meta property="og:title" content="iGotHelp">
+      <meta property="og:description"
+        content="A comprehensive calculator for your day to day needs such as loan, emi, BMI etc">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+      <link rel="shortcut icon" type="image/png" href="icons_home\igothelp-high-resolution-logo-color-on-transparent-background-48_x_48.png">
+      <link rel="icon" type="image/png" href="icons_home\igothelp-website-favicon-color.png">
+      <title>iGotHelp</title>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+      <link rel="stylesheet" href="styles\floating_icon.css">
+      <link rel="stylesheet" href="styles\side_nav_menu.css">
+      <link rel="stylesheet" href="styles\right_menu.css">
+      <link rel="stylesheet" href="styles\language_dropdown.css">
+      <link rel="stylesheet" href="styles\title_bar.css">
+      <script type="text/javascript" src="script_files\constants.js"></script>
+    
+      <style>
+        body {
+          background-color: #ffffff;
+        }
+    
+        h6 {
+          color: rgb(96 255 196);
+        }
+    
+        p {
+          font-size: .9em;
+        }
+    
+        .box {
+          border: 1px solid #ccc;
+          /* padding: 20px 10px 20px 10px; */
+          padding: 2rem 1rem 2rem 1rem;
+          background-color: rgb(0 0 0 / 80%);
+          border-radius: 0.25rem;
+          color: #f1f1f1;
+          min-height: 100%;
+          min-width: 100%;
+        }
+    
+        .box:active {
+          transform: translateY(2px);
+        }
+    
+        /* Hover effect for devices with a mouse */
+        @media (hover: hover) {
+          .box:hover {
+            background-color: #087089;
+          }
+        }
+    
+        /* Hover effect for touch devices */
+        @media (hover: none) {
+          .box:active {
+            background-color: #087089;
+          }
+        }
+    
+        #mainContainer {
+          /* margin-top: 0px !important; */
+          margin-bottom: 150px !important;
+          padding-left: 0px;
+          padding-right: 0px;
+          padding-top: 8px;
+        }
+    
+        .row {
+          margin-left: 0px;
+          margin-right: 0px;
+        }
+    
+        .col-4 {
+          padding: 4px;
+          cursor: pointer;
+        }
+    
+        .advertisement-strip {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          height: 80px;
+          background-color: #c52c2c;
+          z-index: 2;
+        }
+    
+    
+        @media (min-width:643px) {
+    
+          #box1,
+          #box4 {
+            padding-left: 0;
+          }
+    
+          #box3,
+          #box6 {
+            padding-right: 0;
+          }
+        }
+    
+    
+        @media (min-width:756px) {
+          .container {
+            width: 70%;
+          }
+        }
+    
+        @media (min-width:1080px) {
+          .container {
+            width: 50%;
+          }
+        }
+    
+        @media (min-width:1280px) {
+          .container {
+            width: 40%;
+          }
+        }
+    
+        @media (max-width: 642.9px) {
+          .col-4 {
+            flex-basis: 50%;
+            max-width: 50%;
+          }
+        }
+    
+        @media (max-width : 642.9px) {
+          .container {
+            max-width: 642.9px !important;
+          }
+        }
+      </style>
+    
+    </head>
+    
+    <body>
+    
+      <!-- main content -->
+      <div id="titleBar" class="text-center container my-5">
+        <div class="navbar">
+          <h2 class="navbar-brand">iGotHelp</h2>
+          <div class="language-dropdown">
+            <i class="fas fa-language" style="font-size: 1.2em; color: #ccc;"></i>
+            <button class="dropbtn">
+              Language
+            </button>
+            <div class="dropdown-content">
+              <a href="#" id="english">English</a>
+              <a href="#" id="hindi">हिन्दी</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+      <div id="mainContainer" class="container my-5">
+    
+        <div class="row align-items-stretch">
+          <div id="box1" class="col-4">
+            <div id="sipBox" class="box d-flex flex-column h-100">
+              <h6 id="sipParaHeading">SIP Calculator</h6>
+              <p id="sipPara">Calculate your SIP return today with our simple calculator</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div id="loanBox" class="box d-flex flex-column h-100">
+              <h6 id="loanParaHeading">Loan Calculator</h6>
+              <p id="loanPara">Calculate your EMI of different loans very easily</p>
+            </div>
+          </div>
+          <div id="box3" class="col-4">
+            <div id="fDrDBox" class="box d-flex flex-column h-100">
+              <h6 id="fdParaHeading">FD RD Calculator</h6>
+              <p id="fdPara">Estimate your investment return with different mode of payout</p>
+            </div>
+          </div>
+          <div id="box4" class="col-4">
+            <div id="bmiBox" class="box d-flex flex-column h-100">
+              <h6 id="bmiParaHeading">BMI Calculator</h6>
+              <p id="bmiPara">Calculate yor BMI today and know your fitness level</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div id="dueDateBox" class="box d-flex flex-column h-100">
+              <h6 id="dueDateParaHeading">Baby Due Date</h6>
+              <p id="dueDatePara">Know the day and history events on your birthday</p>
+            </div>
+          </div>
+          <div id="box6" class="col-4">
+            <div id="birthDateBox" class="box d-flex flex-column h-100">
+              <h6 id="birthDayParaHeading">Birthday Finder</h6>
+              <p id="birthDayPara">Calculate your baby due date today and start planning</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+    
+      <!-- advertisement-strip -->
+      <div class="advertisement-strip">Advertisement</div>
+    
+      <!-- Register Service worker for Add to Home Screen option to work -->
+      <script>
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js') }
+      </script>
+      <script type="text/javascript" src="script_files\side_nav_menu.js"></script>
+      <script type="text/javascript" src="script_files\home.js"></script>
+      <script type="text/javascript" src="script_files\floating_icon.js"></script>
+      <script type="text/javascript" src="script_files\language_change.js"></script>
+      <script type="text/javascript" src="script_files\right_menu.js"></script>
+    
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    </body>
+    
+    </html>
